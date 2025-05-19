@@ -1,0 +1,96 @@
+:root{
+    --outline-basic-setting: 1px red solid;
+    --text-color-main:beige;
+}
+
+
+.sign-in-h1-text{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--text-color-main)
+
+}
+
+
+#form-container{
+    height: 400px;
+    width: 17em;
+    outline: 1px solid rgb(214, 214, 214);
+    border-radius: 2em;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.5);
+
+}
+
+#form-container-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 100%;
+    border-radius: 1em;
+    outline: var(--outline-basic-setting);
+}
+
+/* .user-login-text-label-container{
+
+
+} */
+
+.user-login-text-box-container{
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1em;
+
+}
+.user-login-text-box-container input{
+
+/*If I want to target a specific input box, use input[type='input-type'*/
+    border: none;
+    border-radius: 0.5em;
+    height: 2em;
+    transition: transform 0.5s ease-in-out ;
+}
+
+.user-login-text-box-container input:focus{
+    /*If I want to target a specific input box, use input[type='input-type'*/
+        border: none;
+        border-radius: 0.5em;
+        transform: scale(1.08)
+    }
+    
+
+form  p {
+    color: beige;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#login-submit-button input[type='submit']{
+    background-color: beige;
+    border-radius: 1.5em;
+    border-style: none;
+    transition: transform 1.2s ease-in-out;
+    height: 3em;
+    width: 8em;
+}
+
+
+#login-submit-button input[type='submit']:hover{
+    cursor: pointer;
+    transform: scale(1.08);
+}
+
+.site-accept-form-container{
+    outline: var(--outline-basic-setting);
+    display: inline-flex;
+    flex-direction: row;
+    gap: 5px;
+    width: 95%;
+    
+}
+
+.site-accept-form-container p{
+    font-size: x-small;
+}

@@ -1,0 +1,195 @@
+:root{
+    --outline-test: 1px rgb(199, 53, 53) solid;
+    --main-font-colour: #7b8391;
+    --main-background-color: #010024;
+    --footer-text-color: #f5f5f5;
+    --main-font-style: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+    
+    html,body{
+        overflow-x:hidden;
+        height: 100%;
+        width: 100%;
+    }
+
+    .warning_message_container{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    #user_message_error{
+        font-family: var(--main-font-style);
+        margin-right: 30px;
+        padding: 0.5em;
+        list-style: none;
+        border-radius: 20px;
+        background-color: aliceblue;
+        color: black;
+    }
+
+    #base-body-main {
+        margin: 1rem auto;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        /* outline: 1px solid rgb(118, 208, 76); */
+        background-color: var(--main-background-color);
+        align-items: center;    
+    }
+
+
+    #page-container{
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    #base-header-container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color:#000000;
+        height: 3em;
+    }
+
+    .logo-image-container,.nav_main_text_group, .user_sign_in_up_button_group{
+        justify-content: center;
+        display: flex;
+        gap: 1em;
+        flex-direction: row;
+    }
+
+    #base-header-list{
+        width: 95%;
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        gap: 2em;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .ecko-slogan-tag{
+        margin-bottom: 0.5em;
+        font-size: 2em;
+        color: whitesmoke;
+        font-weight: 500;
+        font-family: var(--main-font-style);
+
+
+    }
+
+    .header-list-text{
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 400;
+        font-family: var(--main-font-style);
+        color:#7b8391;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .logo-image-container > img{
+        height: 2em;
+        width: auto;
+
+
+    }
+    /* LOGIN/SIGNUP BUTTONS*/
+    .sign_in_button_header, .sign_up_button_header{
+        padding: 0.4em 1em;
+
+    }
+
+    .sign_in_button_header{
+        color: #3e41c8;
+    }
+
+    .sign_up_button_header{
+        color: white;   
+        border-radius: 7px;
+        background-color: #3e41c8;
+    }
+    .header-list-text:hover{
+        transform: scale(1.04);
+    }
+
+    main{
+        /* outline: var(--outline-basic-setting); */
+        width: 99%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+    }
+
+    #main-page-footer-divider-tag{
+        background-color: #565e6c;
+        border-style: none;
+        width: 90%;
+        height: 2px;
+    }
+
+    footer{
+        display: flex;
+        align-items: center;
+        justify-content: center;    
+        width: 100vw;
+        height: 20rem;
+    }
+
+    .footer-main{
+        display: inline-grid;
+        grid-template-rows: [row1-start] 70% [row1-end] auto;
+        width: 95%;
+    }
+
+    .footer-main-upper-information{
+        display: grid;
+        font-family: var(--main-font-style);
+        font-weight: 700;
+    }
+
+    .footer-info p{
+        color: var(--footer-text-color);
+    }
+
+    .footer-info-title{
+        color: var(--footer-text-color);
+
+    }
+
+    #ecko-logo-footer > img{
+        width: 10em;
+        height: auto;
+    }
+
+    .footer-main-lower-informatinon{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .footer-bottom-section{
+        width: 100%;
+        outline: var(--outline-basic-setting);
+        justify-content: right;
+        display: inline-flex;
+        align-items: center;
+    }
+
+
+    .footer-bottom-section > p{
+        margin-right: 28rem;
+        font-family: var(--main-font-style);
+    }
+
+

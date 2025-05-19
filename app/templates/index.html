@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+<!-- 'extends' statement establishes inheritance lnk between the two templates.-->
+
+    {% block content %}
+    <div id="background-div-container">
+        <div>
+            <p>{{ current_user.username }}</p>
+        </div>
+        <div>
+            {% if not posts %}
+            <div class="no-post-message-container">
+                <p>You have not posted anything!</p>
+            </div>
+                {% else %}
+                    {% for post in posts %}
+                <div style="background-color: rgb(135, 135, 200);" id="user-blog-outline">
+                    <h2 class="username-title"><p>{{ post.author.username if post.author else 'Anonymous'}} Says:</p></h2>
+                    <p class="user-blog-container"><b>{{ post.body }}</b></p>
+                </div>
+                    {% endfor %}
+                {% endif %}
+        </div>
+    </div>
+
+    {% endblock %}

@@ -1,0 +1,63 @@
+>>> # get all posts written by a user
+>>> u = db.session.get(User, 1)
+>>> u
+<User john>
+>>> query = u.posts.select()
+>>> posts = db.session.scalars(query).all()
+>>> posts
+[<Post my first post!>]
+
+>>> # same, but with a user that has no posts
+>>> u = db.session.get(User, 2)
+>>> u
+<User susan>
+>>> query = u.posts.select()
+>>> posts = db.session.scalars(query).all()
+>>> posts
+[]
+
+>>> # print post author and body for all posts
+>>> query = sa.select(Post)
+>>> posts = db.session.scalars(query)
+>>> for p in posts:
+...     print(p.id, p.author.username, p.body)
+...
+1 john my first post!
+
+# get all users in reverse alphabetical order
+>>> query = sa.select(User).order_by(User.username.desc())
+>>> db.session.scalars(query).all()
+[<User susan>, <User john>]
+
+# get all users that have usernames starting with "s"
+>>> query = sa.select(User).where(User.username.like('s%'))
+>>> db.session.scalars(query).all()
+[<User susan>]
+
+
+
+the first two examples above the relationship between users and posts is used. 
+Recall that the User model has a posts relationship attribute that was configured with 
+the WriteOnlyMapped generic type. This is a special type of relationship
+ that adds a select() method that returns a database query for the related items. 
+ The u.posts.select() expression takes care of generating the query that links 
+ the user to its blog posts.
+
+
+
+
+ To end, exit the Python shell and use the following commands to erase the test users 
+ and posts created above, so that the database is clean and ready for the next chapter:
+
+(venv) $ flask db downgrade base
+(venv) $ flask db upgrade
+The first command tells Flask-Migrate to apply the database migrations in reverse order. 
+When the downgrade command is not given a target, it downgrades one revision. 
+The base target causes all migrations to be downgraded, 
+until the database is left at its initial state, with no tables.
+
+The upgrade command re-applies all the migrations in forward order. 
+The default target for upgrades is head, which is a shortcut for the most recent migration. 
+This command effectively restores the tables that were downgraded above. 
+Since database migrations do not preserve the data stored in the database,
+ downgrading and then upgrading has the effect of quickly emptying all the tables.
