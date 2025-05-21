@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+        <div class="help_page_main_container">
+            <div class="feature-section-container">
+                <h1 class="help_text" style="justify-self: center;">Explore Tutorials and learn ECKO's Major Features</h1>
+                <div id="tutorial-box-container">
+                    <div class="tutorial-box1 tut-box">
+                        <picture>
+                            <source srcset="{{ url_for('static', filename='images/inbox-guide-image.png' )}}" type="image/png+xml">
+                            <img src="{{ url_for('static', filename='images/inbox-guide-image.png' )}}" alt="inbox-image"/>
+                        </picture>
+                        <p class="box-header-tag help_text">Inbox Guide</p>
+                        <p class="box-description  help_text">Learn how to organize emails effectively.<br>Master filters, labels, and shortcuts.</p>
+                        <button class="box-star-tut-button">Start Tutorial</button>
+                    </div>
+                    <div class="tutorial-box2 tut-box">
+                        <picture>
+                            <source srcset="{{ url_for('static', filename='images/calender-tip-image.png' )}}" type="image/png+xml">
+                            <img src="{{ url_for('static', filename='images/calender-tip-image.png' )}}" alt="calender-image"/>
+                        </picture>
+                        <p class="box-header-tag help_text">Calender Tips</p>
+                        <p class="box-description help_text">Discover event scheduling techniques.<br>Optimize your calendar usage.</p>
+                        <button class="box-star-tut-button">Start Tutorial</button>
+                    </div>
+                    <div class="tutorial-box3 tut-box">
+                        <picture>
+                            <source srcset="{{ url_for('static', filename='images/group-image.png' )}}" type="image/png+xml">
+                            <img src="{{ url_for('static', filename='images/group-image.png' )}}" alt="group-image"/>
+                        </picture>
+                        <p class="box-header-tag help_text">Groups & Contacts</p>
+                        <p class="box-description help_text">Manage contacts and create groups.<br>Enhance collaboration and communication.</p>
+                        <button class="box-star-tut-button">Start Tutorial</button>
+                    </div>  
+                </div>
+            </div>
+            
+            <div id="help-section-2-search-container">
+                <div class="help-section-2-search-wrapper">
+                    <input id="help-search" placeholder="Search...">
+                    <div class="section2-text-container">
+                        <div class="section2-text-wrapper-1">
+                        <h3 class="help_text">Getting Started</h3>
+                        <p class="help_text">Product security<br>Article on securing our products</p>
+                        </div>
+                        <div class="section2-text-wrapper-2">
+                            <h3 class="help_text">Best Practices</h3>
+                            <p class="help_text">Data protection Policy<br>Policy governing data security measures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    {% endblock %}

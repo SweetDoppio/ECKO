@@ -20,6 +20,6 @@ class RegisterForm(FlaskForm):
     password_confirm =PasswordField('Repeat Password', validators=[DataRequired(), EqualTo(password)])
     sumbit = SubmitField('Registetr')
 
-    def user_validation(self, username):
-        None
+    # def user_validation(self, username):
+    #     user = db.session.scalar(sa.select(User).where(User.username == username.data))
 

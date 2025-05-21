@@ -1,0 +1,111 @@
+:root{
+    --main-font-style: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --test-outline-setting: 1px red solid;
+    --main-font-color:#F3F4F6FF;
+}
+
+.help_page_main_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.feature-section-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#tutorial-box-container{
+    width: 110%;
+    outline: var(--test-outline-setting);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5em;
+}
+.tut-box{
+    padding: 10px 20px;
+    gap:-2em;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: #171A1FFF;
+}
+
+.box-header-tag{
+    margin-bottom: -1em;
+    font-weight: 700;
+}
+
+.box-description{
+    font-weight:lighter;
+
+}
+
+.tut-box > picture > img{
+    height: 9em;
+    width: 16em;
+    border-radius: 5px;
+    margin-bottom: -1em;
+}
+
+.help_text{
+    color: var(--main-font-color);
+    font-family: var(--main-font-style);
+}
+
+
+.box-star-tut-button{
+    background-color: transparent;
+    padding: 0.7em 7em;
+    border: 1px solid #8182DBFF;
+    border-radius: 6px;
+    color: #8182DBFF;
+    transition: 0.2s ease-in-out color;
+}
+
+.box-star-tut-button:hover{
+    cursor: pointer;
+    color: aliceblue;
+}
+
+#help-section-2-search-container{
+    padding: 7em;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+.help-section-2-search-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4%;
+    width: 80vw;
+}
+
+#help-search{
+    height: 3em;
+    width: 60%;
+    border-radius: 6px;
+    border: 2px solid #565e6c;
+    background-color: transparent;
+    color: #565e6c;
+}
+
+.section2-text-container{
+    display: inline-flex;
+    flex-direction: row;
+    gap: 20em;
+}
+
+
+.section2-text-wrapper-1, .section2-text-wrapper-2{
+    text-align: center;
+    outline: var(--test-outline-setting);
+     
+}
