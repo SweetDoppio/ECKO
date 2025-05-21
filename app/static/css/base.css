@@ -9,11 +9,9 @@
 }
     
     html,body{
-        overflow-x:hidden;
-        height: 100%;
-        width: 100%;
-    }
-
+    overflow: none;
+    height: 100%; 
+}
     .warning_message_container{
         display: inline-flex;
         align-items: center;
@@ -45,7 +43,7 @@
 
     #page-container{
         display: flex;
-        min-height: 100vh;
+        min-height: 100%;
         flex-direction: column;
     }
 
@@ -54,7 +52,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color:#000000;
+        background-color: #261C32FF; 
         height: 3em;
     }
 
@@ -92,8 +90,15 @@
         font-weight: 400;
         font-family: var(--main-font-style);
         color:#7b8391;
-        transition: transform 0.2s ease-in-out;
+        transition: transform  0.2s ease-in-out,color 0.2s ease-in-out ;
     }
+
+    .header-list-text:hover{
+        transform: scale(1.04);
+        color: antiquewhite;
+    }
+
+
 
     .logo-image-container > img{
         height: 2em;
@@ -108,16 +113,13 @@
     }
 
     .sign_in_button_header{
-        color: #3e41c8;
+        color: #595bd7;
     }
 
     .sign_up_button_header{
         color: white;   
         border-radius: 7px;
         background-color: #3e41c8;
-    }
-    .header-list-text:hover{
-        transform: scale(1.04);
     }
 
     main{
@@ -141,8 +143,7 @@
         display: flex;
         align-items: center;
         justify-content: center;    
-        width: 100vw;
-        height: 20rem;
+        width: 100%;
     }
 
     .footer-main{

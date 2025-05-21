@@ -22,6 +22,12 @@ def index():
 def home_page():
     return render_template('home_page.html')
 
+
+@app.route('/help_page')
+def help_page():
+    return render_template('help_page.html')
+
+
 @app.route('/logout')
 def logout():
     logout_user()

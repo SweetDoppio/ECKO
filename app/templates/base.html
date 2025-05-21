@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/help_page.css') }}">
 
 
     {% if title %}
@@ -34,7 +35,7 @@
                     <li><a class="header-list-text" href="{{ url_for('index') }}">Support</a></li>
                     <li><a class="header-list-text" href="{{ url_for('home_page') }}">Home Page</a></li>
                     <li><a class="header-list-text" href="{{ url_for('index') }}">Main Page</a></li>
-                    <li><a class="header-list-text" href="">Blogs</a></li>
+                    <li><a class="header-list-text" href="{{ url_for('help_page') }}">Tutorials</a></li>
                 </div>
 
                 <div class="user_sign_in_up_button_group">
@@ -109,7 +110,7 @@
             <div class="footer-main-lower-informatinon">    
                <p class="ecko-slogan-tag">Vulnerability Dectection that resonates</p>
                <div class="footer-bottom-section">
-                <div style="color: #010024">dsdsd</div>
+                <div style="color: #010024">dontremove</div>
                 <p style="color:#7b8391; font-size: xx-small;">Established 1579</p>
                 <div class="social-media-svg-container">
                     <picture class="social-media-icon facebook">
