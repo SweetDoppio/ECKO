@@ -28,6 +28,11 @@ def help_page():
     return render_template('help_page.html')
 
 
+@app.route('/tut_link')
+def tut_link():
+    return render_template('tut_link.html')
+
+
 @app.route('/logout')
 def logout():
     logout_user()
