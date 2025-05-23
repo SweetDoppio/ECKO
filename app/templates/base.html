@@ -64,7 +64,7 @@
     </div>
 
     <!-- The 'block' control statement define the place where derived templates can be inserted-->
-     <main style="flex: 1;">
+     <main style="flex: 1; margin-top: 5em;">
         {% block content %}{% endblock %} 
      </main>  
      
@@ -141,6 +141,7 @@
         </div>
     </footer>
     </div>
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
 
 </body>
 </html>
