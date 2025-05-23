@@ -48,12 +48,25 @@
     }
 
     #base-header-container{
+        position: fixed;
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: center;
-        background-color: #261C32FF; 
+        background-color: transparent; 
         height: 3em;
+        transition: all 0.3s ease-in-out; 
+        z-index: 10;
+        
+    }
+
+    #base-header-container.scroll-state{
+        margin-top: -0.5em;
+        background-color: #261C32FF;
+        justify-self: center;
+        width: 90%;
+        transform: translateX(4.2em); 
+        width: 90%;
+        border-radius: 10px;
     }
 
     .logo-image-container,.nav_main_text_group, .user_sign_in_up_button_group{

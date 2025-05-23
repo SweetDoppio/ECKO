@@ -23,6 +23,7 @@
     justify-content: space-between;
     gap: 0.5em;
 }
+
 .tut-box{
     padding: 10px 20px;
     gap:-2em;
@@ -118,5 +119,4 @@
     align-self: center;
     text-align: left;
     width: 70%;
-    outline: var(--test-outline-setting);
 }
