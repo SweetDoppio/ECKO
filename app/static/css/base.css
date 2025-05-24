@@ -60,7 +60,6 @@
     }
 
     #base-header-container.scroll-state{
-        margin-top: -0.5em;
         background-color: #261C32FF;
         justify-self: center;
         width: 90%;
@@ -81,9 +80,21 @@
         display: flex;
         flex-direction: row;
         list-style: none;
-        gap: 2em;
+        gap: 4em;
         justify-content: space-between;
         align-items: center;
+
+    }
+
+    .features-header:after{
+        position: absolute;
+        content: "";
+        top: 10px;
+        margin-left: 2px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: var(--main-font-colour) transparent transparent transparent;
 
     }
 
@@ -98,6 +109,7 @@
     }
 
     .header-list-text{
+        position: relative;
         display: inline-block;
         text-decoration: none;
         font-weight: 400;
