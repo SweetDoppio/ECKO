@@ -37,7 +37,7 @@ def configure_routes(app):
 
     @app.route('/contact')
     def contact():
-        return "<h1>Contact Page Coming Soon</h1>"
+        return render_template('contact.html', title='Contact Us')
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():

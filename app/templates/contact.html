@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/help_page.css') }}" />
+
+    {% if title %}
+        <title>{{ title }} -- Mini blog</title>
+    {% else %}
+        <title>Contact Us -- Mini blog</title>
+    {% endif %}
+
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}" />
+    {% endblock %}
+</head>
+
+<body id="base-body-main">
+    <div id="page-container">
+        <header id="base-header-container">
+            <nav id="base-header-wrapper" style="width: 100%;">
+                <ul id="base-header-list">
+                    <div class="logo-image-container">
+                        <img src="{{ url_for('static', filename='images/ecko_logo.png') }}" alt="main_ecko_logo" />
+                    </div>
+                    <div class="nav_main_text_group">
+                        <li><a class="header-list-text" href="">Features</a></li>
+                        <li><a class="header-list-text" href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a class="header-list-text" href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a class="header-list-text" href="">Blog</a></li>
+                        <li><a class="header-list-text" href="{{ url_for('index') }}">Support</a></li>
+                        <li><a class="header-list-text" href="{{ url_for('home_page') }}">Home Page</a></li>
+                        <li><a class="header-list-text" href="{{ url_for('index') }}">Main Page</a></li>
+                        <li><a class="header-list-text" href="{{ url_for('help_page') }}">Tutorials</a></li>
+                    </div>
+
+                    <div class="user_sign_in_up_button_group">
+                        {% if current_user.is_anonymous %}
+                        <li><a class="header-list-text sign_in_button_header" href="{{ url_for('login') }}">Sign in</a></li>
+                        <li><a class="header-list-text sign_up_button_header" href="{{ url_for('login') }}">Sign up</a></li>
+                        {% else %}
+                        <li class="header-list-text">Hello {{ current_user.username }}!</li>
+                        <li><a class="header-list-text" href="{{ url_for('logout') }}">Logout</a></li>
+                        {% endif %}
+                    </div>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="warning_message_container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li id="user_message_error">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+
+        <main style="flex: 1; margin-top: 5em;">
+            {% block content %}
+            <section class="contact-us">
+                <h2>Contact Us</h2>
+                <p>If you have any questions, feedback, or need assistance, feel free to reach out to us using the form below. We're here to help!</p>
+
+                <form action="{{ url_for('contact') }}" method="POST" class="contact-form">
+                    <label for="name">Full Name:</label><br />
+                    <input type="text" id="name" name="name" placeholder="Your full name" required /><br />
+
+                    <label for="email">Email Address:</label><br />
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required /><br />
+
+                    <label for="subject">Subject:</label><br />
+                    <input type="text" id="subject" name="subject" placeholder="Subject of your message" required /><br />
+
+                    <label for="message">Message:</label><br />
+                    <textarea id="message" name="message" rows="6" placeholder="Write your message here..." required></textarea><br />
+
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+
+                <div class="contact-info" style="margin-top: 2em;">
+                    <h3>Other Ways to Reach Us</h3>
+                    <p><strong>Email:</strong> support@miniblog.com</p>
+                    <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+                    <p><strong>Address:</strong> 123 Cybersecurity Lane, Tech City, 45678</p>
+                </div>
+            </section>
+            {% endblock %}
+        </main>
+
+        <hr id="main-page-footer-divider-tag" />
+
+        <footer>
+            <div class="footer-main">
+                <div class="footer-main-upper-information">
+                    <div id="ecko-logo-footer" style="padding-top: 1em;">
+                        <img srcset="{{ url_for('static', filename='images/ecko_logo.png') }}" alt="ecko_logo" />
+                    </div>
+                    <div class="product-footer-grid-section footer-info">
+                        <p class="footer-info-title">Product</p>
+                        <p>Features</p>
+                        <p>Pricing Plans</p>
+                    </div>
+                    <div class="resource-footer-grid-serction footer-info">
+                        <p class="footer-info-title">Resource</p>
+                        <p><a href="{{ url_for('contact') }}">Contact Us</a></p>
+                        <p>User Guide</p>
+                        <p>Terms of User</p>
+                        <p>Privacy Policy</p>
+                    </div>
+                    <div class="company-footer-grid-section footer-info">
+                        <p class="footer-info-title">Company</p>
+                        <p><a href="{{ url_for('about') }}">About Us</a></p>
+                    </div>
+                    <div id="subscription-footer-grid-section-container">
+                        <div>
+                            <p>Subscribe to our newsletter</p>
+                            <p style="margin-top: -1em; margin-bottom: 2em;">To keep up with the latest Vulnerability trends</p>
+                        </div>
+                        <form id="footer-user-subscription">
+                            <input placeholder="Input Your Email" />
+                            <button>Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="footer-main-lower-informatinon">
+                    <p class="ecko-slogan-tag">Vulnerability Detection that resonates</p>
+                    <div class="footer-bottom-section">
+                        <div style="color: #010024">dontremove</div>
+                        <p style="color:#7b8391; font-size: xx-small;">Established 1579</p>
+                        <div class="social-media-svg-container">
+                            <picture class="social-media-icon facebook">
+                                <source srcset="https://img.icons8.com/color/48/facebook-new.png" type="image/png+xml" />
+                                <source srcset="{{ url_for('static', filename='images/icon-facebook.svg') }}" type="image/svg+xml" />
+                                <img width="22" height="22" src="{{ url_for('static', filename='images/icon-facebook.png') }}" alt="Facebook" />
+                            </picture>
+                            <picture class="social-media-icon twitter">
+                                <source srcset="https://img.icons8.com/color/48/twitter--v1.png" type="image/png+xml" />
+                                <source srcset="{{ url_for('static', filename='images/icon-twitter.png') }}" alt="twitter-icon" />
+                                <img width="22" height="22" src="{{ url_for('static', filename='images/icon-twitter.png') }}" alt="twitter--v1" />
+                            </picture>
+                            <picture class="social-media-icon linkedin">
+                                <source srcset="https://img.icons8.com/color/48/linkedin.png" type="image/png+xml" />
+                                <source srcset="{{ url_for('static', filename='images/icon-linkdin.svg') }}" />
+                                <img width="22" height="22" src="{{ url_for('static', filename='images/icon-linkdin.svg') }}" alt="linkedin" />
+                            </picture>
+                            <picture class="social-media-icon youtube">
+                                <source srcset="https://img.icons8.com/color/48/youtube-play.png" type="image/png+xml" />
+                                <source srcset="{{ url_for('static', filename='images/icon-youtube.svg') }}" />
+                                <img width="22" height="22" src="{{ url_for('static', filename='images/icon-youtube.svg') }}" alt="youtube-play" />
+                            </picture>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+</html>
