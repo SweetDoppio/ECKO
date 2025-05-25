@@ -82,6 +82,48 @@
             </div>
             <div class="help-section-4-glossary-container">
                 <div class="help-section-4-glossary-wrapper">
+                    <div class="contact-support-picture-panel-left">
+                        <h3 class="help_text">Contact Support</h3>
+                        <p class="help_text" >Fill in the form to get in touch</p>
+                        <picture id="tech-support-image">
+                            <source srcset="{{ url_for('static', filename='images/contact-support-image.png' )}}" type="image/png+xml">
+                            <img src="{{ url_for('static', filename='images/contact-support-image.png' )}}" alt="people-looking-sad-image"/>
+                        </picture>
+                    </div>
+                    <div class="contact-support-user-input-forms">
+                        <form>
+                            <div id="form-name-container">
+                                <div class="first-name-wrapper">
+                                    <h4>First Name</h4>
+                                    <input placeholder="Input text">
+                                </div>
+                                <div class="last-name-wrapper">
+                                    <h4>Last Name</h4>
+                                    <input placeholder="Input text">
+                                </div>
+                            </div>
+                            <div class="form-email-container">
+                                <h4>Email</h4>
+                                <input placeholder="example@mail.com">
+                            </div>
+                                                     
+                            <div class="form-company-container">
+                                <h4>Company</h4>
+                                <input placeholder="Input text">
+                            </div>
+                            <div class="form-topic-container">
+                                <h4>Which topic best fits your needs?</h4>
+                                <input placeholder="Please Select">
+                            </div>
+
+                            <div class="form-topic-container">
+                                <h4>How can we help?</h4>
+                                <textarea placeholder="Please share more details for us to ignore"></textarea>
+                            </div>
+                            <button>Submit</button>
+                            
+                        </form>
+                    </div>
 
                 </div>
             </div>
