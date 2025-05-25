@@ -1,0 +1,40 @@
+/* about.css */
+
+body, #base-body-main {
+    color: white;          /* white text */
+    text-align: center;    /* center align text */
+    background-color: var(--main-background-color); /* keep same background */
+    font-family: var(--main-font-style);  /* use your main font */
+    padding: 2rem;         /* some padding around content */
+}
+
+h1, h2, h3 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #e0e0e0;        /* slightly lighter for headings */
+}
+
+p {
+    max-width: 700px;      /* limit paragraph width for readability */
+    margin: 0 auto 1.5rem auto; /* center paragraphs and spacing below */
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+a.join-button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    background-color: var(--font-color-purple);
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+a.join-button:hover {
+    background-color: #5533cc;
+    cursor: pointer;
+}
