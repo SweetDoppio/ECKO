@@ -80,47 +80,47 @@
                 </p>
                 </div>
             </div>
-            <div class="help-section-4-glossary-container">
+            <div class="help-section-4-glossary-container animate-on-scroll">
                 <div class="help-section-4-glossary-wrapper">
                     <div class="contact-support-picture-panel-left">
-                        <h3 class="help_text">Contact Support</h3>
-                        <p class="help_text" >Fill in the form to get in touch</p>
+                        <h3 class="help_text" style="font-size: 2em; margin-bottom: -20px;">Contact Support</h3>
+                        <p class="help_text" style="color: rgb(164, 164, 164);" >Fill in the form to get in touch</p>
                         <picture id="tech-support-image">
                             <source srcset="{{ url_for('static', filename='images/contact-support-image.png' )}}" type="image/png+xml">
                             <img src="{{ url_for('static', filename='images/contact-support-image.png' )}}" alt="people-looking-sad-image"/>
                         </picture>
                     </div>
-                    <div class="contact-support-user-input-forms">
+                    <div class="contact-support-user-input-forms ">
                         <form>
-                            <div id="form-name-container">
+                            <div id="form-name-container" style="width: 100%; margin-left: 3em;">
                                 <div class="first-name-wrapper">
                                     <h4>First Name</h4>
-                                    <input placeholder="Input text">
+                                    <input placeholder="Input text" style="width: 110%;">
                                 </div>
                                 <div class="last-name-wrapper">
                                     <h4>Last Name</h4>
-                                    <input placeholder="Input text">
+                                    <input placeholder="Input text" style="width: 110%;">
                                 </div>
                             </div>
-                            <div class="form-email-container">
+                            <div class="form-email-container form-info">
                                 <h4>Email</h4>
                                 <input placeholder="example@mail.com">
                             </div>
                                                      
-                            <div class="form-company-container">
+                            <div class="form-company-container form-info">
                                 <h4>Company</h4>
                                 <input placeholder="Input text">
                             </div>
-                            <div class="form-topic-container">
+                            <div class="form-topic-container form-info">
                                 <h4>Which topic best fits your needs?</h4>
                                 <input placeholder="Please Select">
                             </div>
 
                             <div class="form-topic-container">
                                 <h4>How can we help?</h4>
-                                <textarea placeholder="Please share more details for us to ignore"></textarea>
+                                <textarea placeholder="Please share more details for us to ignore"  rows="5" cols="52" style="resize: none;"></textarea>
                             </div>
-                            <button>Submit</button>
+                            <button id="submit-button">Submit</button>
                             
                         </form>
                     </div>
