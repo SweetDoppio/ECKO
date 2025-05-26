@@ -12,6 +12,14 @@
     overflow: none;
     height: 100%; 
 }
+
+    main{
+        display: flex;
+        top: 10em;
+        right: 10em;
+
+    }
+
     .warning_message_container{
         display: inline-flex;
         align-items: center;

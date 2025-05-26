@@ -102,14 +102,15 @@
 }
 
 .in-viewport{
-    animation: scroll-down-animation 0.5s ease-out forwards;
+    animation: scroll-down-animation 0.6s ease-out forwards;
     backface-visibility: hidden;
 
 }
 
 @keyframes scroll-down-animation {
     from{
-        transform: translateY(-50px);
+        transform: translateY(-100px);
+        opacity: 0;
     }
 
     to{
