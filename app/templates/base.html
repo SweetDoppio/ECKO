@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/help_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 
 
     {% if title %}
@@ -65,7 +66,7 @@
     </div>
 
     <!-- The 'block' control statement define the place where derived templates can be inserted-->
-     <main style="flex: 1; margin-top: 5em;">
+     <main style="flex: 1; margin-top: 5em;" >
         {% block content %}{% endblock %} 
      </main>  
      
@@ -143,6 +144,7 @@
     </div>
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
     <script src="{{ url_for('static', filename='js/help_page.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/about.js') }}"></script>
 
 </body>
 </html>
