@@ -5,7 +5,6 @@
 }
 
 #about-us-main-container{
-    outline: var(--test-outline-setting);
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -38,21 +37,56 @@
     height: auto;
     color: rgb(255, 247, 236);
 }
+
 .vision-mission-wrapper{
-    outline: var(--test-outline-setting);
+    width: 70%;
+
     margin-top: 8em;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns:[first] 30px [line2] 40% [line3] 30px [line4] auto;
+    column-gap: 10px;
+}   
+
+
+.vision-icon-wrapper, .mission-icon-wrapper{
+    margin-top: 23px;
+
+    max-width: fit-content;
 }
 
+.vision-text-container,.mission-text-container{
+
+    width: fit-content;
+}
+
+.our-team{
+    margin-top: 5em;
+    width:80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .our-team > h2{
     text-align: center;
 }
+
+.team-member{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #171A1FFF;
+    border-radius: 8px;
+    padding: 8px;
+    
+}
+
 .team-grid{
     display: grid;
-    grid-template-columns: repeat(4, 25%);
-    gap: 3em;
+    grid-template-columns: repeat(4, 20%);
+    gap: 2em;
+    justify-content: center;
 }
 
 .team-icon-container{
@@ -69,5 +103,100 @@
 .team-icon-container > p{
     font-family: var(--main-font-style);
     font-weight: 600;
+}
 
+.team-icon-container+h4+p{
+    margin-top: -1em;
+    color: #8182DBFF;
+}
+
+
+.team-icon-container+h4+p+p{
+    color: #9095A0FF;
+    font-size: 0.6em;
+    text-align: center;
+}
+
+.join-team-container{
+    margin-right: 6em;
+    /* outline: var(--test-outline-setting); */
+    margin-top: 10em;
+    margin-bottom: 10em;
+    height: 20em;
+    width: 70%;
+    background-color: #171A1FFF;
+    border-radius: 12px;   
+    justify-content: center;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 50%);
+}
+
+.join-team-banner-left{
+    width: 80%;
+    align-self: center;
+    justify-self: center;
+}
+
+#join-team-banner-button{
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    background-color: #3E41C8FF;
+}
+
+.join-banner-font{
+    font-family: var(--main-font-style);
+    text-decoration:none !important;
+}
+
+#join-team-banner-button:hover {
+  background: #2F31A7FF;
+  
+}
+
+.join-team-banner-left.banner-content  button a:visited{
+    color: antiquewhite;
+}
+
+.join-banner-image > img{
+    margin-left: -2em;
+    height: 20em;
+    width: auto;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+
+/* Scroll animation CSS section*/
+ 
+.in-viewport{
+    animation: scroll-down-animation 0.6s ease-out forwards;
+    backface-visibility: hidden;
+
+}
+
+.animate-on-scroll{
+    display: flex !important; 
+    text-align: center !important;
+}
+
+
+@keyframes scroll-down-animation {
+    0%{
+        transform: translateY(-100px);
+        opacity: 0;
+        display: none;
+    }
+
+    50%{
+        transform: translateY(-50px);
+        opacity: 0.5;
+
+    }
+    100%{
+        transform: translateY(0px);
+        opacity: 1;
+        display: flex;
+    }
 }
