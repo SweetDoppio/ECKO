@@ -23,6 +23,12 @@
     align-items: center;
 }
 
+/* .about-us-container-wrapper > h2{
+    font-family: var(--main-font-style);
+    color: var(--main-font-color);
+
+} */
+
 .first-nonsense-text{
     max-width: 60%;
 }
@@ -55,8 +61,10 @@
 }
 
 .vision-text-container,.mission-text-container{
-
     width: fit-content;
+} 
+.vision-text-container > h3,.mission-text-container >h3{
+
 }
 
 .our-team{
@@ -118,12 +126,12 @@
 }
 
 .join-team-container{
-    margin-right: 6em;
+
     /* outline: var(--test-outline-setting); */
     margin-top: 10em;
     margin-bottom: 10em;
     height: 20em;
-    width: 70%;
+    width: 80%;
     background-color: #171A1FFF;
     border-radius: 12px;   
     justify-content: center;
@@ -160,7 +168,6 @@
 }
 
 .join-banner-image > img{
-    margin-left: -2em;
     height: 20em;
     width: auto;
     border-bottom-right-radius: 12px;

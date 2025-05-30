@@ -1,8 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div id="home_page_main_div_container1">
+<div id="home_page_main_div_container">
+    <div class="home-page-container-intro-banner content-wrapper">
+        <picture id="landing-page-bannner-image-wrapper">
+            <source srcset="{{ url_for('static', filename='images/machine-learning-3d.jpg') }}" type="image/jpg+xml" />
+            <img src="{{ url_for('static', filename='images/machine-learning-3d.jpg')}}" alt="3d-visualisation-of-ML?">
+        </picture>
+        <div class="intro-banner-text-container">
+            <div class="whywontyoufuckingmovetotop">
+                <h1>Uncover and fix vulnerabilities with Precision</h1>
+                <p>Our web vulnerability scanner uses advanced algorithm to identify security flaws quickly and accurately, protecting your online assets.</p>
+            </div>
+            <div class=intro-banner-button-container>
+                <button><a style="text-decoration: none;" href="">Start Free Scan</a></button>
+                <button><a style="text-decoration: none;">Learn More</a></button>
+            </div>
+        </div >
+    </div>
 
+    <div class="home-page-container-why-choose-container content-wrapper">
+        <div class="why-choose-container-text">
+            <h2>Why choose ECKO?</h2>
+            <p>Leverage the power of artificial intelligence for comprehensive web security.</p>
+        </div>
+        <div class="ehko-feature-box-container">
+            <div class="ehko-feature-box-wrapper box-one">
+
+            </div>
+            <div class="ehko-feature-box-wrapper box-two">
+                
+            </div>
+            <div class="ehko-feature-box-wrapper box-three">
+                
+            </div>
+            <div class="ehko-feature-box-wrapper box-four">
+                
+            </div>
+            <div class="ehko-feature-box-wrapper box-five">
+                
+            </div >
+            <div class="ehko-feature-box-wrapper box-six">
+                
+            </div>
+        </div>
+    </div>
 
 
 </div>

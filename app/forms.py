@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
-
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, EmailField
 from wtforms.validators import DataRequired, Length, regexp, InputRequired,ValidationError, Email, EqualTo
+from app.models import User
+from app import db
+import sqlalchemy as sa
 
 validators=Length(min=8,max=30)
 
@@ -20,6 +22,8 @@ class RegisterForm(FlaskForm):
     password_confirm =PasswordField('Repeat Password', validators=[DataRequired(), EqualTo(password)])
     sumbit = SubmitField('Registetr')
 
-    # def user_validation(self, username):
-    #     user = db.session.scalar(sa.select(User).where(User.username == username.data))
+    def user_validation(self, username):
+        user = db.session.scalar(sa.select(User).where(User.username == username.data))
+        if user is not None:
+            raise ValidationError('Please select a different name')
 
