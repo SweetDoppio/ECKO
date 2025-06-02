@@ -193,12 +193,17 @@ h3{
 }
 
 .key-metric-banner-header{
+    font-size: 4em;
+    text-align: center;
     color: var(--font-color-blue);
     font-family: var(--main-font-style);
 
 }
 
 .key-metric-banner-header+p{
+    margin-top: -2em;
+    font-size: 1em;
+    text-align: center;
     color: var(--font-color-grey);
     font-family: var(--main-font-style);
 }
@@ -208,10 +213,39 @@ h3{
     flex-direction: row;
     justify-content: center;
 }
+
 .metric-box{
-      
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  width: 384px; 
+  height: 102px;      
   border-radius: 8px; 
   border-width: 1px; 
   border-color: #393D47FF; 
   border-style: solid; 
+}
+
+.metric-box > svg{
+    color: var(--font-color-blue);
+    height: 2.5em;
+    width: auto;
+    margin-right: 20px;
+    
+}
+
+.metric-box-text-wrapper > p{
+    font-family: var(--main-font-style);
+    font-weight: 800;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.metric-box-text-wrapper > p + p{
+    margin-top: -2em;
+    font-family: var(--main-font-style);
+    font-weight: 200;
+    color: var(--font-color-grey);
+    font-size: 0.8em;
 }

@@ -5,6 +5,9 @@ from app.forms import LoginForm
 from app.models import User, Post
 import sqlalchemy as sa
 from urllib.parse import urlsplit
+from bokeh.plotting import figure
+from bokeh.embed import components
+from random import randint
 
 @app.route('/index')
 @login_required
@@ -16,6 +19,21 @@ def index():
 @app.route('/home_page')
 def home_page():
     return render_template('home_page.html')
+
+@app.route('/test_graph_dashboard')
+def test_graph_dashboard():
+    bokeh_figure = figure(title='test scatter plot',x_axis_label='I hate my x',y_axis_label='Y am I doing this',height=400, sizing_mode='stretch_width')
+    x_values=list(range(10))
+    y_values=[randint(1,50) for _ in range(10)]
+    bokeh_figure.circle(x_values, y_values, size=15, color='red', alpha=0.5)
+    script, div = components(bokeh_figure)
+
+    print("Generated Script:", script[:200])  # Print first 200 characters
+    print("Generated Div:", div[:200])        # Print first 200 characters
+    return render_template('test_graph_dashboard.html', script=script, div=div)
+
+
+
 
 @app.route('/help_page')
 def help_page():
