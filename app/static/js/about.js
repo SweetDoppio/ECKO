@@ -22,4 +22,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // document.querySelectorAll('.animate-on-scroll').forEach(queryElement =>{
 //     observeElementOnScreen.observe(queryElement);
-// })
+// })  Dont really,need this code but just in case.

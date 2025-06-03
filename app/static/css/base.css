@@ -8,14 +8,16 @@
 }
     
     html{
-    overflow-x: none;
-    height: 100%; 
+    height: auto;
     display: flex;
     flex-direction: column;
+    width: 100vw;
 
 }
 
     main{
+        width: 90%;
+        overflow: none;
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -70,10 +72,10 @@
     }
 
     #base-header-container.scroll-state{
+        align-self: center;
         background-color: #261C32FF;
         justify-self: center;
-        width: 80%;
-        transform: translateX(4.2em); 
+        width: 85%;
         border-radius: 10px;
     }
 
