@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db, app
-from app.forms import LoginForm
+from app.forms import LoginForm, RegisterForm
 from app.models import User, Post
 import sqlalchemy as sa
 from urllib.parse import urlsplit
@@ -55,6 +55,12 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html', title='Contact Us')
+
+
+@app.route('/register')
+def register():
+    reg_form = RegisterForm()
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+    {% block content %}
+
+    <h1>Register Here</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="user_reg_username_container">
+            {{ form.username(size=20, placeholder=This name will be seen by others) }}
+        </div>
+        <div class="error_message">
+            {% for error in form.username.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+        </div>
+        {{ form.email(size=25, placeholder=Enter your email here) }}
+        <div class="error_message">
+            {% for error in form.email.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+        </div>
+        {{ form.password(size=30, placeholder=password) }}
+        <div class="error_message">
+            {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+        </div>
+        {{ form.password2(size=30, placeholder=re-enter your password) }}
+        <div class="error_message">
+            {% for error in form.password2.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+        </div>
+        <button>{{ form.sumbit() }}</button>
+        
+
+    </form>
+
+
+    {% endblock %}

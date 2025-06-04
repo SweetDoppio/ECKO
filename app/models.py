@@ -53,12 +53,6 @@ class Post(db.Model):
     #back_populates argument references the name of the rel attribute on the other side.
     #Referening the class 'User' above. 
 
-def is_penis(word: str) -> str:
-    '''Checks a string value and if the string matches the citeria(penis), returns word value.'''
-    if word == 'penis':
-        return 'is penis'
-    return 'not a penis'
-
 
 
 #terminal command to add user manually --From python terminal:
