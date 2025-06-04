@@ -43,7 +43,7 @@
                 <div class="user_sign_in_up_button_group">
                     {% if current_user.is_anonymous %}
                     <li><a class="header-list-text sign_in_button_header" href="{{ url_for('login') }}">Sign in</a></li>
-                    <li><a class="header-list-text sign_up_button_header" href="{{ url_for('login') }}">Sign up</a></li>
+                    <li><a class="header-list-text sign_up_button_header" href="{{ url_for('register') }}">Sign up</a></li>
                     {% else %}
                     <li class="header-list-text">Hello {{ current_user.username }}!</li>
                     <li><a class="header-list-text" href="{{ url_for('logout') }}">Logout</a></li>
