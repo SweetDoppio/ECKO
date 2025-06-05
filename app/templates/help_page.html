@@ -90,6 +90,15 @@
                             <img src="{{ url_for('static', filename='images/contact-support-image.png' )}}" alt="people-looking-sad-image"/>
                         </picture>
                     </div>
+                    <script>
+                    window.onload = function() {
+                    const docHeight = document.body.scrollHeight;
+                    window.scrollTo({
+                        top: docHeight / 2,
+                        behavior: 'smooth'
+                    });
+                    };
+                    </script>
                     <div class="contact-support-user-input-forms ">
                         <form>
                             <div id="form-name-container" style="width: 100%; margin-left: 3em;">
