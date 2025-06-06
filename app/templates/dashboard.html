@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+ 
+  body {
+    background: linear-gradient(180deg, #1A2526 0%, #0A0F1A 100%);
+    color: #FFFFFF;
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  main {
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  
+  h2, h3, h4 {
+    text-align: left;
+    text-transform: uppercase;
+    margin-left: 20px;
+    color: #FFFFFF;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    font-size: 1em;
+    margin-bottom: 5px;
+  }
+
+ 
+  .dashboard-overview {
+    margin: 20px 0;
+  }
+
+  .metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .metric-card {
+    background: #2A3A3B;
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    transition: transform 0.2s;
+  }
+
+  .metric-card:hover {
+    transform: scale(1.05);
+  }
+
+  .value {
+    font-size: 2em;
+    font-weight: 700;
+    margin: 10px 0;
+  }
+
+  .value.recent-scans, .value.threats-detected {
+    color: #00FF85;
+  }
+
+  .value.active-threats {
+    color: #FF4D4D;
+  }
+
+  .value.alerts-generated {
+    color: #00D4FF;
+  }
+
+  .percentage {
+    font-size: 0.9em;
+    margin-left: 5px;
+  }
+
+  .percentage.green {
+    color: #00FF85;
+  }
+
+  .percentage.red {
+    color: #FF4D4D;
+  }
+
+  .percentage.blue {
+    color: #00D4FF;
+  }
+
+
+  .graph {
+    height: 60px;
+    background: #1A2526;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  
+  .graph.bar::before {
+    content: '';
+    display: flex;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 20px;
+    height: 40px;
+    background: #00D4FF;
+    opacity: 0.7;
+  }
+
+  .graph.bar::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    width: 20px;
+    height: 30px;
+    background: #00D4FF;
+    opacity: 0.7;
+  }
+
+  
+  .graph.donut {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .graph.donut::before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 5px solid #00D4FF;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    transform: rotate(45deg);
+  }
+
+  .graph.line {
+    position: relative;
+  }
+
+  .graph.line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    right: 10px;
+    height: 2px;
+    background: #00FF85;
+    border-radius: 2px;
+    clip-path: polygon(0 100%, 20% 0%, 40% 80%, 60% 20%, 80% 90%, 100% 30%);
+  }
+
+  /* Quick Action Buttons */
+  .quick-actions {
+    margin: 40px 0;
+    text-align: center;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .action-buttons button {
+    background: linear-gradient(90deg, #00D4FF 0%, #007BFF 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .action-buttons button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  }
+
+
+  .action-buttons button.new-scan::before {
+    content: '🔍';
+    font-size: 1.2em;
+  }
+
+  .action-buttons button.add-target::before {
+    content: '🎯';
+    font-size: 1.2em;
+  }
+
+  .action-buttons button.view-reports::before {
+    content: '📊';
+    font-size: 1.2em;
+  }
+
+ 
+  .notifications {
+    margin: 40px 0;
+  }
+
+  .notification-item {
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .notification-item h4 {
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .notification-item p {
+    color: #B0B0B0;
+    font-size: 0.9em;
+    text-align: left;
+    margin-left: 20px;
+  }
+</style>
+
+
+<div class="dashboard-overview">
+    <h2>Dashboard Overview</h2>
+    <div class="metrics">
+        <div class="metric-card">
+            <h3>Recent Scans</h3>
+            <div class="value recent-scans">12 <span class="percentage green">+85%</span></div>
+            <div class="graph bar"></div>
+        </div>
+        <div class="metric-card">
+            <h3>Active Threats</h3>
+            <div class="value active-threats">8 <span class="percentage red">-60%</span></div>
+            <div class="graph bar"></div>
+        </div>
+        <div class="metric-card">
+            <h3>Alerts Generated</h3>
+            <div class="value alerts-generated">15 <span class="percentage blue">+75%</span></div>
+            <div class="graph donut"></div>
+        </div>
+        <div class="metric-card">
+            <h3>Threats Detected</h3>
+            <div class="value threats-detected">19</div>
+            <div class="graph line"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quick-actions">
+    <div class="action-buttons">
+        <button class="new-scan">New Scan</button>
+        <button class="add-target">Add Target</button>
+        <button class="view-reports">View Reports</button>
+    </div>
+</div>
+
+<!-- Notifications -->
+<div class="notifications">
+    <h2>Notifications</h2>
+    <div class="notification-item">
+        <h4>Failed scan</h4>
+        <p>There was a problem during the scan process and it could not be completed.</p>
+    </div>
+    <div class="notification-item">
+        <h4>New feature</h4>
+        <p>Now you can easily access and utilize our latest feature to enhance your experience.</p>
+    </div>
+    <div class="notification-item">
+        <h4>Update 1.3.4 to 1.3.5</h4>
+        <p>System update 1.3.5 is now available, optimizing performance and enhancing security.</p>
+    </div>
+</div>
+
+{% endblock %}  
