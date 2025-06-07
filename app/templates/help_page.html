@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
     {% block content %}
+    <div id="top" style="position: absolute; top: 0; left: 0; height: 0;"></div>
         <div class="help_page_main_container">
             <div class="feature-section-container">
                 <h1 class="help_text" style="justify-self: center;">Explore Tutorials and learn ECKO's Major Features</h1>
@@ -91,15 +92,19 @@
                         </picture>
                     </div>
                     <script>
-                    window.onload = function() {
-                    const docHeight = document.body.scrollHeight;
-                    window.scrollTo({
-                        top: docHeight / 2,
-                        behavior: 'smooth'
-                    });
-                    };
-                    </script>
-                    <div class="contact-support-user-input-forms ">
+                        setTimeout(() => {
+                            if (window.location.hash !== '#top') {
+                            const docHeight = document.body.scrollHeight;
+                            window.scrollTo({
+                                top: docHeight / 2,
+                                behavior: 'smooth'
+                            });
+                            } else {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                        }, 100);
+                        </script>
+                                            <div class="contact-support-user-input-forms ">
                         <form>
                             <div id="form-name-container" style="width: 100%; margin-left: 3em;">
                                 <div class="first-name-wrapper">
