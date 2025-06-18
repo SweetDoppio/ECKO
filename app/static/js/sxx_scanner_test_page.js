@@ -37,7 +37,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
           `;
         });
       } else {
-        html += `<p id="vul_detected_notification_FALSE">No vulnerabilities found</p>`;
+        html += `<p id="vul_detected_notification_FALSE">No vulnerabilities found =)</p>`;
       }
       
       resultsContainer.innerHTML = html;
