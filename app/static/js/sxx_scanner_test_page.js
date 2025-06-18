@@ -1,9 +1,11 @@
 document.querySelector('form').addEventListener('submit', function(e) {
-  e.preventDefault();
+    //event listener will see if url form gets  submitted with valid url
+  e.preventDefault(); // stop the form from refreshing page
   const spinner = document.getElementById('loading-spinner');
   const status = document.getElementById('status');
   const resultsContainer = document.getElementById('result_display');
   
+  //will show the loading element, while clearing any previous results.
   spinner.style.display = 'flex';
   status.textContent = 'Starting scan...';
   resultsContainer.innerHTML = '';
@@ -17,7 +19,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     if (data.error) {
       resultsContainer.innerHTML = `<div class="error">${data.error}</div>`;
     } else {
-      // Build results HTML dynamically
+        
       let html = `
         <h2>Scan Results</h2>
         <p class="scaned_url_text">Scanned URL: ${data.results.url}</p>
@@ -42,7 +44,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     }
   })
   .catch(error => {
-    resultsContainer.innerHTML = `<div class="error">Scan failed: ${error.message}</div>`;
+    resultsContainer.innerHTML = `<div class="error">Scan failed!: ${error.message}</div>`;
   })
   .finally(() => {
     spinner.style.display = 'none';
