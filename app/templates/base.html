@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/help_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reg_form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/test_graph_dashboard.css') }}">
 
@@ -34,7 +35,7 @@
                     <li><a class="header-list-text features-header" href="{{ url_for('test_graph_dashboard') }}">Features</a></li>
                     <li><a class="header-list-text" href="{{ url_for('about') }}">About us</a></li>
                     <li><a class="header-list-text" href="">Blog</a></li>
-                    <li><a class="header-list-text" href="{{ url_for('index') }}">Support</a></li>
+                    <li><a class="header-list-text" href="{{ url_for('sxx_scanner_test_page') }}">Support</a></li>
                     <li><a class="header-list-text" href="{{ url_for('home_page') }}">Home Page</a></li>
                     <li><a class="header-list-text" href="{{ url_for('index') }}">Ekho Forums</a></li>
                     <li><a class="header-list-text" href="{{ url_for('help_page') }}">Tutorials</a></li>
@@ -70,9 +71,9 @@
         {% block content %}{% endblock %} 
      </main>  
      
-     <hr id="main-page-footer-divider-tag">
+     <hr style="margin-top: 10em;" id="main-page-footer-divider-tag">
 
-    <footer >
+    <footer  >
         <div class="footer-main">
             <div class="footer-main-upper-information">
                 <div id="ecko-logo-footer" style="padding-top: 1em;">
