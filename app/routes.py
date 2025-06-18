@@ -1,15 +1,20 @@
 from flask import render_template, flash, redirect, url_for, request, session, jsonify
+from flask import render_template, flash, redirect, url_for, request, session, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db, app
 from app.forms import LoginForm, RegisterForm
 from app.models import User, Post
+from app.scanner import Scanner
 from app.scanner import Scanner
 import sqlalchemy as sa
 from urllib.parse import urlsplit
 from bokeh.plotting import figure
 from bokeh.embed import components
 import threading
+import threading
 from random import randint
+import time
+from sqlalchemy.exc import IntegrityError
 import time
 from sqlalchemy.exc import IntegrityError
 
@@ -37,6 +42,72 @@ def test_graph_dashboard():
     return render_template('test_graph_dashboard.html', script=script, div=div)
 
 
+#below functions are for visual indicators that the scanning is being run,
+
+
+@app.route('/scan', methods=['POST'])
+def scan():
+    url = request.form.get('url')
+    scanner = Scanner(url)
+    
+    if not url:
+        return jsonify({'error': 'Enter URL first!'})
+        
+    if not scanner.validateUrl():
+        return jsonify({'error': 'Invalid URL format!'})
+
+    try:
+        results = scanner.scanXss()
+        return jsonify({
+            'status': 'complete',
+            'results': results
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+
+@app.route('/start_scan', methods=['POST'])
+def start_scan():
+    url = request.form.get('url')
+    session['scan_complete'] = False
+    scanner = Scanner(url)
+    thread = threading.Thread(target=run_scan, args=(scanner, ))
+    thread.start()
+
+    return jsonify({'status: Scan started'})
+
+def run_scan(scanner):
+    results = scanner.xssScanner()
+    session['scan_results'] = results
+    session['scan_complete'] = True
+
+@app.route('/check_scan')
+def check_scan():
+    return jsonify({'complete': session.get('scan_complete', False), 'results': session.get('scan_results')})
+
+@app.route('/sxx_scanner_test_page', methods=['GET', 'POST'])
+def sxx_scanner_test_page():
+    
+    if request.method == 'POST':    
+        url = request.form.get('url')
+        scanner = Scanner(url)
+
+        if not url:
+            flash('Enter url first!')
+            return render_template('sxx_scanner_test_page.html')
+        if not scanner.validateUrl():
+            #Should return necessary flash messages from route.py...
+            return render_template('sxx_scanner_test_page.html')
+
+        try:
+            scan_results = scanner.scanXss()
+            return render_template('sxx_scanner_test_page.html', results=scan_results)
+        
+        except request.exceptions.RequestException as e:
+            #Handles any errors without giving the user a big error page 
+            flash(f'Error scanning URL: {str(e)}')
+            return render_template('sxx_scanner_test_page.html')
+    return render_template('sxx_scanner_test_page.html', results= None)
 #below functions are for visual indicators that the scanning is being run,
 
 
@@ -132,8 +203,29 @@ def dashboard():
 
 
 @app.route('/register',  methods=['GET', 'POST'])
+@app.route('/register',  methods=['GET', 'POST'])
 def register():
     reg_form = RegisterForm()
+
+    if current_user.is_authenticated:
+        redirect(url_for('index'))
+
+    if reg_form.validate_on_submit():
+        try:
+            new_reg_user = User(username = reg_form.username.data, email = reg_form.email.data)
+            new_reg_user.set_password(reg_form.password.data)
+            db.session.add(new_reg_user)
+            db.session.commit()
+            flash('Registration Successful')
+            return redirect(url_for('login'))
+        except IntegrityError:
+            # Placeholder expection error, so the thing does not crap itself
+            db.session.rollback()
+            flash('user already exists')
+
+    return render_template('register.html', form=reg_form)
+
+    
 
     if current_user.is_authenticated:
         redirect(url_for('index'))
