@@ -8,3 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
       navbar.classList.remove('scroll-state');
     }
   })});
+
+
+setTimeout(() =>{
+  const flashMessage = document.querySelector('warning_message_container')
+  if (flashMessage){
+    flashMessage.display.style = 'none'};
+}, 4000)

@@ -1,0 +1,66 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sxx_scanner_test_page.css')}}">
+</head>
+<body>
+    <header>
+
+    </header>
+
+    <div class="scanner_page_main_container">
+        <form method="POST">
+            <label for="url-input">Copy your url here! </label>
+            <!-- name attribute is important, since this is how flask is gonna get the value from line42-->
+            <input type="url" name="url" placeholder="Enter URL to start scanning!" required>
+            <button type="submit">Scan</button>
+        </form>
+
+        <div id="scan-container">
+            <div id="loading-spinner" style="display:none;">
+                <img src="{{ url_for('static', filename='images/gif/cat.gif' ) }}" alt="Scanning...">
+                <p style="color: aliceblue;">Scanning: <span id="status">Initializing...</span></p>
+            </div>
+            <div id="result_display"></div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <p class="flash_message_p">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% if results %}
+            <h2>Scan Results</h2>
+            <p class="scaned_url_text">Scanned URL: {{ results.url }}</p>
+            <p class="found_forms_text">Forms Found: {{ results.form_count }}</p>
+             
+            {% if results.vulnerable_forms %}
+                <p id="vul_detected_notification_TRUE">XSS vulnerabilities found!!</p>
+                <h3>Vulnerable forms found at:</h3>
+                {% for form in results.vulnerable_forms %}
+                    <div class="vulnerable-form">
+                        <p class="form_action_text">Action: {{ form.action }}</p>
+                        <p class="form_method_text">Method: {{ form.details.method }}</p>
+                        <!-- Add more form details as needed -->
+                    </div>
+                {% endfor %}
+                {% else %}  
+                    <p id="vul_detected_notification_FALSE">No XSS vulnerabilities found. Looks like it's all up to code!</p>
+                {% endif %}
+        {% endif %}
+    </div>
+    
+</body>
+<script src="{{ url_for('static', filename='js/sxx_scanner_test_page.js')}}"> </script>
+</html>
