@@ -19,16 +19,18 @@ class RegisterForm(FlaskForm):
     username = StringField('Usernane', validators=[DataRequired('Please enter a valid username')])
     email = EmailField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Enter user Password', validators=[DataRequired()])
-    password_confirm =PasswordField('Repeat Password', validators=[DataRequired(), EqualTo(password)])
-    sumbit = SubmitField('Registetr')
+    password_confirm =PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Register')
 
     def user_validation(self, username):
         user = db.session.scalar(sa.select(User).where(User.username == username.data))
+        #scalar executes the given query and returns the first column of the first row or something.
+        #Only returns the first matching result.26
         if user is not None:
             raise ValidationError('Please select a different name')
         
     def email_validation(self, email):
-        user_email = db.session.scalar(sa.select(User).where(email == email.data))
+        user_email = db.session.scalar(sa.select(User).where(User.email == email.data))
         if user_email is not None:
             raise ValidationError('Please provide a different email')
 

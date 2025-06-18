@@ -1,0 +1,28 @@
+
+
+git checkout main   # Switch to main branch (if not already on it)
+git pull origin main #pull to local 
+
+git branch
+Create & Switch to a New Branch
+
+sh
+git checkout -b your-branch-name
+(Replace your-branch-name with your desired branch, e.g., feature/login-page.)
+
+Verify the Switch
+
+The bottom-left corner should now show your new branch.
+
+Pushing the New Branch to Remote (GitHub/GitLab/etc.)
+If you want to push the branch to a remote repository:
+
+sh
+git push -u origin your-branch-name
+(Replace your-branch-name with your branch.)
+
+git add . stages all changes (including new/modified/deleted files).
+
+git add -u stages only modified/deleted files (not new ones).
+
+git add -p a

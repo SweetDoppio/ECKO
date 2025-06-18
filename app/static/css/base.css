@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     width: 100vw;
-
+    overflow-x: hidden;
 }
 
     main{
@@ -25,6 +25,8 @@
     }
 
     .warning_message_container{
+        position: fixed;
+        top: 20%;
         display: inline-flex;
         align-items: center;
         justify-content: center;

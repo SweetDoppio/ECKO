@@ -31,7 +31,6 @@
     width: 90%;
     height: 100%;
     border-radius: 1em;
-    outline: var(--outline-basic-setting);
 }
 
 /* .user-login-text-label-container{
@@ -45,8 +44,8 @@
     gap: 1em;
 
 }
-.user-login-text-box-container input{
 
+.user-login-text-box-container input{
 /*If I want to target a specific input box, use input[type='input-type'*/
     border: none;
     border-radius: 0.5em;
