@@ -8,7 +8,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
   //will show the loading element, while clearing any previous results.
   spinner.style.display = 'flex';
   status.textContent = 'Starting scan...';
-  resultsContainer.innerHTML = '';
+  resultsContainer.innerHTML = ' ';
   
   fetch('/scan', {
     method: 'POST',
@@ -37,7 +37,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
           `;
         });
       } else {
-        html += `<p id="vul_detected_notification_FALSE">No vulnerabilities found =)</p>`;
+        html += `<p id="vul_detected_notification_FALSE">No vulnerabilities found...</p>`;
       }
       
       resultsContainer.innerHTML = html;
