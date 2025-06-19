@@ -4,16 +4,12 @@ from app import db, app
 from app.forms import LoginForm, RegisterForm
 from app.models import User, Post
 from app.scanner import Scanner
-from app.scanner import Scanner
 import sqlalchemy as sa
 from urllib.parse import urlsplit
 from bokeh.plotting import figure
 from bokeh.embed import components
 import threading
-import threading
 from random import randint
-import time
-from sqlalchemy.exc import IntegrityError
 import time
 from sqlalchemy.exc import IntegrityError
 
