@@ -1,0 +1,86 @@
+// Wait until DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById('vul-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const spinner = document.getElementById('loading-spinner');
+    const status = document.getElementById('status');
+    const resultsContainer = document.getElementById('result_display');
+
+    // Show loading spinner
+    spinner.style.display = 'flex';
+    status.textContent = 'Starting vulnerability scan...';
+    resultsContainer.innerHTML = '';
+
+    fetch('/scan_sqli', {
+      method: 'POST',
+      body: new FormData(form)
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          resultsContainer.innerHTML = `<div class="error">${data.error}</div>`;
+          return;
+        }
+
+        const res = data.results;
+        let html = `
+          <div class="centered">
+            <h2>🔍 Scan Results</h2>
+            <p class="scaned_url_text">URL: ${res.url}</p>
+          </div>
+
+          <div class="vul-results-left">
+            <h3>🧬 SQL Injection</h3>
+            <p>Parameters Tested: ${res.sqli_results.param_count}</p>
+        `;
+
+        if (res.sqli_results.vulnerable_params.length > 0) {
+          html += `<p class="warning-text">⚠️ SQLi vulnerabilities detected!</p>`;
+          html += `<div class="vulnerable-box">`;
+          res.sqli_results.vulnerable_params.forEach((v, i, arr) => {
+            html += `
+              <p><strong>Parameter:</strong> ${v.name}</p>
+              <p><strong>Payload used:</strong> ${v.payload}</p>
+              ${i !== arr.length - 1 ? '<hr>' : ''}
+            `;
+          });
+          html += `</div>`;
+        } else {
+          html += `<p class="safe-text">✅ No SQLi vulnerabilities found.</p>`;
+        }
+
+        // XSS section
+        html += `
+          <h3>🧪 Cross-Site Scripting (XSS)</h3>
+          <p>Forms Detected: ${res.xss_results.form_count}</p>
+        `;
+
+        if (res.xss_results.vulnerable_forms.length > 0) {
+          html += `<p class="warning-text">⚠️ XSS vulnerabilities detected!</p>`;
+          html += `<div class="vulnerable-box">`;
+          res.xss_results.vulnerable_forms.forEach((form, i, arr) => {
+            html += `
+              <p><strong>Form Action:</strong> ${form.action}</p>
+              <p><strong>Method:</strong> ${form.details.method}</p>
+              ${i !== arr.length - 1 ? '<hr>' : ''}
+            `;
+          });
+          html += `</div>`;
+        } else {
+          html += `<p class="safe-text">✅ No XSS vulnerabilities found.</p>`;
+        }
+
+        resultsContainer.innerHTML = html;
+      })
+      .catch(err => {
+        resultsContainer.innerHTML = `<div class="error">❌ Scan failed: ${err.message}</div>`;
+      })
+      .finally(() => {
+        spinner.style.display = 'none';
+      });
+  });
+});

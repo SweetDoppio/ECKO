@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQLi & XSS Scanner</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/vul_scanner_test_page.css') }}">
+</head>
+<body>
+  <header></header>
+
+  <div class="scanner_page_main_container">
+    <!-- Scan Form -->
+    <form method="POST" id="sqli-form">
+      <label for="url-input">Enter URL to scan:</label>
+      <input type="url" name="url" placeholder="https://example.com/index.php?id=1" required>
+      <button type="submit">Scan for Vulnerabilities</button>
+    </form>
+
+    <!-- Spinner -->
+    <div id="scan-container">
+      <div id="loading-spinner" style="display: none;">
+        <img src="{{ url_for('static', filename='images/gif/cat.gif') }}" alt="Scanning...">
+        <p style="color: aliceblue;">Scanning: <span id="status">Initializing...</span></p>
+      </div>
+
+      <!-- Scan Results -->
+      {% if results %}
+      <div id="result_display">
+
+        <!-- CENTERED TITLE AND URL -->
+        <div class="centered">
+          <h2>🔍 Scan Results</h2>
+          <p class="scaned_url_text">URL: {{ results.url }}</p>
+        </div>
+
+        <!-- LEFT-ALIGNED RESULT CONTENT -->
+        <div class="vul-results-left">
+
+          <!-- SQL Injection -->
+          <h3>SQL Injection</h3>
+          <p>Parameters Tested: {{ results.sqli_results.param_count }}</p>
+
+          {% if results.sqli_results and results.sqli_results.vulnerable_params %}
+            <p class="warning-text">⚠️ SQLi vulnerabilities detected!</p>
+            <div class="vulnerable-box">
+              {% for param in results.sqli_results.vulnerable_params %}
+                <p><strong>Parameter:</strong> {{ param.name }}</p>
+                <p><strong>Payload used:</strong> {{ param.payload }}</p>
+                {% if not loop.last %}<hr>{% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="safe-text">✅ No SQLi vulnerabilities found.</p>
+          {% endif %}
+
+          <!-- XSS -->
+          <h3>Cross-Site Scripting (XSS)</h3>
+          <p>Forms Detected: {{ results.xss_results.form_count }}</p>
+
+          {% if results.xss_results and results.xss_results.vulnerable_forms %}
+            <p class="warning-text">⚠️ XSS vulnerabilities detected!</p>
+            <div class="vulnerable-box">
+              {% for form in results.xss_results.vulnerable_forms %}
+                <p><strong>Form Action:</strong> {{ form.action }}</p>
+                <p><strong>Method:</strong> {{ form.details.method }}</p>
+                {% if not loop.last %}<hr>{% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="safe-text">✅ No XSS vulnerabilities found.</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <p class="flash_message_p">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <script src="{{ url_for('static', filename='js/vul_scanner_test_page.js') }}"></script>
+</body>
+</html>
