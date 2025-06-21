@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQLi Vulnerability Scanner</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sqli_scanner_test_page.css') }}">
+</head>
+<body>
+  <header></header>
+
+  <div class="scanner_page_main_container">
+    <!-- ✅ Form with ID for JS -->
+    <form method="POST" id="sqli-form">
+      <label for="url-input">Enter the URL to test for SQL Injection:</label>
+      <input type="url" name="url" placeholder="https://example.com/page?id=1" required>
+      <button type="submit">Scan for SQLi</button>
+    </form>
+
+    <div id="scan-container">
+      <div id="loading-spinner" style="display:none;">
+        <img src="{{ url_for('static', filename='images/gif/cat.gif') }}" alt="Scanning..." />
+        <p style="color: aliceblue;">Scanning: <span id="status">Initializing SQL Injection test...</span></p>
+      </div>
+      <div id="result_display"></div>
+    </div>
+
+    <!-- ✅ Flash messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <p class="flash_message_p">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- ✅ JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      console.log("✅ DOM fully loaded");
+
+      const form = document.getElementById('sqli-form');
+      if (!form) {
+        console.error("❌ Cannot find form with ID 'sqli-form'");
+        return;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const spinner = document.getElementById('loading-spinner');
+        const status = document.getElementById('status');
+        const resultsContainer = document.getElementById('result_display');
+
+        spinner.style.display = 'flex';
+        status.textContent = 'Starting SQL Injection scan...';
+        resultsContainer.innerHTML = '';
+
+        const formData = new FormData(form);
+
+        fetch("{{ url_for('scan_sqli') }}", {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            resultsContainer.innerHTML = `<div class="error">${data.error}</div>`;
+          } else {
+            let html = `
+              <h2>Scan Results</h2>
+              <p class="scaned_url_text">Scanned URL: ${data.results.url}</p>
+              <p class="found_params_text">Parameters Tested: ${data.results.param_count}</p>
+            `;
+            if (data.results.vulnerable_params.length > 0) {
+              html += `<p id="vul_detected_notification_TRUE">⚠️ SQL Injection vulnerabilities found!</p>`;
+              data.results.vulnerable_params.forEach(param => {
+                html += `
+                  <div class="vulnerable-param">
+                    <p class="param_name_text">Parameter: ${param.name}</p>
+                    <p class="param_payload_text">Payload used: ${param.payload}</p>
+                  </div>
+                `;
+              });
+            } else {
+              html += `<p id="vul_detected_notification_FALSE">✅ No SQL Injection vulnerabilities found.</p>`;
+            }
+            resultsContainer.innerHTML = html;
+          }
+        })
+        .catch(error => {
+          resultsContainer.innerHTML = `<div class="error">Scan failed: ${error.message}</div>`;
+        })
+        .finally(() => {
+          spinner.style.display = 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

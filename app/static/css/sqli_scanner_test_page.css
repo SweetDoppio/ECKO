@@ -1,0 +1,143 @@
+:root {
+    --outline-test: 1px rgb(199, 53, 53) solid;
+    --main-font-colour-grey: #7b8391;
+    --main-font-colour-white: rgb(227, 227, 227);
+    --main-background-color: #010024;
+    --font-color-purple: #6652f3;
+    --footer-text-color: #f5f5f5;
+    --main-font-style: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: var(--main-background-color);
+    font-family: var(--main-font-style);
+    margin: 0;
+    padding: 2rem;
+    color: var(--main-font-colour-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scanner_page_main_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+form label {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+form input[type="url"] {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+}
+
+form button {
+    background-color: var(--font-color-purple);
+    color: white;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #4c3cd9;
+}
+
+#scan-container {
+    width: 100%;
+    text-align: center;
+}
+
+#loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.flash-messages {
+    background-color: #420606;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.flash_message_p {
+    color: #ffaaaa;
+    margin: 0;
+}
+
+/* Scan Results */
+#result_display {
+    margin-top: 2rem;
+}
+
+.scaned_url_text,
+.found_params_text,
+.param_name_text,
+.param_payload_text {
+    margin: 0.5rem 0;
+}
+
+.vulnerable-param {
+    background-color: #222244;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border-left: 5px solid #ff2f2f;
+    text-align: left;
+}
+
+/* Vulnerability result banners */
+#vul_detected_notification_TRUE {
+    font-weight: 800;
+    border-radius: 10px;
+    padding: 2em;
+    background-color: #d9004c;
+    color: white;
+    text-align: center;
+    margin-top: 2em;
+    width: 100%;
+}
+
+#vul_detected_notification_FALSE {
+    padding: 2em;
+    border-radius: 10px;
+    background-color: #38b000;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2em;
+    width: 100%;
+}
+
+.error {
+    background-color: #ff2f2f;
+    color: white;
+    padding: 1em;
+    border-radius: 8px;
+    margin-top: 1em;
+}

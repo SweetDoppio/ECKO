@@ -24,4 +24,3 @@ Array.from(document.getElementsByTagName('h4')).forEach(element => {
     element.classList.add('help_text');
 });
 
-
