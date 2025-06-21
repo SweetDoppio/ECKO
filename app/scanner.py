@@ -69,6 +69,16 @@ class Scanner:
             flash(f"Request error: {str(e)}")
             return None
 
+    def scanBoth(self):
+        xss_result = self.scanXss()
+        sqli_result = self.scanSqli()
+
+        return {
+            'url': self.url,
+            'xss_results': xss_result,
+            'sqli_results': sqli_result
+        }
+
     def scanXss(self):
         forms = self.getAllForms()
         results = {'url': self.url, 'form_count': len(forms), 'vulnerable_forms': []}

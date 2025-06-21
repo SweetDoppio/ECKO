@@ -29,10 +29,12 @@ body {
 
 form {
     width: 100%;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 2rem;
+    box-sizing: border-box;
 }
 
 form label {
@@ -46,9 +48,11 @@ form input[type="url"] {
     border-radius: 5px;
     border: none;
     width: 100%;
+    box-sizing: border-box;
 }
 
 form button {
+    width: 100%;
     background-color: var(--font-color-purple);
     color: white;
     padding: 0.8rem;
@@ -58,6 +62,7 @@ form button {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-sizing: border-box;
 }
 
 form button:hover {
@@ -93,7 +98,10 @@ form button:hover {
 /* Scan Results */
 #result_display {
     margin-top: 2rem;
+    width: 100%;
+    max-width: 800px;
 }
+
 
 .scaned_url_text,
 .found_params_text,
@@ -109,29 +117,21 @@ form button:hover {
     border-radius: 8px;
     border-left: 5px solid #ff2f2f;
     text-align: left;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Vulnerability result banners */
-#vul_detected_notification_TRUE {
+#vul_detected_notification_TRUE,
+#vul_detected_notification_FALSE {
     font-weight: 800;
     border-radius: 10px;
     padding: 2em;
-    background-color: #d9004c;
-    color: white;
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
     text-align: center;
     margin-top: 2em;
-    width: 100%;
-}
-
-#vul_detected_notification_FALSE {
-    padding: 2em;
-    border-radius: 10px;
-    background-color: #38b000;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 2em;
-    width: 100%;
 }
 
 .error {
