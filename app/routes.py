@@ -196,3 +196,41 @@ def login():
         print("Form validation failed:", form.errors)
     return render_template('login.html', title='login page', form=form)
 
+@app.route('/vul_scanner_test_page', methods=['GET', 'POST'])
+def vul_scanner_test_page():
+    if request.method == 'POST':
+        url = request.form.get('url')
+        scanner = Scanner(url)
+
+        if not url:
+            flash('Enter URL first!')
+            return render_template('vul_scanner_test_page.html')
+
+        if not scanner.validateUrl():
+            flash('Invalid URL format!')
+            return render_template('vul_scanner_test_page.html')
+
+        try:
+            scan_results = scanner.scanBoth()
+            return render_template('vul_scanner_test_page.html', results=scan_results)
+        except Exception as e:
+            flash(f'Error scanning URL: {str(e)}')
+            return render_template('vul_scanner_test_page.html')
+
+    return render_template('vul_scanner_test_page.html', results=None)
+
+
+@app.route('/scan_sqli', methods=['POST'])
+def scan_sqli():
+    url = request.form.get('url')
+    scanner = Scanner(url)
+
+    if not url or not scanner.validateUrl():
+        return jsonify({'error': 'Invalid or empty URL'})
+
+    try:
+        # 🔄 Scan both SQLi and XSS
+        scan_results = scanner.scanBoth()
+        return jsonify({'results': scan_results})
+    except Exception as e:
+        return jsonify({'error': str(e)})

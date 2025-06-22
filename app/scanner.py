@@ -1,130 +1,194 @@
 import requests
+import time
 from flask import flash
 from bs4 import BeautifulSoup as bs
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse, parse_qs
 import validators
 
-class Scanner():
-    
-    ''' 
-        Given a URL, it grabs all the HTML forms and then prints the number of forms detected.
-        It then iterates all over the forms and submits them by putting the value of all text and search input fields with a Javascript code.
-        If the Javascript code is injected and successfully executed, then the site has SXX vulnerability
-        '''
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; EKHOScanner/1.0; +https://yourtool.example)"
+}
 
-
+class Scanner:
     def __init__(self, url):
         self.url = url
 
     def validateUrl(self):
-        ''' validate the url formaat and safety'''
         if not self.url:
             return False
-        
         if not self.url.startswith(('http://', 'https://')):
-            flash('Url must start with either "https://" or "http://" ')
+            flash('URL must start with either "https://" or "http://"')
             return False
-        
         if not validators.url(self.url):
-            flash('invalid url format!')
+            flash('Invalid URL format!')
             return False
-        
         return True
 
     def getAllForms(self):
-        #Creates a get request with the stored url in the instance variable, and creates a soup obj
-        soup = bs(requests.get(self.url).content, 'html.parser')
-        #returns all form elements in the html as list
-        return soup.find_all('form')
-    
+        try:
+            response = requests.get(self.url, headers=HEADERS, timeout=5)
+            response.raise_for_status()
+            soup = bs(response.content, 'html.parser')
+            return soup.find_all('form')
+        except Exception as e:
+            flash(f"Error retrieving forms: {e}")
+            return []
+
     def getFormDetails(self, form):
-        details = {}
-        #get from action attribute (target url)
-        action = form.attrs.get('action','').lower()
-        #get from method(post, get)
-        method= form.attrs.get('method','get').lower()
-      
+        action = form.attrs.get('action', '').lower()
+        method = form.attrs.get('method', 'get').lower()
         inputs = []
 
-        #loop for ginding all input tags in the form
         for input_tag in form.find_all('input'):
-            #gets the type, and defaults with text, then gets the name attribute
             input_type = input_tag.attrs.get('type', 'text')
             input_name = input_tag.attrs.get('name')
-            inputs.append({'type':input_type, 'name': input_name})
-        #stores all the collected information in the details dictionary with keys
-        details["action"] = action
-        details["method"] = method
-        details["inputs"] = inputs
-        return details
-    
-    def submitForm(self, form_details, value):
-        """
-        submits a form given in `form_details`
-            form_details (list): a dictionary that contain form information
-            url: the original URL that contain that form
-            value : this will be replaced to all text and search inputs
-        Returns the HTTP Response after form submission
-        """
+            inputs.append({'type': input_type, 'name': input_name})
+
+        return {
+            "action": action,
+            "method": method,
+            "inputs": inputs
+        }
+
+    def submitForm(self, form_details, payload):
         target_url = urljoin(self.url, form_details['action'])
-        inputs = form_details['inputs']
         data = {}
-        
-        for input in inputs:
-            if input['type'] == 'text' or input['type'] == 'search':
-                input['value'] = value
-            input_name = input.get('name')
-            input_value = input.get('value')
-                # if input name and value are not None, 
-                # then add them to the data of form submission
-            if input_name and input_value:
-                data[input_name] = input_value
 
-        flash(f"Payload testing to {target_url}\n Data{data}")
+        for input in form_details['inputs']:
+            if input['type'] in ['text', 'search']:
+                input['value'] = payload
+            name = input.get('name')
+            value = input.get('value')
+            if name and value:
+                data[name] = value
 
-        if form_details['method'] == 'post':
-            return requests.post(target_url, data=data)
-        else:
-            return requests.get(target_url, params=data)
+        try:
+            if form_details['method'] == 'post':
+                return requests.post(target_url, data=data, headers=HEADERS, timeout=7)
+            else:
+                return requests.get(target_url, params=data, headers=HEADERS, timeout=7)
+        except Exception as e:
+            flash(f"Request error on {target_url}: {e}")
+            return None
 
     def scanXss(self):
-        '''SHows out any vulnerable forms if true, otherwise false'''
-        forms = self.getAllForms()
-        results = { 'url': self.url, 'form_count': len(forms), 'vulnerable_forms': []}
+        results = {
+            'url': self.url,
+            'form_count': 0,
+            'vulnerable_forms': []
+        }
 
-        # variable containing list of additional payloads, if the basic one gets easily filtered
-        XSS_PAYLOADS = [
-        "<script>alert('XSS')</script>",
-        "<img src=x onerror=alert('XSS')>",
-        "<svg/onload=alert('XSS')>",
-        "'\"><script>alert('XSS')</script>",
-        "<script>alert('Hope your site is secure =]')</script>"
+        payloads = [
+            "<script>alert('XSS')</script>",
+            "<img src=x onerror=alert('XSS')>",
+            "<svg/onload=alert('XSS')>",
+            "'\"><script>alert('XSS')</script>",
+            "<script>alert('Hope your site is secure =]')</script>"
         ]
-        #Probably change this line to show something else...
-        is_vulnerable = False
+
+        forms = self.getAllForms()
+        results['form_count'] = len(forms)
 
         for form in forms:
-            form_detail = self.getFormDetails(form)
-            for payload in XSS_PAYLOADS:
-                try:
-                    response = self.submitForm(form_detail, payload)
-                    content = response.content.decode()
-                    if payload in content:
-                        results['vulnerable_forms'].append({
-                            'details': form_detail,
-                            'action': urljoin(self.url, form_detail['action'])
-                        })
-                        break
-
-                except Exception as e:
-                    flash(f'Testing form error:{payload} | {str(e)}')
-                    continue
+            details = self.getFormDetails(form)
+            for payload in payloads:
+                response = self.submitForm(details, payload)
+                if response and payload in response.text:
+                    results['vulnerable_forms'].append({
+                        'details': details,
+                        'action': urljoin(self.url, details['action'])
+                    })
+                    break
         return results
-        
 
-    # def SqlInjectionScan(self):
+    def scanSqli(self):
+        results = {
+            'url': self.url,
+            'param_count': 0,
+            'vulnerable_params': []
+        }
 
+        payloads = [
+            "'", "' OR '1'='1", "\" OR \"1\"=\"1", "' OR 1=1--",
+            "'; DROP TABLE users--", "' OR SLEEP(3)--"
+        ]
 
-                    
+        parsed = urlparse(self.url)
+        query_params = parse_qs(parsed.query)
 
+        # Case 1: URL-based parameters
+        if query_params:
+            for param in query_params:
+                for payload in payloads:
+                    test_params = query_params.copy()
+                    test_params[param] = payload
+                    query = "&".join([f"{k}={v}" for k, v in test_params.items()])
+                    test_url = f"{parsed.scheme}://{parsed.netloc}{parsed.path}?{query}"
 
+                    try:
+                        start = time.time()
+                        response = requests.get(test_url, headers=HEADERS, timeout=10)
+                        elapsed = time.time() - start
+                        content = response.text.lower()
+
+                        if any(err in content for err in ["sql syntax", "mysql_fetch", "odbc_exec",
+                                                          "unclosed quotation mark", "unterminated string", "syntax error"]):
+                            results['vulnerable_params'].append({
+                                'name': param,
+                                'payload': payload
+                            })
+                            break
+                        elif elapsed > 2.5:
+                            results['vulnerable_params'].append({
+                                'name': param,
+                                'payload': payload + " (blind)"
+                            })
+                            break
+                    except Exception as e:
+                        flash(f"URL SQLi test error on '{param}': {e}")
+
+        # Case 2: Form-based injection
+        forms = self.getAllForms()
+        for form in forms:
+            details = self.getFormDetails(form)
+            for input in details['inputs']:
+                name = input.get('name')
+                if not name:
+                    continue
+
+                for payload in payloads:
+                    data = {name: payload}
+                    try:
+                        start = time.time()
+                        if details['method'] == 'post':
+                            response = requests.post(urljoin(self.url, details['action']), data=data, headers=HEADERS, timeout=10)
+                        else:
+                            response = requests.get(urljoin(self.url, details['action']), params=data, headers=HEADERS, timeout=10)
+                        elapsed = time.time() - start
+                        content = response.text.lower()
+
+                        if any(err in content for err in ["sql syntax", "mysql_fetch", "odbc_exec",
+                                                          "unclosed quotation mark", "unterminated string", "syntax error"]):
+                            results['vulnerable_params'].append({
+                                'name': name,
+                                'payload': payload
+                            })
+                            break
+                        elif elapsed > 2.5:
+                            results['vulnerable_params'].append({
+                                'name': name,
+                                'payload': payload + " (blind)"
+                            })
+                            break
+                    except Exception as e:
+                        flash(f"{details['method'].upper()} SQLi test error on '{name}': {e}")
+
+        results['param_count'] = len(results['vulnerable_params'])
+        return results
+
+    def scanBoth(self):
+        return {
+            'url': self.url,
+            'sqli_results': self.scanSqli(),
+            'xss_results': self.scanXss()
+        }
