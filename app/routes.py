@@ -40,36 +40,6 @@ def test_graph_dashboard():
 #below functions are for visual indicators that the scanning is being run
 
 
-@app.route('/scan', methods=['POST'])
-def scan():
-    url = request.form.get('url')
-    scanner = Scanner(url)
-    
-    if not url:
-        return jsonify({'error': 'Enter URL first!'})
-        
-    if not scanner.validateUrl():
-        return jsonify({'error': 'Invalid URL format!'})
-
-    try:
-        results = scanner.scanXss()
-        return jsonify({
-            'status': 'complete',
-            'results': results
-        })
-    except Exception as e:
-        return jsonify({'error': str(e)})
-    
-
-@app.route('/start_scan', methods=['POST'])
-def start_scan():
-    url = request.form.get('url')
-    session['scan_complete'] = False
-    scanner = Scanner(url)
-    thread = threading.Thread(target=run_scan, args=(scanner, ))
-    thread.start()
-
-    return jsonify({'status: Scan started'})
 
 def run_scan(scanner):
     results = scanner.xssScanner()
@@ -80,29 +50,6 @@ def run_scan(scanner):
 def check_scan():
     return jsonify({'complete': session.get('scan_complete', False), 'results': session.get('scan_results')})
 
-@app.route('/sxx_scanner_test_page', methods=['GET', 'POST'])
-def sxx_scanner_test_page():
-    
-    if request.method == 'POST':    
-        url = request.form.get('url')
-        scanner = Scanner(url)
-
-        if not url:
-            flash('Enter url first!')
-            return render_template('sxx_scanner_test_page.html')
-        if not scanner.validateUrl():
-            #Should return necessary flash messages from route.py...
-            return render_template('sxx_scanner_test_page.html')
-
-        try:
-            scan_results = scanner.scanXss()
-            return render_template('sxx_scanner_test_page.html', results=scan_results)
-        
-        except request.exceptions.RequestException as e:
-            #Handles any errors without giving the user a big error page 
-            flash(f'Error scanning URL: {str(e)}')
-            return render_template('sxx_scanner_test_page.html')
-    return render_template('sxx_scanner_test_page.html', results= None)
 
 
 @app.route('/help_page')
@@ -117,10 +64,6 @@ def tut_link():
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
-@app.route('/quiz')
-def quiz():
-        return render_template('quiz.html')
 
 @app.route('/about')
 def about():
@@ -157,25 +100,6 @@ def register():
 
     return render_template('register.html', form=reg_form)
 
-    
-
-    if current_user.is_authenticated:
-        redirect(url_for('index'))
-
-    if reg_form.validate_on_submit():
-        try:
-            new_reg_user = User(username = reg_form.username.data, email = reg_form.email.data)
-            new_reg_user.set_password(reg_form.password.data)
-            db.session.add(new_reg_user)
-            db.session.commit()
-            flash('Registration Successful')
-            return redirect(url_for('login'))
-        except IntegrityError:
-            # Placeholder expection error, so the thing does not crap itself
-            db.session.rollback()
-            flash('user already exists')
-
-    return render_template('register.html', form=reg_form)
 
     
 @app.route('/login', methods=['GET', 'POST'])

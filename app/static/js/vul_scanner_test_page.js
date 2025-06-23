@@ -1,19 +1,26 @@
 // Wait until DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById('vul-form');
-  if (!form) return;
+  const form = document.getElementById('sqli-form');
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const spinner = document.getElementById('loading-spinner');
     const status = document.getElementById('status');
-    const resultsContainer = document.getElementById('result_display');
+    let resultsContainer = document.getElementById('result_display');
+
+    if (!resultsContainer) {
+      resultsContainer = document.createElement('div');
+      resultsContainer.id = 'result_display';
+      document.getElementById('scan-container').appendChild(resultsContainer);
+    }
+
 
     // Show loading spinner
     spinner.style.display = 'flex';
     status.textContent = 'Starting vulnerability scan...';
     resultsContainer.innerHTML = '';
+    resultsContainer.style.display = 'block';
 
     fetch('/scan_sqli', {
       method: 'POST',
@@ -75,9 +82,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         resultsContainer.innerHTML = html;
+                resultsContainer.style.display = 'block'; // Show results container
+        status.textContent = 'Scan completed!';
       })
       .catch(err => {
         resultsContainer.innerHTML = `<div class="error">❌ Scan failed: ${err.message}</div>`;
+                resultsContainer.style.display = 'block';
+        status.textContent = 'Scan failed!';
       })
       .finally(() => {
         spinner.style.display = 'none';
