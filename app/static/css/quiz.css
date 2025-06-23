@@ -1,0 +1,109 @@
+  h1, h2, p, label {
+    text-align: left;
+    margin-left: 20px;
+    color: #FFFFFF;
+  }
+  body {
+    background: linear-gradient(180deg, #1A2526 0%, #0A0F1A 100%);
+    font-family: 'Orbitron', sans-serif;
+  }
+  .question-container {
+    display: none;
+    margin: 20px 0;
+  }
+  .question-container.active {
+    display: block;
+  }
+  input[type="radio"] {
+    margin-right: 10px;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #00D4FF;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+  }
+  input[type="radio"]:checked {
+    background-color: #00D4FF;
+  }
+  input[type="radio"]:checked::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  label {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  .correct-answer {
+    background-color: #00FF85;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+  .incorrect-answer {
+    background-color: #FF4D4D;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+  .locked input[type="radio"] {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .feedback {
+    margin-left: 30px;
+    font-size: 0.9em;
+    margin-top: 10px;
+  }
+  .nav-buttons {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  .nav-buttons button {
+    background: linear-gradient(90deg, #00D4FF 0%, #007BFF 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .nav-buttons button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  }
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2A3A3B;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    z-index: 1000;
+    color: #FFFFFF;
+  }
+  .close-btn {
+    background: #FF4D4D;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: right;
+  }
+  .close-btn:hover {
+    background: #CC0000;
+  }
