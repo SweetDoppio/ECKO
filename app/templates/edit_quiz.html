@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Quiz{% endblock %}
+
+{% block content %}
+<h1>Edit Quiz</h1>
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+<form method="POST">
+    {% for question in questions %}
+        <h3>Question {{ question.index + 1 }}</h3>
+        <label>Question:</label><br>
+        <input type="text" name="question_{{ question.index }}" value="{{ question.question }}" required><br>
+        <label>Option A:</label><br>
+        <input type="text" name="option_{{ question.index }}_a" value="{{ question.options[0].text }}" required><br>
+        <label>Option B:</label><br>
+        <input type="text" name="option_{{ question.index }}_b" value="{{ question.options[1].text }}" required><br>
+        <label>Option C:</label><br>
+        <input type="text" name="option_{{ question.index }}_c" value="{{ question.options[2].text }}" required><br>
+        <label>Correct Answer:</label><br>
+        <select name="correct_{{ question.index }}" required>
+            <option value="a" {% if question.correct == 'a' %}selected{% endif %}>A</option>
+            <option value="b" {% if question.correct == 'b' %}selected{% endif %}>B</option>
+            <option value="c" {% if question.correct == 'c' %}selected{% endif %}>C</option>
+        </select><br><br>
+    {% endfor %}
+    <button type="submit">Save Changes</button>
+</form>
+<a href="{{ url_for('quiz') }}"><button>Back to Quiz</button></a>
+{% endblock %}

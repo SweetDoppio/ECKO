@@ -8,6 +8,16 @@ from urllib.parse import urlsplit
 from bokeh.plotting import figure
 from bokeh.embed import components
 from random import randint
+import json
+import os
+
+# Define the static folder path explicitly
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_FOLDER = os.path.join(BASE_DIR, 'static')
+app.static_folder = STATIC_FOLDER
+
+# Path to quiz.json
+QUIZ_JSON_PATH = os.path.join(app.static_folder, 'quiz.json')
 
 @app.route('/index')
 @login_required
@@ -51,6 +61,40 @@ def logout():
 @app.route('/quiz')
 def quiz():
         return render_template('quiz.html')
+
+@app.route('/edit_quiz', methods=['GET', 'POST'])
+def edit_quiz():
+    if request.method == 'POST':
+        try:
+            # Get form data
+            questions = []
+            for i in range(len(request.form) // 8):  # Assuming 3 options per question
+                question = {
+                    'index': i,
+                    'question': request.form.get(f'question_{i}'),
+                    'options': [
+                        {'value': 'a', 'text': request.form.get(f'option_{i}_a')},
+                        {'value': 'b', 'text': request.form.get(f'option_{i}_b')},
+                        {'value': 'c', 'text': request.form.get(f'option_{i}_c')}
+                    ],
+                    'correct': request.form.get(f'correct_{i}')
+                }
+                questions.append(question)
+            
+            # Save to quiz.json
+            with open(QUIZ_JSON_PATH, 'w') as f:
+                json.dump({'questions': questions}, f, indent=2)
+            return redirect(url_for('quiz'))
+        except Exception as e:
+            return render_template('edit_quiz.html', error=str(e))
+    
+    # Load existing quiz data for editing
+    try:
+        with open(QUIZ_JSON_PATH) as f:
+            quiz_data = json.load(f)
+        return render_template('edit_quiz.html', questions=quiz_data['questions'])
+    except FileNotFoundError:
+        return render_template('edit_quiz.html', questions=[], error="quiz.json not found")
 
 @app.route('/about')
 def about():
