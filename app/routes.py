@@ -27,14 +27,6 @@ def home_page():
 
 #below functions are for visual indicators that the scanning is being run
 
-def run_scan(scanner):
-    results = scanner.xssScanner()
-    session['scan_results'] = results
-    session['scan_complete'] = True
-
-@app.route('/check_scan')
-def check_scan():
-    return jsonify({'complete': session.get('scan_complete', False), 'results': session.get('scan_results')})
 
 
 @app.route('/quiz')
@@ -138,7 +130,17 @@ def vul_scanner_test_page():
     return render_template('vul_scanner_test_page.html', results=None)
 
 
+def run_scan(scanner):
+    results = scanner.xssScanner()
+    session['scan_results'] = results
+    session['scan_complete'] = True
+
+@app.route('/check_scan')
+def check_scan():
+    return jsonify({'complete': session.get('scan_complete', False), 'results': session.get('scan_results')})
 @app.route('/scan_sqli', methods=['POST'])
+
+
 def scan_sqli():
     url = request.form.get('url')
     scanner = Scanner(url)
