@@ -3,13 +3,11 @@
     {% block content %}
     <h1 class="sign-in-h1-text">Sign in </h1>
     <form id="form-container" action="" method="POST" novalidate >
-        <!-- The action attribute tells the browser the URL that should be used when submitting the 
-            information the user entered in the form.-->
-            <!-- novalidate is only really useful for test serverside validation-->
+     
             <div id="form-container-wrapper">
                 <div class="user-login-text-label-container" >
                     <p class="login-text-label-tag"> {{ form.hidden_tag() }} </p>
-                    <!-- generates a field that includes a token used for protection against CSRF attacks--> 
+           
                  </div>
                  <div class="user-login-text-box-container">
                     {{ form.username(size=20,placeholder='Username') }}
@@ -41,8 +39,7 @@
 
         <p>
             {{ form.remember_me()}} {{form.remember_me.label}}
-            <!-- takes the variable remember_me from the class LoginForm. <field_name>()
-                will be placed where you want the field-->
+           
         </p>
         <p id="login-submit-button">{{ form.submit }}</p>
     </form>

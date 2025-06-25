@@ -1,0 +1,289 @@
+{
+  "questions": [
+    {
+      "index": 0,
+      "question": "What is the primary goal of a firewall",
+      "options": [
+        {
+          "value": "a",
+          "text": "To increase internet speed"
+        },
+        {
+          "value": "b",
+          "text": "To store data securely"
+        },
+        {
+          "value": "c",
+          "text": "To monitor and control network traffic"
+        }
+      ],
+      "correct": "c"
+    },
+    {
+      "index": 1,
+      "question": "Which of these is a common type of malware?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Spreadsheet"
+        },
+        {
+          "value": "b",
+          "text": "Ransomware"
+        },
+        {
+          "value": "c",
+          "text": "Web browser"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 2,
+      "question": "What does phishing aim to steal?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Physical hardware"
+        },
+        {
+          "value": "b",
+          "text": "Personal information"
+        },
+        {
+          "value": "c",
+          "text": "Network cables"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 3,
+      "question": "Which protocol is used to secure websites?",
+      "options": [
+        {
+          "value": "a",
+          "text": "HTTP"
+        },
+        {
+          "value": "b",
+          "text": "HTTPS"
+        },
+        {
+          "value": "c",
+          "text": "FTP"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 4,
+      "question": "What is a key feature of two-factor authentication (2FA)?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Single password"
+        },
+        {
+          "value": "b",
+          "text": "Two different authentication methods"
+        },
+        {
+          "value": "c",
+          "text": "No password required"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 5,
+      "question": "Which of these is a common password attack?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Brute force"
+        },
+        {
+          "value": "b",
+          "text": "Data backup"
+        },
+        {
+          "value": "c",
+          "text": "File compression"
+        }
+      ],
+      "correct": "a"
+    },
+    {
+      "index": 6,
+      "question": "What does VPN stand for?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Virtual Private Network"
+        },
+        {
+          "value": "b",
+          "text": "Very Public Network"
+        },
+        {
+          "value": "c",
+          "text": "Virtual Phone Network"
+        }
+      ],
+      "correct": "a"
+    },
+    {
+      "index": 7,
+      "question": "Which of these is a physical security measure?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Encryption"
+        },
+        {
+          "value": "b",
+          "text": "Locked doors"
+        },
+        {
+          "value": "c",
+          "text": "Antivirus software"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 8,
+      "question": "What is the purpose of a DDoS attack?",
+      "options": [
+        {
+          "value": "a",
+          "text": "To encrypt data"
+        },
+        {
+          "value": "b",
+          "text": "To overwhelm a server with traffic"
+        },
+        {
+          "value": "c",
+          "text": "To improve website speed"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 9,
+      "question": "Which of these is a secure file transfer protocol?",
+      "options": [
+        {
+          "value": "a",
+          "text": "SFTP"
+        },
+        {
+          "value": "b",
+          "text": "SMTP"
+        },
+        {
+          "value": "c",
+          "text": "HTTP"
+        }
+      ],
+      "correct": "a"
+    },
+    {
+      "index": 10,
+      "question": "What does a zero-day exploit target?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Known vulnerabilities"
+        },
+        {
+          "value": "b",
+          "text": "Unknown vulnerabilities"
+        },
+        {
+          "value": "c",
+          "text": "Hardware failures"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 11,
+      "question": "Which of these is a type of encryption?",
+      "options": [
+        {
+          "value": "a",
+          "text": "AES"
+        },
+        {
+          "value": "b",
+          "text": "JPG"
+        },
+        {
+          "value": "c",
+          "text": "MP3"
+        }
+      ],
+      "correct": "a"
+    },
+    {
+      "index": 12,
+      "question": "What is social engineering?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Building secure networks"
+        },
+        {
+          "value": "b",
+          "text": "Manipulating people to gain information"
+        },
+        {
+          "value": "c",
+          "text": "Installing antivirus software"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 13,
+      "question": "Which port is commonly used for HTTPS?",
+      "options": [
+        {
+          "value": "a",
+          "text": "80"
+        },
+        {
+          "value": "b",
+          "text": "443"
+        },
+        {
+          "value": "c",
+          "text": "21"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 14,
+      "question": "What is the purpose of a security patch?",
+      "options": [
+        {
+          "value": "a",
+          "text": "To add new features"
+        },
+        {
+          "value": "b",
+          "text": "To fix vulnerabilities"
+        },
+        {
+          "value": "c",
+          "text": "To increase processing speed"
+        }
+      ],
+      "correct": "b"
+    }
+  ]
+}

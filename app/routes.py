@@ -10,7 +10,20 @@ from bokeh.plotting import figure
 from bokeh.embed import components
 import threading
 from random import randint
+<<<<<<< connorBranch
+import json
+import os
+
+# Define the static folder path explicitly
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_FOLDER = os.path.join(BASE_DIR, 'static')
+app.static_folder = STATIC_FOLDER
+
+# Path to quiz.json
+QUIZ_JSON_PATH = os.path.join(app.static_folder, 'quiz.json')
+=======
 from sqlalchemy.exc import IntegrityError
+>>>>>>> main
 
 @app.route('/index')
 @login_required
@@ -44,6 +57,56 @@ def tut_link():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/quiz')
+def quiz():
+        return render_template('quiz.html')
+
+@app.route('/edit_quiz', methods=['GET', 'POST'])
+def edit_quiz():
+    try:
+        with open(QUIZ_JSON_PATH) as f:
+            quiz_data = json.load(f)
+    except FileNotFoundError:
+        quiz_data = {'questions': []}
+
+    if request.method == 'POST':
+        try:
+            action = request.form.get('action')
+            if action == 'edit':
+                index = int(request.form.get('question_index'))
+                if 0 <= index < len(quiz_data['questions']):
+                    quiz_data['questions'][index] = {
+                        'index': index,
+                        'question': request.form.get('question'),
+                        'options': [
+                            {'value': 'a', 'text': request.form.get('option_a')},
+                            {'value': 'b', 'text': request.form.get('option_b')},
+                            {'value': 'c', 'text': request.form.get('option_c')}
+                        ],
+                        'correct': request.form.get('correct')
+                    }
+            elif action == 'add':
+                new_index = len(quiz_data['questions'])
+                new_question = {
+                    'index': new_index,
+                    'question': request.form.get('question'),
+                    'options': [
+                        {'value': 'a', 'text': request.form.get('option_a')},
+                        {'value': 'b', 'text': request.form.get('option_b')},
+                        {'value': 'c', 'text': request.form.get('option_c')}
+                    ],
+                    'correct': request.form.get('correct')
+                }
+                quiz_data['questions'].append(new_question)
+
+            with open(QUIZ_JSON_PATH, 'w') as f:
+                json.dump(quiz_data, f, indent=2)
+            return redirect(url_for('edit_quiz'))
+        except Exception as e:
+            return render_template('edit_quiz.html', questions=quiz_data['questions'], error=f"Error saving quiz: {str(e)}")
+
+    return render_template('edit_quiz.html', questions=quiz_data['questions'])
 
 @app.route('/about')
 def about():

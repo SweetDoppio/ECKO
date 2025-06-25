@@ -3,6 +3,135 @@
 {% block title %}Cybersecurity Quiz{% endblock %}
 
 {% block content %}
+
+
+<h1>Cybersecurity Quiz</h1>
+<a href="{{ url_for('edit_quiz') }}"><button class="edit-quiz-button">Edit Quiz</button></a>
+<div id="quiz-container"></div>
+
+<div class="nav-buttons">
+    <button id="next-btn">Next</button>
+    <button id="finish-btn" style="display: none;">Finish Quiz</button>
+</div>
+
+<div id="popup" class="popup">
+    <button class="close-btn" onclick="closePopup()">Close</button>
+    <div class="popup-content" id="popup-content"></div>
+    <button id="retry-btn" style="display: inline-block; margin-top: 10px;" onclick="retryQuiz()">Retry Quiz</button>
+</div>
+
+<script>
+    let currentQuestion = 0;
+    let totalQuestions = 0;
+    let questionsData = [];
+    let correctAnswers = {};
+
+    fetch('/static/quiz.json')
+        .then(response => response.json())
+        .then(data => {
+            questionsData = data.questions;
+            totalQuestions = questionsData.length;
+            questionsData.forEach(q => {
+                correctAnswers[`q${q.index}`] = q.correct;
+            });
+            renderQuestions();
+            showQuestion(currentQuestion);
+        })
+        .catch(error => console.error('Error loading quiz:', error));
+
+    function renderQuestions() {
+        const container = document.getElementById('quiz-container');
+        questionsData.forEach(q => {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question-container');
+            questionDiv.dataset.index = q.index;
+            questionDiv.dataset.correct = q.correct;
+            questionDiv.innerHTML = `
+                <h2>${q.index + 1}. ${q.question}</h2>
+                ${q.options.map(opt => `
+                    <input type="radio" name="q${q.index}" value="${opt.value}">
+                    <label>${opt.value}) ${opt.text}</label><br>
+                `).join('')}
+                <p class="feedback" id="feedback-q${q.index}"></p>
+            `;
+            container.appendChild(questionDiv);
+        });
+
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const question = this.closest('.question-container');
+                const correct = question.dataset.correct;
+                const feedback = question.querySelector('.feedback');
+                const selectedValue = this.value;
+
+                if (selectedValue === correct) {
+                    feedback.textContent = 'Correct!';
+                    feedback.classList.remove('incorrect-answer');
+                    feedback.classList.add('correct-answer');
+                } else {
+                    feedback.textContent = `Wrong! Correct answer is ${correct}.`;
+                    feedback.classList.remove('correct-answer');
+                    feedback.classList.add('incorrect-answer');
+                    question.classList.add('locked');
+                }
+            });
+        });
+    }
+
+    function showQuestion(index) {
+        document.querySelectorAll('.question-container').forEach(q => q.classList.remove('active'));
+        const question = document.querySelector(`.question-container[data-index="${index}"]`);
+        question.classList.add('active');
+        if (index === totalQuestions - 1) {
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('finish-btn').style.display = 'inline-block';
+        } else {
+            document.getElementById('next-btn').style.display = 'inline-block';
+            document.getElementById('finish-btn').style.display = 'none';
+        }
+        question.querySelector('input[type="radio"]').focus();
+    }
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+        if (currentQuestion < totalQuestions - 1) {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+        }
+    });
+
+    document.getElementById('finish-btn').addEventListener('click', () => {
+        let correctCount = 0;
+        document.querySelectorAll('.question-container').forEach(q => {
+            const selected = q.querySelector('input[type="radio"]:checked');
+            if (selected && selected.value === q.dataset.correct) {
+                correctCount++;
+            }
+        });
+        document.getElementById('popup-content').innerHTML = `<p>Your Score: ${correctCount}/${totalQuestions}</p>`;
+        document.getElementById('popup').style.display = 'block';
+        document.querySelector('.close-btn').focus();
+    });
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('next-btn').focus();
+    }
+
+    function retryQuiz() {
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.checked = false;
+        });
+        document.querySelectorAll('.question-container').forEach(q => {
+            q.classList.remove('locked', 'active');
+            q.querySelector('.feedback').textContent = '';
+            q.querySelector('.feedback').classList.remove('correct-answer', 'incorrect-answer');
+        });
+        currentQuestion = 0;
+        showQuestion(currentQuestion);
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('next-btn').focus();
+    }
+=======
 <style>
   h1, h2, p, label {
     text-align: left;
@@ -335,5 +464,6 @@
   window.onload = function() {
     showQuestion(currentQuestion);
   };
+
 </script>
 {% endblock %}
