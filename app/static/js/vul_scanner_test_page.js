@@ -1,12 +1,29 @@
 // Wait until DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById('sqli-form');
+  const scanButton = document.querySelector('.scanner-button');
+  const urlBar = document.querySelector('form input[type="url"]')
+
+  urlBar.addEventListener('mouseover', ()=> {
+    urlBar.classList.add('mouseover');
+  })
+  urlBar.addEventListener("mouseout", ()=>{
+        urlBar.classList.remove('mouseover');
+  });
+
+  scanButton.addEventListener('mouseover', ()=> {
+    scanButton.classList.add('radar-pulse');
+  })
+  scanButton.addEventListener("mouseout", ()=>{
+        scanButton.classList.remove('radar-pulse');
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
+
     const spinner = document.getElementById('loading-spinner');
-    const status = document.getElementById('status');
+
     let resultsContainer = document.getElementById('result_display');
 
     if (!resultsContainer) {
@@ -15,10 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('scan-container').appendChild(resultsContainer);
     }
 
-
     // Show loading spinner
-    spinner.style.display = 'flex';
-    status.textContent = 'Starting vulnerability scan...';
+    scanButton.textContent = 'Hang on a sec...'
+    // spinner.style.display = 'flex';
     resultsContainer.innerHTML = '';
     resultsContainer.style.display = 'block';
 
@@ -41,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
 
           <div class="vul-results-left">
-            <h3>🧬 SQL Injection</h3>
+            <h3> SQL Injection</h3>
             <p>Parameters Tested: ${res.sqli_results.param_count}</p>
         `;
 
@@ -83,15 +99,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         resultsContainer.innerHTML = html;
                 resultsContainer.style.display = 'block'; // Show results container
-        status.textContent = 'Scan completed!';
+
       })
       .catch(err => {
         resultsContainer.innerHTML = `<div class="error">❌ Scan failed: ${err.message}</div>`;
                 resultsContainer.style.display = 'block';
-        status.textContent = 'Scan failed!';
       })
       .finally(() => {
-        spinner.style.display = 'none';
+        // spinner.style.display = 'none';
       });
   });
 });

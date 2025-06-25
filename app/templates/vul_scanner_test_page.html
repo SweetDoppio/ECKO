@@ -11,17 +11,26 @@
 
   <div class="scanner_page_main_container">
     <!-- Scan Form -->
-    <form method="POST" id="sqli-form">
-      <label for="url-input">Enter URL to scan:</label>
-      <input type="url" name="url" placeholder="https://example.com/index.php?id=1" required>
-      <button type="submit">Scan for Vulnerabilities</button>
-    </form>
+     <div class="form-wrapper">
+        <form method="POST" id="sqli-form">
+        <label for="url-input">Enter URL to start scanning:</label>
+        <input type="url" name="url" placeholder="Enter any web address here!" required>
+        <button type="submit" class="scanner-button"><a>Scan for Vulnerabilities!</a></button>
+      </form>
+     </div>
 
-    <!-- Spinner -->
+
+    <!-- Loading animation -->
     <div id="scan-container">
-      <div id="loading-spinner" style="display: none;">
-        <img src="{{ url_for('static', filename='images/gif/cat.gif') }}" alt="Scanning...">
-        <p style="color: aliceblue;">Scanning: <span id="status">Initializing...</span></p>
+      <div id="loading-spinner" style="">
+        <div class="loading-animation-wrapper">
+          <div class="radar-layer3">
+            <div class="radar-layer2">
+              <div class="radar-layer1">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Scan Results -->

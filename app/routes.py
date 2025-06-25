@@ -10,7 +10,6 @@ from bokeh.plotting import figure
 from bokeh.embed import components
 import threading
 from random import randint
-import time
 from sqlalchemy.exc import IntegrityError
 
 @app.route('/index')
@@ -24,34 +23,17 @@ def index():
 def home_page():
     return render_template('home_page.html')
 
-@app.route('/test_graph_dashboard')
-def test_graph_dashboard():
-    bokeh_figure = figure(title='test scatter plot',x_axis_label='I hate my x',y_axis_label='Y am I doing this',height=400, sizing_mode='stretch_width')
-    x_values=list(range(10))
-    y_values=[randint(1,50) for _ in range(10)]
-    bokeh_figure.circle(x_values, y_values, size=15, color='red', alpha=0.5)
-    script, div = components(bokeh_figure)
-
-    print("Generated Script:", script[:200])  # Print first 200 characters
-    print("Generated Div:", div[:200])        # Print first 200 characters
-    return render_template('test_graph_dashboard.html', script=script, div=div)
 
 
 #below functions are for visual indicators that the scanning is being run
 
 
 
-def run_scan(scanner):
-    results = scanner.xssScanner()
-    session['scan_results'] = results
-    session['scan_complete'] = True
-
-@app.route('/check_scan')
-def check_scan():
-    return jsonify({'complete': session.get('scan_complete', False), 'results': session.get('scan_results')})
-
-
-
+@app.route('/quiz')
+def quiz():
+        return render_template('quiz.html')
+    
+    
 @app.route('/help_page')
 def help_page():
     return render_template('help_page.html')
@@ -148,7 +130,17 @@ def vul_scanner_test_page():
     return render_template('vul_scanner_test_page.html', results=None)
 
 
+def run_scan(scanner):
+    results = scanner.xssScanner()
+    session['scan_results'] = results
+    session['scan_complete'] = True
+
+@app.route('/check_scan')
+def check_scan():
+    return jsonify({'complete': session.get('scan_complete', False), 'results': session.get('scan_results')})
 @app.route('/scan_sqli', methods=['POST'])
+
+
 def scan_sqli():
     url = request.form.get('url')
     scanner = Scanner(url)
