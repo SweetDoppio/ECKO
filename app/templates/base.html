@@ -9,15 +9,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/help_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reg_form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/test_graph_dashboard.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
 
 
     {% if title %}
-        <title> {{title}} --Miniblog</title>
+        <title> {{title}}</title>
     {% else %}
-        <title> Guest's --Miniblog</title>
+        <title> Guest</title>
     {% endif %}
 </head>
 
@@ -31,11 +32,7 @@
                     <img src="{{ url_for('static', filename='images/ecko_logo.png') }}" alt="main_ecko_logo">
                 </div>
                 <div class="nav_main_text_group">
-
-                    <li><a class="header-list-text features-header" href="{{ url_for('test_graph_dashboard') }}">Features</a></li>
                     <li><a class="header-list-text" href="{{ url_for('about') }}">About us</a></li>
-                    <li><a class="header-list-text" href="">Blog</a></li>
-                    <li><a class="header-list-text" href="{{ url_for('index') }}">Support</a></li>
                     <li><a class="header-list-text" href="{{ url_for('home_page') }}">Home Page</a></li>
                     <li><a class="header-list-text" href="{{ url_for('index') }}">Ekho Forums</a></li>
                     <li><a class="header-list-text" href="{{ url_for('help_page') }}#top">Tutorials</a></li>
@@ -72,9 +69,9 @@
         {% block content %}{% endblock %} 
      </main>  
      
-     <hr id="main-page-footer-divider-tag">
+     <hr style="margin-top: 10em;" id="main-page-footer-divider-tag">
 
-    <footer >
+    <footer  >
         <div class="footer-main">
             <div class="footer-main-upper-information">
                 <div id="ecko-logo-footer" style="padding-top: 1em;">
@@ -85,7 +82,7 @@
                     <p>Features</p>
                     <p>Pricing Plans</p>
                 </div>
-                <div class="resource-footer-grid-serction footer-info">
+                <div class="resource-footer-grid-section footer-info">
                     <p class="footer-info-title">Resource</p>
                     <a class="header-list-text" href="{{ url_for('help_page') }}">Contact</a>
                     <p>User Guide</p>

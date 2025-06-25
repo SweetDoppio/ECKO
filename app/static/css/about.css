@@ -2,8 +2,15 @@
     --main-font-color: #F3F4F6FF;
     --main-font-style: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --test-outline-setting: 1px red solid;
+    --main-background-color: #000000FF;
+    --colour-green-main: #80c684ff;
+
+
 }
 
+svg{
+    color: var(--colour-green-main);
+}
 #about-us-main-container{
     width: 90%;
     display: flex;
@@ -33,9 +40,29 @@
     max-width: 60%;
 }
 
+#about-us-main-picture-man-mac{
+    position: relative;   
+}
+
+.about-us-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top:-100%;
+    left: 50%;
+    transform: translate(-50%, -100%); /* Adjust to true center */
+}
+
+.about-us-header > h1{
+    font-size: 5rem;
+}
+
 #about-us-main-picture-man-mac > source+img{
-    width: 800px;
-    height: auto;
+    width: 120vw;
+    height: 20em;
+    opacity: 0.6;
 }
 
 .vision-mission-icon{

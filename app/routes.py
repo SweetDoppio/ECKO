@@ -1,13 +1,16 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db, app
 from app.forms import LoginForm, RegisterForm
 from app.models import User, Post
+from app.scanner import Scanner
 import sqlalchemy as sa
 from urllib.parse import urlsplit
 from bokeh.plotting import figure
 from bokeh.embed import components
+import threading
 from random import randint
+<<<<<<< connorBranch
 import json
 import os
 
@@ -18,6 +21,9 @@ app.static_folder = STATIC_FOLDER
 
 # Path to quiz.json
 QUIZ_JSON_PATH = os.path.join(app.static_folder, 'quiz.json')
+=======
+from sqlalchemy.exc import IntegrityError
+>>>>>>> main
 
 @app.route('/index')
 @login_required
@@ -28,23 +34,17 @@ def index():
 @app.route('/')
 @app.route('/home_page')
 def home_page():
-    return render_template('home_page.html')
-
-@app.route('/test_graph_dashboard')
-def test_graph_dashboard():
-    bokeh_figure = figure(title='test scatter plot',x_axis_label='I hate my x',y_axis_label='Y am I doing this',height=400, sizing_mode='stretch_width')
-    x_values=list(range(10))
-    y_values=[randint(1,50) for _ in range(10)]
-    bokeh_figure.circle(x_values, y_values, size=15, color='red', alpha=0.5)
-    script, div = components(bokeh_figure)
-
-    print("Generated Script:", script[:200])  # Print first 200 characters
-    print("Generated Div:", div[:200])        # Print first 200 characters
-    return render_template('test_graph_dashboard.html', script=script, div=div)
+    return render_template('home_page.html', title='EHKO home')
 
 
 
+#below functions are for visual indicators that the scanning is being run
 
+@app.route('/quiz')
+def quiz():
+        return render_template('quiz.html')
+    
+    
 @app.route('/help_page')
 def help_page():
     return render_template('help_page.html')
@@ -121,11 +121,30 @@ def dashboard():
     return render_template('dashboard.html')
 
 
-@app.route('/register')
+@app.route('/register',  methods=['GET', 'POST'])
 def register():
     reg_form = RegisterForm()
-    return render_template('register.html')
 
+    if current_user.is_authenticated:
+        redirect(url_for('index'))
+
+    if reg_form.validate_on_submit():
+        try:
+            new_reg_user = User(username = reg_form.username.data, email = reg_form.email.data)
+            new_reg_user.set_password(reg_form.password.data)
+            db.session.add(new_reg_user)
+            db.session.commit()
+            flash('Registration Successful')
+            return redirect(url_for('login'))
+        except IntegrityError:
+            # Placeholder expection error, so the thing does not crap itself
+            db.session.rollback()
+            flash('user already exists')
+
+    return render_template('register.html', form=reg_form)
+
+
+    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -140,9 +159,59 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or urlsplit(next_page).netloc != '':
+            #forgot what this exactly does...I think it sends you to the page you wanted to view if you weren't
+            #logged in,  
             next_page = url_for('index')
         return redirect(next_page)
     else:
         print("Form validation failed:", form.errors)
     return render_template('login.html', title='login page', form=form)
 
+@app.route('/vul_scanner_test_page', methods=['GET', 'POST'])
+def vul_scanner_test_page():
+    if request.method == 'POST':
+        url = request.form.get('url')
+        scanner = Scanner(url)
+
+        if not url:
+            flash('Enter URL first!')
+            return render_template('vul_scanner_test_page.html')
+
+        if not scanner.validateUrl():
+            flash('Invalid URL format!')
+            return render_template('vul_scanner_test_page.html')
+
+        try:
+            scan_results = scanner.scanBoth()
+            return render_template('vul_scanner_test_page.html', results=scan_results)
+        except Exception as e:
+            flash(f'Error scanning URL: {str(e)}')
+            return render_template('vul_scanner_test_page.html')
+
+    return render_template('vul_scanner_test_page.html', results=None)
+
+
+def run_scan(scanner):
+    results = scanner.xssScanner()
+    session['scan_results'] = results
+    session['scan_complete'] = True
+
+@app.route('/check_scan')
+def check_scan():
+    return jsonify({'complete': session.get('scan_complete', False), 'results': session.get('scan_results')})
+@app.route('/scan_sqli', methods=['POST'])
+
+
+def scan_sqli():
+    url = request.form.get('url')
+    scanner = Scanner(url)
+
+    if not url or not scanner.validateUrl():
+        return jsonify({'error': 'Invalid or empty URL'})
+
+    try:
+        # 🔄 Scan both SQLi and XSS
+        scan_results = scanner.scanBoth()
+        return jsonify({'results': scan_results})
+    except Exception as e:
+        return jsonify({'error': str(e)})

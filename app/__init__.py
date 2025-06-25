@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 
+
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
@@ -21,4 +22,4 @@ login.login_view = 'login'
 from app import routes, models
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

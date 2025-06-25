@@ -1,0 +1,57 @@
+:root{
+    --outline-basic-setting: 1px red solid;
+    --text-color-main:beige;
+}
+
+
+#reg-form-container{
+    height: 400px;
+    width: 17em;
+    outline: 1px solid rgb(214, 214, 214);
+    border-radius: 2em;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+#form-container-wrapper-register{
+    width: 80%;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    outline: var(--outline-basic-setting);
+}
+
+.user-reg-text-box-container{
+    display: flex ;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+
+.user-reg-text-box-container input{
+/*If I want to target a specific input box, use input[type='input-type'*/
+    border: none;
+    border-radius: 0.5em;
+    height: 2em;
+    width: 80%;
+    transition: transform 0.5s ease-in-out ;
+}
+
+#reg-submit-button input[type='submit']{
+    border-radius: 1.5em;
+    border-style: none;
+    transition: transform 0.5s ease-in-out;
+    height: 3em;
+    width: 10em;
+}
+
+#reg-submit-button input[type='submit']:hover{
+    cursor: pointer;
+    transform: scale(1.08);
+}
