@@ -3,29 +3,74 @@
 {% block title %}Edit Quiz{% endblock %}
 
 {% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='edit_quiz.css') }}">
+
 <h1>Edit Quiz</h1>
-{% if error %}
-    <p style="color: red;">{{ error }}</p>
-{% endif %}
-<form method="POST">
-    {% for question in questions %}
-        <h3>Question {{ question.index + 1 }}</h3>
-        <label>Question:</label><br>
-        <input type="text" name="question_{{ question.index }}" value="{{ question.question }}" required><br>
-        <label>Option A:</label><br>
-        <input type="text" name="option_{{ question.index }}_a" value="{{ question.options[0].text }}" required><br>
-        <label>Option B:</label><br>
-        <input type="text" name="option_{{ question.index }}_b" value="{{ question.options[1].text }}" required><br>
-        <label>Option C:</label><br>
-        <input type="text" name="option_{{ question.index }}_c" value="{{ question.options[2].text }}" required><br>
-        <label>Correct Answer:</label><br>
-        <select name="correct_{{ question.index }}" required>
-            <option value="a" {% if question.correct == 'a' %}selected{% endif %}>A</option>
-            <option value="b" {% if question.correct == 'b' %}selected{% endif %}>B</option>
-            <option value="c" {% if question.correct == 'c' %}selected{% endif %}>C</option>
+<div class="edit-quiz-form">
+    {% if error %}
+        <p>{{ error }}</p> 
+    {% endif %}
+    <form method="POST" id="quizForm">
+        <input type="hidden" name="action" id="action">
+        <label for="question_index">Select Question to Edit:</label>
+        <select name="question_index" id="question_index" onchange="loadQuestion()">
+            <option value="-1">Add New Question</option>
+            {% for question in questions %}
+                <option value="{{ question.index }}">{{ question.index + 1 }}: {{ question.question }}</option>
+            {% endfor %}
         </select><br><br>
-    {% endfor %}
-    <button type="submit">Save Changes</button>
-</form>
+
+        <label>Question:</label><br>
+        <input type="text" name="question" id="question" required><br>
+
+        <label>Option A:</label><br>
+        <input type="text" name="option_a" id="option_a" required><br>
+
+        <label>Option B:</label><br>
+        <input type="text" name="option_b" id="option_b" required><br>
+
+        <label>Option C:</label><br>
+        <input type="text" name="option_c" id="option_c" required><br>
+
+        <label>Correct Answer:</label><br>
+        <select name="correct" id="correct" required>
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+        </select><br><br>
+
+        <button type="submit" onclick="document.getElementById('action').value='edit'">Save Changes</button>
+        <button type="submit" onclick="document.getElementById('action').value='add'">Add New Question</button>
+    </form>
+</div>
 <a href="{{ url_for('quiz') }}"><button>Back to Quiz</button></a>
+
+<script>
+    function loadQuestion() {
+        const index = document.getElementById('question_index').value;
+        const form = document.getElementById('quizForm');
+
+        if (index === '-1') {
+            form.querySelector('#question').value = '';
+            form.querySelector('#option_a').value = '';
+            form.querySelector('#option_b').value = '';
+            form.querySelector('#option_c').value = '';
+            form.querySelector('#correct').value = 'a';
+        } else {
+            const question = questions.find(q => q.index == index);
+            if (question) {
+                form.querySelector('#question').value = question.question;
+                form.querySelector('#option_a').value = question.options[0].text;
+                form.querySelector('#option_b').value = question.options[1].text;
+                form.querySelector('#option_c').value = question.options[2].text;
+                form.querySelector('#correct').value = question.correct;
+            }
+        }
+    }
+
+    window.onload = function() {
+        loadQuestion();
+    };
+</script>
 {% endblock %}

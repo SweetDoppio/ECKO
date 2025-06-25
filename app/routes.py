@@ -64,37 +64,49 @@ def quiz():
 
 @app.route('/edit_quiz', methods=['GET', 'POST'])
 def edit_quiz():
-    if request.method == 'POST':
-        try:
-            # Get form data
-            questions = []
-            for i in range(len(request.form) // 8):  # Assuming 3 options per question
-                question = {
-                    'index': i,
-                    'question': request.form.get(f'question_{i}'),
-                    'options': [
-                        {'value': 'a', 'text': request.form.get(f'option_{i}_a')},
-                        {'value': 'b', 'text': request.form.get(f'option_{i}_b')},
-                        {'value': 'c', 'text': request.form.get(f'option_{i}_c')}
-                    ],
-                    'correct': request.form.get(f'correct_{i}')
-                }
-                questions.append(question)
-            
-            # Save to quiz.json
-            with open(QUIZ_JSON_PATH, 'w') as f:
-                json.dump({'questions': questions}, f, indent=2)
-            return redirect(url_for('quiz'))
-        except Exception as e:
-            return render_template('edit_quiz.html', error=str(e))
-    
-    # Load existing quiz data for editing
     try:
         with open(QUIZ_JSON_PATH) as f:
             quiz_data = json.load(f)
-        return render_template('edit_quiz.html', questions=quiz_data['questions'])
     except FileNotFoundError:
-        return render_template('edit_quiz.html', questions=[], error="quiz.json not found")
+        quiz_data = {'questions': []}
+
+    if request.method == 'POST':
+        try:
+            action = request.form.get('action')
+            if action == 'edit':
+                index = int(request.form.get('question_index'))
+                if 0 <= index < len(quiz_data['questions']):
+                    quiz_data['questions'][index] = {
+                        'index': index,
+                        'question': request.form.get('question'),
+                        'options': [
+                            {'value': 'a', 'text': request.form.get('option_a')},
+                            {'value': 'b', 'text': request.form.get('option_b')},
+                            {'value': 'c', 'text': request.form.get('option_c')}
+                        ],
+                        'correct': request.form.get('correct')
+                    }
+            elif action == 'add':
+                new_index = len(quiz_data['questions'])
+                new_question = {
+                    'index': new_index,
+                    'question': request.form.get('question'),
+                    'options': [
+                        {'value': 'a', 'text': request.form.get('option_a')},
+                        {'value': 'b', 'text': request.form.get('option_b')},
+                        {'value': 'c', 'text': request.form.get('option_c')}
+                    ],
+                    'correct': request.form.get('correct')
+                }
+                quiz_data['questions'].append(new_question)
+
+            with open(QUIZ_JSON_PATH, 'w') as f:
+                json.dump(quiz_data, f, indent=2)
+            return redirect(url_for('edit_quiz'))
+        except Exception as e:
+            return render_template('edit_quiz.html', questions=quiz_data['questions'], error=f"Error saving quiz: {str(e)}")
+
+    return render_template('edit_quiz.html', questions=quiz_data['questions'])
 
 @app.route('/about')
 def about():

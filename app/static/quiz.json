@@ -2,7 +2,7 @@
   "questions": [
     {
       "index": 0,
-      "question": "What is the primary goal of a firewall?",
+      "question": "What is the primary goal of a firewall",
       "options": [
         {
           "value": "a",
@@ -10,11 +10,11 @@
         },
         {
           "value": "b",
-          "text": "To monitor and control network traffic"
+          "text": "To store data securely"
         },
         {
           "value": "c",
-          "text": "To store data securely"
+          "text": "To monitor and control network traffic"
         }
       ],
       "correct": "c"
@@ -167,6 +167,120 @@
         {
           "value": "c",
           "text": "To improve website speed"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 9,
+      "question": "Which of these is a secure file transfer protocol?",
+      "options": [
+        {
+          "value": "a",
+          "text": "SFTP"
+        },
+        {
+          "value": "b",
+          "text": "SMTP"
+        },
+        {
+          "value": "c",
+          "text": "HTTP"
+        }
+      ],
+      "correct": "a"
+    },
+    {
+      "index": 10,
+      "question": "What does a zero-day exploit target?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Known vulnerabilities"
+        },
+        {
+          "value": "b",
+          "text": "Unknown vulnerabilities"
+        },
+        {
+          "value": "c",
+          "text": "Hardware failures"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 11,
+      "question": "Which of these is a type of encryption?",
+      "options": [
+        {
+          "value": "a",
+          "text": "AES"
+        },
+        {
+          "value": "b",
+          "text": "JPG"
+        },
+        {
+          "value": "c",
+          "text": "MP3"
+        }
+      ],
+      "correct": "a"
+    },
+    {
+      "index": 12,
+      "question": "What is social engineering?",
+      "options": [
+        {
+          "value": "a",
+          "text": "Building secure networks"
+        },
+        {
+          "value": "b",
+          "text": "Manipulating people to gain information"
+        },
+        {
+          "value": "c",
+          "text": "Installing antivirus software"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 13,
+      "question": "Which port is commonly used for HTTPS?",
+      "options": [
+        {
+          "value": "a",
+          "text": "80"
+        },
+        {
+          "value": "b",
+          "text": "443"
+        },
+        {
+          "value": "c",
+          "text": "21"
+        }
+      ],
+      "correct": "b"
+    },
+    {
+      "index": 14,
+      "question": "What is the purpose of a security patch?",
+      "options": [
+        {
+          "value": "a",
+          "text": "To add new features"
+        },
+        {
+          "value": "b",
+          "text": "To fix vulnerabilities"
+        },
+        {
+          "value": "c",
+          "text": "To increase processing speed"
         }
       ],
       "correct": "b"
