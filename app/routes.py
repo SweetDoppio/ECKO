@@ -6,11 +6,7 @@ from app.models import User, Post
 from app.scanner import Scanner
 import sqlalchemy as sa
 from urllib.parse import urlsplit
-from bokeh.plotting import figure
-from bokeh.embed import components
-import threading
-from random import randint
-<<<<<<< connorBranch
+
 import json
 import os
 
@@ -21,9 +17,9 @@ app.static_folder = STATIC_FOLDER
 
 # Path to quiz.json
 QUIZ_JSON_PATH = os.path.join(app.static_folder, 'quiz.json')
-=======
+
 from sqlalchemy.exc import IntegrityError
->>>>>>> main
+
 
 @app.route('/index')
 @login_required
@@ -37,8 +33,6 @@ def home_page():
     return render_template('home_page.html', title='EHKO home')
 
 
-
-#below functions are for visual indicators that the scanning is being run
 
 @app.route('/quiz')
 def quiz():
@@ -58,9 +52,6 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/quiz')
-def quiz():
-        return render_template('quiz.html')
 
 @app.route('/edit_quiz', methods=['GET', 'POST'])
 def edit_quiz():

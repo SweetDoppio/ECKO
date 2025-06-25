@@ -135,22 +135,22 @@
     },
     {
       "index": 7,
-      "question": "Which of these is a physical security measure?",
+      "question": "Help me",
       "options": [
         {
           "value": "a",
-          "text": "Encryption"
+          "text": "no"
         },
         {
           "value": "b",
-          "text": "Locked doors"
+          "text": "yes"
         },
         {
           "value": "c",
-          "text": "Antivirus software"
+          "text": "maybe"
         }
       ],
-      "correct": "b"
+      "correct": "a"
     },
     {
       "index": 8,
