@@ -21,13 +21,11 @@ def index():
 @app.route('/')
 @app.route('/home_page')
 def home_page():
-    return render_template('home_page.html')
+    return render_template('home_page.html', title='EHKO home')
 
 
 
 #below functions are for visual indicators that the scanning is being run
-
-
 
 @app.route('/quiz')
 def quiz():

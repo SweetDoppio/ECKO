@@ -17,13 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
   scanButton.addEventListener("mouseout", ()=>{
         scanButton.classList.remove('radar-pulse');
   });
-
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
 
     const spinner = document.getElementById('loading-spinner');
-
+    
     let resultsContainer = document.getElementById('result_display');
 
     if (!resultsContainer) {
@@ -99,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         resultsContainer.innerHTML = html;
                 resultsContainer.style.display = 'block'; // Show results container
-
       })
       .catch(err => {
         resultsContainer.innerHTML = `<div class="error">❌ Scan failed: ${err.message}</div>`;

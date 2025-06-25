@@ -15,9 +15,9 @@
 
 
     {% if title %}
-        <title> {{title}} --Miniblog</title>
+        <title> {{title}}</title>
     {% else %}
-        <title> Guest's --Miniblog</title>
+        <title> Guest</title>
     {% endif %}
 </head>
 
@@ -32,8 +32,6 @@
                 </div>
                 <div class="nav_main_text_group">
                     <li><a class="header-list-text" href="{{ url_for('about') }}">About us</a></li>
-                    <li><a class="header-list-text" href="">Blog</a></li>
-                    <li><a class="header-list-text" href="{{ url_for('vul_scanner_test_page') }}">Support</a></li>
                     <li><a class="header-list-text" href="{{ url_for('home_page') }}">Home Page</a></li>
                     <li><a class="header-list-text" href="{{ url_for('index') }}">Ekho Forums</a></li>
                     <li><a class="header-list-text" href="{{ url_for('help_page') }}#top">Tutorials</a></li>
@@ -83,7 +81,7 @@
                     <p>Features</p>
                     <p>Pricing Plans</p>
                 </div>
-                <div class="resource-footer-grid-serction footer-info">
+                <div class="resource-footer-grid-section footer-info">
                     <p class="footer-info-title">Resource</p>
                     <a class="header-list-text" href="{{ url_for('help_page') }}">Contact</a>
                     <p>User Guide</p>

@@ -1,6 +1,7 @@
 :root{
     --main-color-one: rgb(224, 202, 34);
     --main-spacing-one: 1.5em;
+    --colour: #80c684ff;
 }
 
 #background-div-container{
