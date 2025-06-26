@@ -71,6 +71,20 @@ class Scanner:
             flash(f"Request error on {target_url}: {e}")
             return None
 
+
+    def checkhttps(self):
+        results = {
+            'url': self.url,
+            'vulnerable_url': []
+        }
+        # Chheck if HTTP URL redirects to HTTPS
+        if self.url.startswith('http://'):
+            results['vulnerable_url'].append({
+                'security_issues': 'Site uses HTTP instead of HTTPS (insecure)'
+            })
+            return results
+    
+    
     def scanXss(self):
         results = {
             'url': self.url,
@@ -147,7 +161,7 @@ class Scanner:
                     except Exception as e:
                         flash(f"URL SQLi test error on '{param}': {e}")
 
-        # Case 2: Form-based injection
+        # Case 2: Fform-based injection
         forms = self.getAllForms()
         for form in forms:
             details = self.getFormDetails(form)
@@ -190,5 +204,6 @@ class Scanner:
         return {
             'url': self.url,
             'sqli_results': self.scanSqli(),
-            'xss_results': self.scanXss()
+            'xss_results': self.scanXss(),
+            'http_results' : self.checkhttps(),
         }
