@@ -30,7 +30,6 @@
       </form>
      </div>
 
-
     <!-- Loading animation -->
     <div id="scan-container">
       <div id="loading-spinner">
@@ -98,6 +97,7 @@
               {% for param in results.sqli_results.vulnerable_params %}
                 <p><strong>Parameter:</strong> {{ param.name }}</p>
                 <p><strong>Payload used:</strong> {{ param.payload }}</p>
+
                 {% if not loop.last %}<hr>{% endif %}
               {% endfor %}
             </div>
@@ -113,6 +113,8 @@
             <p class="warning-text">⚠️ XSS vulnerabilities detected!</p>
             <div class="vulnerable-box">
               {% for form in results.xss_results.vulnerable_forms %}
+
+
                 <p><strong>Form Action:</strong> {{ form.action }}</p>
                 <p><strong>Method:</strong> {{ form.details.method }}</p>
                 {% if not loop.last %}<hr>{% endif %}

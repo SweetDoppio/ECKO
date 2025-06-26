@@ -308,6 +308,7 @@ form input[type="url"].mouseover {
 }
 
 .radar-node-flash {
+
   display: block;
   animation: node-flash 3.5s cubic-bezier(.04,1.12,.34,.97) infinite;
 

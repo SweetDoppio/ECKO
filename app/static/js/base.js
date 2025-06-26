@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+
   const navbar = document.getElementById('base-header-container');
+  const batImage = document.querySelector('#batHoleLogo');
   const textNavBar = document.querySelectorAll('.header-list-text-main');
   const signUpButton = document.querySelector('.header-list-text-sign');
 
@@ -9,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         text.classList.add('scroll-state');
       })
       navbar.classList.add('scroll-state');
+      batImage.src = batImage.dataset.alternateSrc; 
       signUpButton.classList.add('scroll-state');
 
     } else {
@@ -16,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
         text.classList.remove('scroll-state');
       })
       navbar.classList.remove('scroll-state');
+
+      batImage.src = batImage.dataset.src; 
       signUpButton.classList.remove('scroll-state');
 
     }

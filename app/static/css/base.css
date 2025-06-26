@@ -130,6 +130,7 @@
         text-decoration: none;
         font-weight: 400;
         font-family: var(--main-font-style);
+
         color:#d4e4ff;
         transition: transform  0.2s ease-in-out,color 0.2s ease-in-out ;
     }
@@ -140,6 +141,7 @@
     }
 
     .header-list-text-main.scroll-state{
+        color:black;
 
         color:#000000FF;
         font-weight: 600;
@@ -152,7 +154,6 @@
 
     .header-list-text-sign.scroll-state{
         font-weight: 600;
-
         color:black;
 
     }
