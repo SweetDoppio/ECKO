@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +73,6 @@
             {% if results.redirects_to_https %}
               <p class="safe-text"> ✅ Secure - Site redirects to HTTPS</p>
             {% elif results.security_issues %}
-
               <p class="warning-text">⚠️ HTTP Security Issues Detected!</p>
               <div class="vulnerable-box">
                 {% for issue in results.security_issues %}
@@ -140,3 +143,5 @@
   <script src="{{ url_for('static', filename='js/vul_scanner_test_page.js') }}"></script>
 </body>
 </html>
+
+{% endblock %}

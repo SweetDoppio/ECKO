@@ -148,6 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
               html += `<p class="warning-text">⚠️ Site does not use HTTPS</p>`;
             }
           }
+      
         resultsContainer.innerHTML = html;
                 resultsContainer.style.display = 'block'; // Show results container
       }).catch(err => {
