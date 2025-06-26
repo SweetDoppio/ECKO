@@ -29,7 +29,10 @@
             <ul id="base-header-list">
 
                 <div class="logo-image-container">
-                    <img src="{{ url_for('static', filename='images/ecko_logo.png') }}" alt="main_ecko_logo">
+                    <img id="batHoleLogo" src="{{ url_for('static', filename='images/batOnly.png') }}" 
+                        data-alternate-src="{{ url_for('static', filename='images/blackBatHoleNoBG.png') }}" 
+                        data-src="{{ url_for('static', filename='images/batOnly.png') }}"
+                         alt="main_ecko_logo">
                 </div>
                 <div class="nav_main_text_group">
                     <li><a class="header-list-text-main" href="{{ url_for('about') }}">About us</a></li>
@@ -147,8 +150,6 @@
     <script src="{{ url_for('static', filename='js/test_graph_dashboard.js') }}"></script>
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.7.3.min.js"></script> <!-- Loads bokeh JS library. Make sure you chek the you dependency verison
     against the script version to see if they mnatch -->
-
-    
 
 </body>
 </html>
