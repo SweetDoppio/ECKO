@@ -13,6 +13,7 @@ class Scanner:
     def __init__(self, url):
         self.url = url
 
+    #simple method tot check if entered url is a proper url
     def validateUrl(self):
         if not self.url:
             return False
@@ -24,6 +25,7 @@ class Scanner:
             return False
         return True
 
+    
     def getAllForms(self):
         try:
             response = requests.get(self.url, headers=HEADERS, timeout=5)
@@ -50,6 +52,7 @@ class Scanner:
             "inputs": inputs
         }
 
+    
     def submitForm(self, form_details, payload):
         target_url = urljoin(self.url, form_details['action'])
         data = {}
@@ -106,7 +109,7 @@ class Scanner:
             'form_count': 0,
             'vulnerable_forms': []
         }
-
+        #list of payloads that will be entered 
         payloads = [
             "<script>alert('XSS')</script>",
             "<img src=x onerror=alert('XSS')>",
@@ -130,6 +133,8 @@ class Scanner:
                     break
         return results
 
+
+    ##SQL METHOD
     def scanSqli(self):
         results = {
             'url': self.url,

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/test_graph_dashboard.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+    <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='images/batOnly.png') }}"  >
 
 
     {% if title %}
@@ -29,7 +30,10 @@
             <ul id="base-header-list">
 
                 <div class="logo-image-container">
-                    <img src="{{ url_for('static', filename='images/ecko_logo.png') }}" alt="main_ecko_logo">
+                    <img id="batHoleLogo" src="{{ url_for('static', filename='images/batOnly.png') }}" 
+                        data-alternate-src="{{ url_for('static', filename='images/blackBatHoleNoBG.png') }}" 
+                        data-src="{{ url_for('static', filename='images/batOnly.png') }}"
+                         alt="main_ecko_logo">
                 </div>
                 <div class="nav_main_text_group">
                     <li><a class="header-list-text-main" href="{{ url_for('home_page') }}">Home Page</a></li>
@@ -38,9 +42,7 @@
                     {% if current_user.is_authenticated %}
                         <li><a class="header-list-text-main" href="{{ url_for('vul_scanner_test_page') }}">Scan</a></li>
                         <li><a class="header-list-text-main" href="{{ url_for('quiz') }}">Quiz</a></li>
-
                     {% endif %}
-
                 </div>
 
                 <div class="user_sign_in_up_button_group">
@@ -79,7 +81,7 @@
         <div class="footer-main">
             <div class="footer-main-upper-information">
                 <div id="ecko-logo-footer" style="padding-top: 1em;">
-                    <img srcset="{{ url_for('static', filename='images/ecko_logo.png')}}" alt="ecko_logo">
+                    <img srcset="{{ url_for('static', filename='images/batOnly.png')}}" alt="ecko_logo">
                 </div>
                 <div class="product-footer-grid-section footer-info">
                     <p class="footer-info-title">Product</p>
@@ -88,14 +90,14 @@
                 </div>
                 <div class="resource-footer-grid-section footer-info">
                     <p class="footer-info-title">Resource</p>
-                    <a class="header-list-text" href="{{ url_for('help_page') }}">Contact Us</a>
+                    <p><a class="header-list-text" href="{{ url_for('help_page') }}">Contact Us</a></p>
                     <p>User Guide</p>
                     <p>Terms of User</p>
                     <p>Privacy Policy</p>
                 </div>
                 <div class="company-footer-grid-section footer-info">
                     <p class="footer-info-title">Company</p>
-                    <a class="header-list-text" href="{{ url_for('about') }}">About Us</a>
+                    <p><a class="header-list-text" href="{{ url_for('about') }}">About Us</a></p>
                     
                 </div>
                 <div id="subscription-footer-grid-section-container">
@@ -112,7 +114,7 @@
 
             </div>
             <div class="footer-main-lower-informatinon">    
-               <p class="ecko-slogan-tag">Knowlegde Has Ekho</p>
+               <p class="ecko-slogan-tag">Knowledge Has Ekho</p>
                <div class="footer-bottom-section">
                 <div style="color: #000000FF">dontremove</div>
                 <p style="color:#00FF7F; font-size: x-large;">Established 2025</p>
@@ -151,8 +153,6 @@
     <script src="{{ url_for('static', filename='js/test_graph_dashboard.js') }}"></script>
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.7.3.min.js"></script> <!-- Loads bokeh JS library. Make sure you chek the you dependency verison
     against the script version to see if they mnatch -->
-
-    
 
 </body>
 </html>
