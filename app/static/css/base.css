@@ -1,8 +1,8 @@
 :root{
     --outline-test: 1px rgb(199, 53, 53) solid;
     --main-font-colour: #7b8391;
-    --main-green: #80c684ff;
-    --main-background-color: #000000FF;
+    --main-green: #00FF7F;
+    --main-background-color: #000000;
     --font-color-purple:#6652f3;
     --footer-text-color: #f5f5f5;
     --main-font-style: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -53,7 +53,7 @@
         display: flex;
         flex-direction: column;
         /* outline: 1px solid rgb(118, 208, 76); */
-        background-color: var(--main-background-color);
+        background-color: rgb(0, 0, 0);
         align-items: center;    
     }
 
@@ -79,10 +79,11 @@
 
     #base-header-container.scroll-state{
         align-self: center;
-        background-color: #261C32FF;
+        background-color: rgb(255, 255, 255);
         justify-self: center;
         width: 85%;
         border-radius: 10px;
+        
     }
 
     .logo-image-container,.nav_main_text_group, .user_sign_in_up_button_group{
@@ -117,9 +118,9 @@
 
     .ecko-slogan-tag{
         margin-bottom: 0.5em;
-        font-size: 2em;
-        color: whitesmoke;
-        font-weight: 500;
+        font-size: 8.5em;
+        color: #00FF7F;
+        font-weight: 550;
         font-family: var(--main-font-style);
     }
 
@@ -129,8 +130,28 @@
         text-decoration: none;
         font-weight: 400;
         font-family: var(--main-font-style);
-        color:#7b8391;
+        color:#d4e4ff;
         transition: transform  0.2s ease-in-out,color 0.2s ease-in-out ;
+    }
+
+    .header-list-text-main{
+        color:white;
+        text-decoration: none;
+    }
+
+    .header-list-text-main.scroll-state{
+        color:#000000;
+        font-weight: 600;
+    }
+
+     .header-list-text-sign{
+        text-decoration: none;
+        color: black;
+     }
+
+    .header-list-text-sign.scroll-state{
+        font-weight: 600;
+        color: #000000FF !important;
     }
 
     .header-list-text:hover{
@@ -253,12 +274,6 @@
         font-family: var(--main-font-style);
     }
 
-    .header-list-text{
-        font-family: var(--main-font-style);
-        color: whitesmoke;
-    }
-
-
     #subscription-footer-grid-section-container > div p:first-child{
         font-size: 1.2em;
         font-weight: bold;
@@ -287,7 +302,7 @@
         height: 2em;
         width: 15rem;
         outline: none; 
-        background-color: #010024;
+        background-color: rgb(25, 36, 26);
         color: #f5f5f5;
     }
 
