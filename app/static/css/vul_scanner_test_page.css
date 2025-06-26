@@ -301,12 +301,35 @@ form input[type="url"].mouseover {
     background-image: radial-gradient( var(--font-color-purple), transparent);
 }
 
+.radar-node-flash {
+  animation: node-flash 3.5s cubic-bezier(.04,1.12,.34,.97) infinite;
+
+}
+
+
+ /* activate last*/
  .node1{
     transform: translate(-8em, -5em);
  }
 
 .node2{
-    transform: translate(-8em, -5em);
+    transform: translate(7em, 12em);
+ }
+
+ /* activate first*/
+ .node3{
+    transform: translate(6em, -4em);
+ }
+
+ @keyframes node-flash {
+  from{
+    opacity: 0;
+  }
+
+  to{
+    opacity: 1;
+  }
+  
  }
 
 .flash-messages {
