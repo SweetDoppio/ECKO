@@ -129,8 +129,16 @@
         text-decoration: none;
         font-weight: 400;
         font-family: var(--main-font-style);
-        color:#7b8391;
+        color:var(--footer-text-color);
         transition: transform  0.2s ease-in-out,color 0.2s ease-in-out ;
+    }
+
+    .header-list-text-main{
+        text-decoration: none;
+    }
+
+    .header-list-text-main.scroll-state{
+        color:black;
     }
 
     .header-list-text:hover{

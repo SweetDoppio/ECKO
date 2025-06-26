@@ -72,18 +72,33 @@ class Scanner:
             return None
 
 
+    ##http method
     def checkhttps(self):
         results = {
             'url': self.url,
-            'vulnerable_url': []
+            'is_https': False,
+            'redirects_to_https': False,
+            'security_issues': []
         }
-        # Chheck if HTTP URL redirects to HTTPS
-        if self.url.startswith('http://'):
-            results['vulnerable_url'].append({
-                'security_issues': 'Site uses HTTP instead of HTTPS (insecure)'
-            })
+        try:
+            # check to see if URL is already HTTPS
+            if self.url.startswith('https://'):
+                results['is_https'] = True
+                return results
+          
+            if self.url.startswith('http://'):
+                response = requests.get(self.url, headers=HEADERS, allow_redirects=True, timeout=5)
+                final_url = response.url
+                if final_url.startswith('https://'):
+                    results['redirects_to_https'] = True
+                else:
+                    results['security_issues'].append('Site does not redirect to HTTPS')
             return results
-    
+            
+        except Exception as e:
+            results['security_issues'].append(f'Error checking HTTPS: {str(e)}')
+            return results
+            
     
     def scanXss(self):
         results = {

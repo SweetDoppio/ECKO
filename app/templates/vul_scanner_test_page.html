@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SQLi & XSS Scanner</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/vul_scanner_test_page.css') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/ecko_logo.png') }}" >
+
 </head>
 <body>
 <div class="outer-circle">
@@ -27,11 +29,9 @@
 
     <!-- Loading animation -->
     <div id="scan-container">
-      <div id="loading-spinner" style="">
+      <div id="loading-spinner">
         <div class="loading-animation-wrapper">
           <div class="radar-layer3 radar">
-
-
             <div class="radar-layer2 radar">
               <div class="radar-layer1 radar">
                 <div class="radar-center radar"> 
@@ -61,20 +61,25 @@
 
           <!-- is http???????-->
           <h3>HTTP insecure</h3>
-          <p>Url tested: {{ results.http_results}}</p>
+          <p>Url tested: {{ results.url}}</p>
 
           <!-- How do you add icons to p???-->
-          {% if results.http_results and results.http_results.vulnerable_url %}
-            <p class="warning-text">⚠️ http vulnerabilities detected!</p>
-              <div class="vulnerable-box">
-              {% for issue in issue.http_results.vulnerable_url %}
-                <p><strong>Parameter:</strong> {{ result.security_issues }}</p>
-
-                {% if not loop.last %}<hr>{% endif %}
-              {% endfor %}
-            </div>
+          {% if results.is_https %}
+            <p class="safe-text">✅ Secure - This site uses HTTPS</p>
           {% else %}
-            <p class="safe-text">✅ No unsecure Url found.</p>
+            {% if results.redirects_to_https %}
+              <p class="safe-text"> ✅ Secure - Site redirects to HTTPS</p>
+            {% elif results.security_issues %}
+              <p class="warning-text">⚠️ HTTP Security Issues Detected!</p>
+              <div class="vulnerable-box">
+                {% for issue in results.security_issues %}
+                  <p><strong>Issue:</strong> {{ issue }}</p>
+                  {% if not loop.last %}<hr>{% endif %}
+                {% endfor %}
+              </div>
+            {% else %}
+                <p class="warning-text">⚠️ Site does not use HTTPS</p>
+            {% endif %}
           {% endif %}
 
 
