@@ -130,25 +130,18 @@
         text-decoration: none;
         font-weight: 400;
         font-family: var(--main-font-style);
-<<<<<<< AbiBranch
         color:#d4e4ff;
-=======
-        color:var(--footer-text-color);
->>>>>>> main
         transition: transform  0.2s ease-in-out,color 0.2s ease-in-out ;
     }
 
     .header-list-text-main{
-<<<<<<< AbiBranch
         color:white;
-=======
->>>>>>> main
         text-decoration: none;
     }
 
     .header-list-text-main.scroll-state{
-<<<<<<< AbiBranch
-        color:#000000;
+
+        color:#000000FF;
         font-weight: 600;
     }
 
@@ -159,10 +152,9 @@
 
     .header-list-text-sign.scroll-state{
         font-weight: 600;
-        color: #000000FF !important;
-=======
+
         color:black;
->>>>>>> main
+
     }
 
     .header-list-text:hover{
