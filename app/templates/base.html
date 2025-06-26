@@ -32,17 +32,21 @@
                     <img src="{{ url_for('static', filename='images/ecko_logo.png') }}" alt="main_ecko_logo">
                 </div>
                 <div class="nav_main_text_group">
-                    <li><a class="header-list-text-main" href="{{ url_for('about') }}">About us</a></li>
                     <li><a class="header-list-text-main" href="{{ url_for('home_page') }}">Home Page</a></li>
-                    <li><a class="header-list-text-main" href="{{ url_for('index') }}">Ekho Forums</a></li>
-                    <li><a class="header-list-text-main" href="{{ url_for('help_page') }}#top">Tutorials</a></li>
-                    <li><a class="header-list-text-main" href="{{ url_for('quiz') }}#top">Quiz</a></li>
+                    <li><a class="header-list-text-main" href="{{ url_for('help_page') }}#top">Features</a></li>
+                    <li><a class="header-list-text-main" href="{{ url_for('about') }}">About us</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a class="header-list-text-main" href="{{ url_for('vul_scanner_test_page') }}">Scan</a></li>
+                        <li><a class="header-list-text-main" href="{{ url_for('quiz') }}">Quiz</a></li>
+
+                    {% endif %}
+
                 </div>
 
                 <div class="user_sign_in_up_button_group">
                     {% if current_user.is_anonymous %}
-                    <li><a class="header-list-text sign_in_button_header" href="{{ url_for('login') }}">Sign in</a></li>
-                    <li><a class="header-list-text sign_up_button_header" href="{{ url_for('register') }}">Sign up</a></li>
+                    <li><a class="header-list-text-main sign_in_button_header" href="{{ url_for('login') }}">Sign in</a></li>
+                    <li><a class="header-list-text-sign sign_up_button_header" href="{{ url_for('register') }}">Sign up</a></li>
                     {% else %}
                     <li class="header-list-text">Hello {{ current_user.username }}!</li>
                     <li><a class="header-list-text" href="{{ url_for('logout') }}">Logout</a></li>
@@ -84,7 +88,7 @@
                 </div>
                 <div class="resource-footer-grid-section footer-info">
                     <p class="footer-info-title">Resource</p>
-                    <a class="header-list-text" href="{{ url_for('help_page') }}">Contact</a>
+                    <a class="header-list-text" href="{{ url_for('help_page') }}">Contact Us</a>
                     <p>User Guide</p>
                     <p>Terms of User</p>
                     <p>Privacy Policy</p>
@@ -97,7 +101,7 @@
                 <div id="subscription-footer-grid-section-container">
                     <div>
                     <p>Subscribe to our newsletter</p>
-                    <p style="margin-top: -1em; margin-bottom: 2em;">To keep up with the latest Vulnerability trends</p>
+                    <p style="margin-top: -1em; margin-bottom: 2em;">A quiet ping of insight, once a month.</p>
                     </div>
 
                     <form id="footer-user-subscription">
@@ -108,30 +112,30 @@
 
             </div>
             <div class="footer-main-lower-informatinon">    
-               <p class="ecko-slogan-tag">Vulnerability Dectection that resonates</p>
+               <p class="ecko-slogan-tag">Knowlegde Has Ekho</p>
                <div class="footer-bottom-section">
-                <div style="color: #010024">dontremove</div>
-                <p style="color:#7b8391; font-size: xx-small;">Established 1579</p>
+                <div style="color: #000000FF">dontremove</div>
+                <p style="color:#00FF7F; font-size: x-large;">Established 2025</p>
                 <div class="social-media-svg-container">
                     <picture class="social-media-icon facebook">
                         <source srcset="https://img.icons8.com/color/48/facebook-new.png" type="image/png+xml">
                         <source srcset="{{ url_for('static', filename='images/icon-facebook.svg') }}" type="image/svg+xml">
-                        <img width="22" height="22" src="{{ url_for('static', filename='images/icon-facebook.png') }}" alt="Facebook">
+                        <img width="35" height="35" src="{{ url_for('static', filename='images/icon-facebook.png') }}" alt="Facebook">
                     </picture>
                     <picture class="social-media-icon twitter">
                         <source srcset="https://img.icons8.com/color/48/twitter--v1.png" type="image/png+xml">
                         <source srcset="{{ url_for('static',  filename='images/icon-twitter.png') }}" alt="twitter-icon">
-                        <img width="22" height="22" src="{{ url_for('static',  filename='images/icon-twitter.png') }}" alt="twitter--v1"/>
+                        <img width="35" height="35" src="{{ url_for('static',  filename='images/icon-twitter.png') }}" alt="twitter--v1"/>
                     </picture>
                     <picture class="social-media-icon linkedin">
                         <source srcset="https://img.icons8.com/color/48/linkedin.png" type="image/png+xml">
                         <souce srcset="{{ url_for('static', filename='images/icon-linkdin.svg' )}}">
-                        <img width="22" height="22" src="{{ url_for('static', filename='images/icon-linkdin.svg' )}}" alt="linkedin"/>
+                        <img width="35" height="35" src="{{ url_for('static', filename='images/icon-linkdin.svg' )}}" alt="linkedin"/>
                     </picture>
                     <picture class="social-media-icon youtuvbe">
                         <source srcset="https://img.icons8.com/color/48/youtube-play.png" type="image/png+xml">
                         <source srcset="{{ url_for('static', filename='images/icon-youtube.svg') }}">
-                        <img width="22" height="22" src="{{ url_for('static', filename='images/icon-linkdin.svg' )}}" alt="youtube-play"/>
+                        <img width="35" height="35" src="{{ url_for('static', filename='images/icon-linkdin.svg' )}}" alt="youtube-play"/>
                     </picture>
                 </div>
 

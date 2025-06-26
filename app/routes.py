@@ -6,6 +6,7 @@ from app.models import User, Post
 from app.scanner import Scanner
 import sqlalchemy as sa
 from urllib.parse import urlsplit
+import email_validator
 
 import json
 import os
@@ -34,7 +35,7 @@ def home_page():
 
 
 
-@app.route('/quiz')
+@app.route('/quiz.')
 def quiz():
         return render_template('quiz.html')
     
@@ -139,7 +140,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('vul_scanner_test_page'))
     form = LoginForm()
     if form.validate_on_submit():
         flash("Form validated successfully")
@@ -152,7 +153,7 @@ def login():
         if not next_page or urlsplit(next_page).netloc != '':
             #forgot what this exactly does...I think it sends you to the page you wanted to view if you weren't
             #logged in,  
-            next_page = url_for('index')
+            next_page = url_for('home_page')
         return redirect(next_page)
     else:
         print("Form validation failed:", form.errors)
