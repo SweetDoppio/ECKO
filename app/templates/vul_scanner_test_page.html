@@ -7,7 +7,12 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/vul_scanner_test_page.css') }}">
 </head>
 <body>
-  <header></header>
+<div class="outer-circle">
+  <div class="inner-circle">
+    <p class="text"> <a href="{{ url_for('home_page') }}">Return to Home page.</a></p>
+
+  </div>
+</div>
 
   <div class="scanner_page_main_container">
     <!-- Scan Form -->
@@ -24,9 +29,16 @@
     <div id="scan-container">
       <div id="loading-spinner" style="">
         <div class="loading-animation-wrapper">
-          <div class="radar-layer3">
-            <div class="radar-layer2">
-              <div class="radar-layer1">
+          <div class="radar-layer3 radar">
+
+
+            <div class="radar-layer2 radar">
+              <div class="radar-layer1 radar">
+                <div class="radar-center radar"> 
+                    <div class="radar-node node1"></div>
+                    <div class="radar-node node2"></div>
+                    <div class="radar-node node3"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -46,9 +58,30 @@
         <!-- LEFT-ALIGNED RESULT CONTENT -->
         <div class="vul-results-left">
 
+
+          <!-- is http???????-->
+          <h3>HTTP insecure</h3>
+          <p>Url tested: {{ results.http_results}}</p>
+
+          <!-- How do you add icons to p???-->
+          {% if results.http_results and results.http_results.vulnerable_url %}
+            <p class="warning-text">⚠️ http vulnerabilities detected!</p>
+              <div class="vulnerable-box">
+              {% for issue in issue.http_results.vulnerable_url %}
+                <p><strong>Parameter:</strong> {{ result.security_issues }}</p>
+
+                {% if not loop.last %}<hr>{% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="safe-text">✅ No unsecure Url found.</p>
+          {% endif %}
+
+
           <!-- SQL Injection -->
           <h3>SQL Injection</h3>
           <p>Parameters Tested: {{ results.sqli_results.param_count }}</p>
+          
 
           {% if results.sqli_results and results.sqli_results.vulnerable_params %}
             <p class="warning-text">⚠️ SQLi vulnerabilities detected!</p>

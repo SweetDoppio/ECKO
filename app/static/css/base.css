@@ -9,6 +9,8 @@
 }
     
     html{
+                background-color: var(--main-background-color);
+
     height: auto;
     display: flex;
     flex-direction: column;

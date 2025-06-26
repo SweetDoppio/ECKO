@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Show loading spinner
+    scanButton.disabled = true;
+
     scanButton.textContent = 'Hang on a sec...'
     // spinner.style.display = 'flex';
     resultsContainer.innerHTML = '';
@@ -75,6 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
           html += `<p class="safe-text">✅ No SQLi vulnerabilities found.</p>`;
         }
 
+        scanButton.textContent = 'Here is the result!';
+
+
         // XSS section
         html += `
           <h3>🧪 Cross-Site Scripting (XSS)</h3>
@@ -96,6 +101,21 @@ document.addEventListener("DOMContentLoaded", function () {
           html += `<p class="safe-text">✅ No XSS vulnerabilities found.</p>`;
         }
 
+
+        if (httpIssues.length > 0) {
+          html += `<p class="warning-text">⚠️ HTTP Security Issues Detected!</p>`;
+          html += `<div class="vulnerable-box">`;
+          httpIssues.forEach((issue, i, arr) => {
+            html += `
+              <p><strong>Issue:</strong> ${issue.security_issues || 'Unknown issue'}</p>
+              ${i !== arr.length - 1 ? '<hr>' : ''}
+            `;
+          });
+          html += `</div>`;
+        } else {
+          html += `<p class="safe-text">✅ No HTTP security issues found.</p>`;
+        }
+
         resultsContainer.innerHTML = html;
                 resultsContainer.style.display = 'block'; // Show results container
       })
@@ -105,6 +125,8 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .finally(() => {
         // spinner.style.display = 'none';
+            scanButton.disabled = false;
+
       });
   });
 });

@@ -90,9 +90,6 @@ svg{
 .vision-text-container,.mission-text-container{
     width: fit-content;
 } 
-.vision-text-container > h3,.mission-text-container >h3{
-
-}
 
 .our-team{
     margin-top: 5em;
@@ -125,7 +122,6 @@ svg{
 }
 
 .team-icon-container{
-    content: "";
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -135,9 +131,11 @@ svg{
     justify-content: center;
 }
 
+
 .team-icon-container > p{
     font-family: var(--main-font-style);
     font-weight: 600;
+    margin: 0;
 }
 
 .team-icon-container+h4+p{
