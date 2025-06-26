@@ -1,5 +1,29 @@
 // Wait until DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
+
+
+  // FOr radat nodes
+  const ImNodingSoHard = document.querySelectorAll('.radar-node');
+  ImNodingSoHard.forEach(node => {
+  node.classList.add('radar-node-hidden')
+  });
+
+  ImNodingSoHard.forEach((node, index) => {
+    setTimeout(() => {
+      node.classList.remove('radar-node-hidden');
+      node.classList.add('radar-node-flash');
+      
+      // Continuous flashing
+      setInterval(() => {
+        node.classList.toggle('radar-node-flash');
+      }, 1500);
+    },index * 100); 
+  });
+
+  //set display of radar none here
+  const spinner = document.querySelector('#loading-spinner');
+  spinner.style.display = 'none';
+
   const form = document.getElementById('sqli-form');
   const scanButton = document.querySelector('.scanner-button');
   const urlBar = document.querySelector('form input[type="url"]')
@@ -17,12 +41,12 @@ document.addEventListener("DOMContentLoaded", function () {
   scanButton.addEventListener("mouseout", ()=>{
         scanButton.classList.remove('radar-pulse');
   });
+
+
+  // Activate when use submits url 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-
-    const spinner = document.getElementById('loading-spinner');
-    
     let resultsContainer = document.getElementById('result_display');
 
     if (!resultsContainer) {
@@ -35,7 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
     scanButton.disabled = true;
 
     scanButton.textContent = 'Hang on a sec...'
-    // spinner.style.display = 'flex';
+    spinner.classList.add('scanner-on');
+    spinner.style.display = 'flex';
     resultsContainer.innerHTML = '';
     resultsContainer.style.display = 'block';
 
@@ -62,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>Parameters Tested: ${res.sqli_results.param_count}</p>
         `;
 
+        //sql injectio??
         if (res.sqli_results.vulnerable_params.length > 0) {
           html += `<p class="warning-text">⚠️ SQLi vulnerabilities detected!</p>`;
           html += `<div class="vulnerable-box">`;
@@ -101,32 +127,57 @@ document.addEventListener("DOMContentLoaded", function () {
           html += `<p class="safe-text">✅ No XSS vulnerabilities found.</p>`;
         }
 
+        //HTTP Scan
+          html += `<h3>🔒 HTTPS Security Check</h3>
+            <p>URL tested: ${res.url}</p>`;
 
-        if (httpIssues.length > 0) {
-          html += `<p class="warning-text">⚠️ HTTP Security Issues Detected!</p>`;
-          html += `<div class="vulnerable-box">`;
-          httpIssues.forEach((issue, i, arr) => {
-            html += `
-              <p><strong>Issue:</strong> ${issue.security_issues || 'Unknown issue'}</p>
-              ${i !== arr.length - 1 ? '<hr>' : ''}
-            `;
-          });
-          html += `</div>`;
-        } else {
-          html += `<p class="safe-text">✅ No HTTP security issues found.</p>`;
-        }
+          if (res.is_https) {
+            html += `<p class="safe-text">✅ Secure - This site uses HTTPS</p>`;
+          } else {
+            if (res.redirects_to_https) {
+              html += `<p class="safe-text">✅ Secure - Site redirects to HTTPS</p>`;
+            } else if (res.security_issues && res.security_issues.length > 0) {
+              html += `<p class="warning-text">⚠️ HTTP Security Issues Detected!</p>
+                <div class="vulnerable-box">`;
+              res.security_issues.forEach((issue, i, arr) => {
+                html += `<p><strong>Issue:</strong> ${issue}</p>
+                  ${i !== arr.length - 1 ? '<hr>' : ''}`;
+              });
+              html += `</div>`;
+            } else {
+              html += `<p class="warning-text">⚠️ Site does not use HTTPS</p>`;
+            }
+          }
 
+    
         resultsContainer.innerHTML = html;
                 resultsContainer.style.display = 'block'; // Show results container
-      })
-      .catch(err => {
+      }).catch(err => {
         resultsContainer.innerHTML = `<div class="error">❌ Scan failed: ${err.message}</div>`;
-                resultsContainer.style.display = 'block';
-      })
-      .finally(() => {
-        // spinner.style.display = 'none';
+          resultsContainer.style.display = 'block';
+      }).finally(() => {
+          spinner.style.display = 'none';
             scanButton.disabled = false;
 
       });
   });
 });
+
+function centerElement(element) {
+    const rect = element.getBoundingClientRect();
+    const elementTop = rect.top + window.scrollY;
+    const elementHeight = rect.height;
+    
+    // Calculate center position
+    const viewportHeight = window.innerHeight;
+    const scrollTo = elementTop - (viewportHeight / 2) + (elementHeight / 2);
+    
+    // Scroll to that position
+    window.scrollTo({
+        top: scrollTo,
+        behavior: 'smooth' // Optional smooth scrolling
+    });
+}
+
+const myElement = document.getElementById('scan-container');
+centerElement(myElement);
