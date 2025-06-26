@@ -73,7 +73,7 @@
         background-color: transparent; 
         height: 3em;
         transition: all 0.3s ease-in-out; 
-        z-index: 10;
+        z-index: 99;
         
     }
 
@@ -141,8 +141,6 @@
     }
 
     .header-list-text-main.scroll-state{
-        color:black;
-
         color:#000000FF;
         font-weight: 600;
     }
@@ -154,7 +152,8 @@
 
     .header-list-text-sign.scroll-state{
         font-weight: 600;
-        color:black;
+
+        color: #000000FF !important;
 
     }
 

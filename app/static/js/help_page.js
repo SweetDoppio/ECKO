@@ -1,26 +1,32 @@
 const observeElementOnScreen = new IntersectionObserver((entries) => {
-    entries.forEach(entry =>{ //Create array for 'entries'
-        if( entry.isIntersecting){
-            entry.target.classList.add('in-viewport')
-            entry.target.classList.add('animation-stop') 
-            observeElementOnScreen.unobserve(entry.target); //remove from observer obj  
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('in-viewport');
+            entry.target.classList.add('visible');
+            observeElementOnScreen.unobserve(entry.target);
         } else {
-            entry.target.classList.remove('in-viewport')
+            entry.target.classList.remove('in-viewport');
         }
     });
 }, {
-    root: null, //observes against viewport
-    rootMargin: '0px', 
-    threshold: 0.30 /* percentage value of when the element should be shown before triggering event*/
-
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.30
 });
 
 document.querySelectorAll('.animate-on-scroll').forEach(element => {
-    observeElementOnScreen.observe(element)
-})
-
-
-Array.from(document.getElementsByTagName('h4')).forEach(element => {
-    element.classList.add('help_text');
+    observeElementOnScreen.observe(element);
 });
 
+// Scroll behavior
+setTimeout(() => {
+    if (window.location.hash !== '#top') {
+        const docHeight = document.body.scrollHeight;
+        window.scrollTo({
+            top: docHeight / 2,
+            behavior: 'smooth'
+        });
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}, 100);

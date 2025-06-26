@@ -37,7 +37,7 @@
                 </div>
                 <div class="nav_main_text_group">
                     <li><a class="header-list-text-main" href="{{ url_for('home_page') }}">Home Page</a></li>
-                    <li><a class="header-list-text-main" href="{{ url_for('help_page') }}#top">Features</a></li>
+                    <li><a class="header-list-text-main" href="{{ url_for('help_page') }}">Features</a></li>
                     <li><a class="header-list-text-main" href="{{ url_for('about') }}">About us</a></li>
                     {% if current_user.is_authenticated %}
                         <li><a class="header-list-text-main" href="{{ url_for('vul_scanner_test_page') }}">Scan</a></li>
