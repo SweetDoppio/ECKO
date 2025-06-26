@@ -1,147 +1,83 @@
 {% extends 'base.html' %}
 
-    {% block content %}
-    <div id="top" style="position: absolute; top: 0; left: 0; height: 0;"></div>
-        <div class="help_page_main_container">
-            <div class="feature-section-container">
-                <h1 class="help_text" style="justify-self: center;">Explore Tutorials and learn ECKO's Major Features</h1>
-                <div id="tutorial-box-container">
-                    <div class="tutorial-box1 tut-box">
-                        <picture>
-                            <source srcset="{{ url_for('static', filename='images/inbox-guide-image.png' )}}" type="image/png+xml">
-                            <img src="{{ url_for('static', filename='images/inbox-guide-image.png' )}}"  alt="inbox-image"/>
-                        </picture>
-                        <p class="box-header-tag help_text">Inbox Guide</p>
-                        <p class="box-description  help_text">Learn how to organize emails effectively.<br>Master filters, labels, and shortcuts.</p>
-                        <a href="{{ url_for('static',filename='images/gif/cat.gif')}}"><button class="box-star-tut-button">Start Tutorial</button></a>
-                    </div>
-                    <div class="tutorial-box2 tut-box">
-                        <picture>
-                            <source srcset="{{ url_for('static', filename='images/calender-tip-image.png' )}}" type="image/png+xml">
-                            <img src="{{ url_for('static', filename='images/calender-tip-image.png' )}}" alt="calender-image"/>
-                        </picture>
-                        <p class="box-header-tag help_text">Calender Tips</p>
-                        <p class="box-description help_text">Discover event scheduling techniques.<br>Optimize your calendar usage.</p>
-                        <a href="{{ url_for('static',filename='images/gif/cat.gif')}}"><button class="box-star-tut-button">Start Tutorial</button></a>
-                    </div>
-                    <div class="tutorial-box3 tut-box">
-                        <picture>
-                            <source srcset="{{ url_for('static', filename='images/group-image.png' )}}" type="image/png+xml">
-                            <img src="{{ url_for('static', filename='images/group-image.png' )}}" alt="group-image" loading="lazy"/>
-                        </picture>
-                        <p class="box-header-tag help_text">Groups & Contacts</p>
-                        <p class="box-description help_text">Manage contacts and create groups.<br>Enhance collaboration and communication.</p>
-                        <a href="{{ url_for('static',filename='images/gif/cat.gif')}}"><button class="box-star-tut-button">Start Tutorial</button></a>
-                    </div>  
+{% block content %}
+<div id="top" style="position: absolute; top: 0; left: 0; height: 0;"></div>
+<div class="help_page_main_container">
+    <header class="header">
+        <h1>Discover EKHO's Features</h1>
+        <div class="background"></div>
+    </header>
+    <main style="outline: red;">
+        <section class="feature-card animate-on-scroll position:relative; z-index:40">
+            <div class="content">
+                <div class="text">
+                    <h3>📜 Result Explanations</h3>
+                    <p>After each scan, get simple, human-readable explanations of what each result means — no jargon. Learn what causes vulnerabilities and how to patch or prevent them.</p>
+                </div>
+                <div class="preview">
+                    <div><span>Interactive Preview (Simulated)</span></div>
                 </div>
             </div>
-            
-            <div id="help-section-2-search-container animate-on-scroll" style="margin-top: 5em;">
-                <div class="help-section-2-search-wrapper animate-on-scroll">
-                    <input id="help-search"  placeholder="Search...">
-                    <div class="section2-text-container " style="margin-top: 2em;">
-                        <div class="section2-text-wrapper-1" >
-                        <h3 class="help_text">Getting Started</h3>
-                        <p class="help_text">Product security<br>Article on securing our products</p>
-                        </div>
-                        <div class="section2-text-wrapper-2 ">
-                            <h3 class="help_text">Best Practices</h3>
-                            <p class="help_text">Data protection Policy<br>Policy governing data security measures.</p>
-                        </div>
-                    </div>
+        </section>
+        <section class="feature-card animate-on-scroll">
+            <div class="content">
+                <div class="text">
+                    <h3>🧠 Auto-Generated Learning Quizzes</h3>
+                    <p>EKHO turns scan results into dynamic quizzes tailored to your recent activity. Reinforce learning with instant feedback and questions based on actual scan findings.</p>
+                </div>
+                <div class="preview">
+                    <div><span>Interactive Preview (Simulated)</span></div>
                 </div>
             </div>
-
-            <div id="help-section-3-glossary-container" class="animate-on-scroll">
-                <h2 class="help_text " style="text-align: center;">
-                    Glossary
-                </h2>
-                <div class="glossary-A glossary-text">
-                    <h3 class="help_text">A</h3>
-                    <p class="help_text">
-                        <b>Administrative Security:</b> Precautions taken to manage and mitigate risk within an organization, such as implementing policies and procedures.<br>
-                        <b>Anti-Malware:</b> Software designed to detect, prevent, and remove malicious software (malware) from computer systems and networks.<br>
-                        <b>Awareness Training:</b> Educational programs aimed at informing employees about security risks and safe practices to protect sensitive information.
-                    </p>
+        </section>
+        <section class="feature-card animate-on-scroll">
+            <div class="content">
+                <div class="text">
+                    <h3>🏅 Progress Tracking and Badges</h3>
+                    <p>Track your learning journey with your own dashboard. Unlock achievement badges as you complete quizzes, master scan types, and level up your cybersecurity knowledge.</p>
                 </div>
-                <div class="glossary-B glossary-text ">
-                    <h3 class="help_text">B</h3>
-                    <p class="help_text"><b>Biometric:</b> Unique physical or behavioral characteristics used to identify individuals, such as fingerprints, facial recognition, or voice patterns.<br>
-                        <b>Blacklist:</b> A list of entities, such as IP addresses or domains, that are prohibited from accessing a system or network due to malicious activity.<br>
-                        <b>Blue Team:</b> The internal group responsible for defending an organization's information systems against cyber threats and attacks.
-                    </p>
-
-                    
-                </div>
-                <div class="glossary-C glossary-text">
-                    <h3 class="help_text">C</h3>
-                    <p class="help_text"><b>Cybersecurity:</b> The practice of protecting computer systems, networks, and data from unauthorized access, attacks, and damage.<br>
-                    <b>Credential:</b> A set of information, such as a username and password, used to verify a user's identity and grant access to a system or account.<br>
-                    <b>Cloud Security:</b> Measures and protocols implemented to protect data and applications stored in cloud computing environments from cyber threats and unauthorized access.
-                </p>
+                <div class="preview">
+                    <div><span>Interactive Preview (Simulated)</span></div>
                 </div>
             </div>
-            <div class="help-section-4-glossary-container animate-on-scroll" style="margin-bottom: 10em;">
-                <div class="help-section-4-glossary-wrapper">
-                    <div class="contact-support-picture-panel-left">
-                        <h3 class="help_text" style="font-size: 2em; margin-bottom: -20px;">Contact Support</h3>
-                        <p class="help_text" style="color: rgb(164, 164, 164);" >Fill in the form to get in touch</p>
-                        <picture id="tech-support-image">
-                            <source srcset="{{ url_for('static', filename='images/contact-support-image.png' )}}" type="image/png+xml">
-                            <img src="{{ url_for('static', filename='images/contact-support-image.png' )}}" alt="people-looking-sad-image"/>
-                        </picture>
-                    </div>
-                    <script>
-                        setTimeout(() => {
-                            if (window.location.hash !== '#top') {
-                            const docHeight = document.body.scrollHeight;
-                            window.scrollTo({
-                                top: docHeight / 2,
-                                behavior: 'smooth'
-                            });
-                            } else {
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                            }
-                        }, 100);
-                        </script>
-                                            <div class="contact-support-user-input-forms ">
-                        <form>
-                            <div id="form-name-container" style="width: 100%; margin-left: 3em;">
-                                <div class="first-name-wrapper">
-                                    <h4>First Name</h4>
-                                    <input placeholder="Input text" style="width: 110%;">
-                                </div>
-                                <div class="last-name-wrapper">
-                                    <h4>Last Name</h4>
-                                    <input placeholder="Input text" style="width: 110%;">
-                                </div>
-                            </div>
-                            <div class="form-email-container form-info">
-                                <h4>Email</h4>
-                                <input placeholder="example@mail.com">
-                            </div>
-                                                     
-                            <div class="form-company-container form-info">
-                                <h4>Company</h4>
-                                <input placeholder="Input text">
-                            </div>
-                            <div class="form-topic-container form-info">
-                                <h4>Which topic best fits your needs?</h4>
-                                <input placeholder="Please Select">
-                            </div>
-
-                            <div class="form-topic-container">
-                                <h4>How can we help?</h4>
-                                <textarea placeholder="Please share more details for us to ignore"  rows="5" cols="52" style="resize: none;"></textarea>
-                            </div>
-                            <button id="submit-button">Submit</button>
-                            
-                        </form>
-                    </div>
-
+        </section>
+        <section class="feature-card animate-on-scroll">
+            <div class="content">
+                <div class="text">
+                    <h3>👤 Student & Educator-Friendly Accounts</h3>
+                    <p>EKHO is designed for both students and teachers. Educators can track class progress, while students can learn at their own pace through individual logins.</p>
+                </div>
+                <div class="preview">
+                    <div><span>Interactive Preview (Simulated)</span></div>
                 </div>
             </div>
-        </div>
-
-
-    {% endblock %}
+        </section>
+        <section class="feature-card animate-on-scroll">
+            <div class="content">
+                <div class="text">
+                    <h3>🔐 Safe Learning Environment</h3>
+                    <p>No real systems are affected. All scans are virtual simulations — giving you the confidence to experiment and learn without the risk of damaging live systems.</p>
+                </div>
+                <div class="preview">
+                    <div><span>Interactive Preview (Simulated)</span></div>
+                </div>
+            </div>
+        </section>
+        <section class="feature-card animate-on-scroll">
+            <div class="content">
+                <div class="text">
+                    <h3>💬 Built-In Cyber Tips & Definitions</h3>
+                    <p>Tooltips and pop-ups offer bite-sized explanations for any technical term or concept you encounter, making learning less intimidating and more intuitive.</p>
+                </div>
+                <div class="preview">
+                    <div><span>Interactive Preview (Simulated)</span></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="call-to-action">
+        <a href="#">Ready to explore EKHO? Start your cybersecurity journey today!</a>
+    </footer>
+</div>
+<script src="{{ url_for('static', filename='js/help_page.js') }}"></script>
+{% endblock %}

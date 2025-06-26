@@ -1,213 +1,153 @@
-:root{
+:root {
     --main-font-style: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    --test-outline-setting: 1px red solid;
-    --main-font-color:#F3F4F6FF;
-    --border-color-main:  #565E6CFF;
-    --color-purple:#6652f3;
+    --main-font-color: #FFFFFF;
+    --accent-color: #00FF7F;
 }
 
-.help_page_main_container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.feature-section-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#tutorial-box-container{
-    width: 110%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0.5em;
-}
-
-.tut-box{
-    padding: 10px 20px;
-    gap:-2em;
-    align-items: center;
-    justify-content: space-around;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    background-color: #171A1FFF;
-}
-
-.box-header-tag{
-    margin-bottom: -1em;
-    font-weight: 700;
-}
-
-.box-description{
-    font-weight:lighter;
-
-}
-
-.tut-box > picture > img{
-    height: 9em;
-    width: 16em;
-    border-radius: 5px;
-    margin-bottom: -1em;
-}
-
-.help_text{
+body {
+    background-color: black;
     color: var(--main-font-color);
+    margin: 0;
     font-family: var(--main-font-style);
 }
 
-
-.box-star-tut-button{
-    background-color: transparent;
-    padding: 0.7em 7em;
-    border: 1px solid #8182DBFF;
-    border-radius: 6px;
-    color: #8182DBFF;
-    transition: 0.2s ease-in-out color;
-}
-
-.box-star-tut-button:hover{
-    cursor: pointer;
-    color: aliceblue;
-}
-
-#help-section-2-search-container{
-    padding: 7em;
-    width: 80%;
-    display: flex;
-    justify-content: center;
-}
-
-.help-section-2-search-wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 4%;
-    width: 80vw;
-}
-
-#help-search{  
-    opacity: 0;
+.help_page_main_container {
+    min-height: 80h;
     position: relative;
-    height: 3em;
-    width: 60%;
-    border-radius: 6px;
-    border: 2px solid #565e6c;
-    background-color: transparent;
-    color: #565e6c;
 }
 
-.in-viewport{
+.animate-on-scroll {
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+}
+
+.header {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #1a1a1a, black);
+}
+
+.header h1 {
+    font-size: 5rem;
+    font-weight: extrabold;
+    color: var(--accent-color);
+    z-index: 10;
+}
+
+.header .background {
+    position: absolute;
+    inset: 0;
+    background: url('https://via.placeholder.com/1920x1080?text=Parallax+Background') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.2;
+}
+
+.feature-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    padding: 3rem 0;
+}
+
+.feature-card .content {
+    display: flex;
+    width: 100%;
+    max-width: 88rem;
+    margin: 0 auto;
+    transition: all 1s ease;
+    transform: translateX(-100px);
+}
+
+.feature-card:nth-child(even) .content {
+    flex-direction: row-reverse;
+    transform: translateX(100px);
+}
+
+.visible{
+    z-index: 70;
+    opacity: 1;
+}
+
+
+
+.feature-card .text {
+    width: 50%;
+    padding: 0 2rem;
+}
+
+.feature-card .text h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.feature-card .text p {
+    font-size: 1.25rem;
+    color: var(--main-font-color);
+}
+
+.feature-card .preview {
+    width: 50%;
+}
+
+.feature-card .preview div {
+    background-color: #1a1a1a;
+    border-radius: 0.5rem;
+    height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 255, 127, 0.3);
+}
+
+.feature-card .preview span {
+    color: var(--accent-color);
+    font-size: 1.25rem;
+}
+
+.call-to-action {
+    padding: 3rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.call-to-action a {
+    font-size: 3rem;
+    font-weight: extrabold;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(0, 255, 127, 0.8), 0 0 20px rgba(0, 255, 127, 0.4);
+    transition: text-shadow 0.3s ease;
+}
+
+.call-to-action a:hover {
+    text-shadow: 0 0 15px rgba(0, 255, 127, 1), 0 0 30px rgba(0, 255, 127, 0.6);
+}
+
+.in-viewport {
     animation: scroll-down-animation 0.6s ease-out forwards;
     backface-visibility: hidden;
-
 }
 
 @keyframes scroll-down-animation {
-    from{
+    from {
         transform: translateY(-100px);
         opacity: 0;
     }
-
-    to{
+    to {
         transform: translateY(0px);
         opacity: 1;
-        display: flex;
     }
-}
-
-.animate-on-scroll{
-    display: block !important; 
-    text-align: center !important;
-}
-
-.section2-text-container.animate-on-scroll{
-    display: flex !important;
-}
-
-.section2-text-container{
-    display: inline-flex;
-    flex-direction: row;
-    gap: 20em;
-}
-
-
-.section2-text-wrapper-1, .section2-text-wrapper-2{
-    text-align: center;
-     
-}
-
-#help-section-3-glossary-container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.glossary-text{
-    align-self: center;
-    text-align: left;
-    width: 70%;
-}
-
-
-.contact-support-picture-panel-left{
-    display: flex;
-    flex-direction: column;
-    text-align: left !important;
-    align-content: center;
-}
-
-#tech-support-image  img{
-    height: 25em;
-    width: auto;
-}
-
-.help-section-4-glossary-wrapper{
-    margin-top: 8em;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    column-gap: 5em;
-
-}
-
-#form-name-container{
-    display: flex;
-    flex-direction: row;
-    gap: 10%;
-
-}
-
-
-
-.form-info>h4+input{
-    width: 400px;
-}
-
-h4+input{
-    border: 1px var(--border-color-main) solid;
-    background-color: transparent;
-    border-radius: 3px;
-    height: 30px;
-}
-
-h4{
-    font-size: small;
-}
-
-
-#submit-button{
-    background-color: var(--color-purple);
-    color: white;
-    width: 400px;
-    border: none;
-    margin-top: 10px;
-    padding: 10px;
-}
-
-#submit-button:hover{
-    cursor: pointer;
 }
