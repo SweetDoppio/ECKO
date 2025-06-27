@@ -12,7 +12,6 @@ class LoginForm(FlaskForm):
     email = EmailField('Email',  validators=[DataRequired('No email detected'), regexp(r'^[\w\.-]+@[\w\.-]+\.\w+$',message='Entered mail is not a valid format')])
     password = PasswordField('Password', validators=[DataRequired('No password Detected')])
     submit = SubmitField('Sign in')
-    accept_form = BooleanField('I accept the site rules', validators=[InputRequired('You must accept the site rules')])
     remember_me = BooleanField('Remember Me')
 
 class RegisterForm(FlaskForm):
@@ -20,6 +19,8 @@ class RegisterForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Enter user Password', validators=[DataRequired()])
     password_confirm =PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    accept_form = BooleanField('I accept the site rules', validators=[InputRequired('You must accept the site rules')])
+
     submit = SubmitField('Register')
 
     def user_validation(self, username):

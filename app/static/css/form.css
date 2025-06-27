@@ -1,6 +1,8 @@
 :root{
     --outline-basic-setting: 1px red solid;
     --text-color-main:beige;
+        --main-green: #00FF7F;
+
 }
 
 
@@ -67,10 +69,10 @@ form  p {
 }
 
 #login-submit-button input[type='submit']{
-    background-color: beige;
+    background-color: var(--main-green);
     border-radius: 1.5em;
     border-style: none;
-    transition: transform 1.2s ease-in-out;
+    transition: transform 0.4s ease-in-out;
     height: 3em;
     width: 8em;
 }
@@ -81,14 +83,7 @@ form  p {
     transform: scale(1.08);
 }
 
-.site-accept-form-container{
-    outline: var(--outline-basic-setting);
-    display: inline-flex;
-    flex-direction: row;
-    gap: 5px;
-    width: 95%;
-    
-}
+
 
 .site-accept-form-container p{
     font-size: x-small;

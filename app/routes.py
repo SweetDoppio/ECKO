@@ -143,7 +143,6 @@ def login():
         return redirect(url_for('vul_scanner_test_page'))
     form = LoginForm()
     if form.validate_on_submit():
-        flash("Form validated successfully")
         user = db.session.scalar(sa.select(User).where(User.username == form.username.data))
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')

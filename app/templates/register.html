@@ -31,6 +31,13 @@
                             <span style="color: red;">{{ error }}</span>
                             {% endfor %}
                     </div>
+
+
+                    <div class="site-accept-form-container">
+                        {{ form.accept_form }}
+                        <p style='display:inline;'>I accept the site's terms and conditions</p>
+                     </div>  
+                    
                     <p id="reg-submit-button">{{ form.submit() }}</p>
                 </div>
             </div>
