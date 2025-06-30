@@ -23,7 +23,7 @@
 
 <style>
 
-  <!-- why??? this should be in a separate CSS file-->
+
   
   h1, h2, p, label {
     text-align: left;
@@ -142,7 +142,7 @@
     let questionsData = [];
     let correctAnswers = {};
 
-    // Sample questions data in case the fetch fails
+
     const sampleQuestions = {
         questions: [
             {
@@ -165,11 +165,10 @@
                 ],
                 correct: "b"
             }
-            // Add more questions as needed
+           
         ]
     };
 
-    // Try to fetch questions, fall back to sample data if fetch fails
     function loadQuestions() {
         fetch('/static/quiz.json')
             .then(response => {
@@ -200,7 +199,7 @@
 
     function renderQuestions() {
         const container = document.getElementById('quiz-container');
-        container.innerHTML = ''; // Clear any existing content
+        container.innerHTML = ''; 
         
         questionsData.forEach(q => {
             const questionDiv = document.createElement('div');
@@ -298,7 +297,7 @@
         document.getElementById('next-btn').focus();
     }
 
-    // initialise quiz when the page loads
+    
     window.addEventListener('DOMContentLoaded', loadQuestions);
 </script>
 {% endblock %}

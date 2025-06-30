@@ -18,15 +18,4 @@ document.querySelectorAll('.animate-on-scroll').forEach(element => {
     observeElementOnScreen.observe(element);
 });
 
-// Scroll behavior
-setTimeout(() => {
-    if (window.location.hash !== '#top') {
-        const docHeight = document.body.scrollHeight;
-        window.scrollTo({
-            top: docHeight / 2,
-            behavior: 'smooth'
-        });
-    } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-}, 100);
+
