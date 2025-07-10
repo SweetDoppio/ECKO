@@ -3,9 +3,6 @@
 {% block title %}Cybersecurity Quiz{% endblock %}
 
 {% block content %}
-
-
-<!-- Why the fuck is the html like this :(  I have no idea what I'm looking at-->
 <h1>Cybersecurity Quiz</h1>
 <a href="{{ url_for('edit_quiz') }}"><button class="edit-quiz-button">Edit Quiz</button></a>
 <div id="quiz-container"></div>
@@ -15,6 +12,12 @@
     <button id="finish-btn" style="display: none;">Finish Quiz</button>
 </div>
 
+<!-- Popup for quiz feedback and explanation -->
+<div id="explanation-popup" class="popup" style="display: none;">
+    <button class="close-btn" onclick="closeExplanationPopup()">Close</button>
+    <div class="popup-content" id="explanation-content"></div>
+</div>
+
 <div id="popup" class="popup">
     <button class="close-btn" onclick="closePopup()">Close</button>
     <div class="popup-content" id="popup-content"></div>
@@ -22,118 +25,126 @@
 </div>
 
 <style>
-
-
-  
-  h1, h2, p, label {
-    text-align: left;
-    margin-left: 20px;
-    color: #FFFFFF;
-  }
-  body {
-    background: linear-gradient(180deg, #1A2526 0%, #0A0F1A 100%);
-    font-family: 'Orbitron', sans-serif;
-  }
-  .question-container {
-    display: none;
-    margin: 20px 0;
-  }
-  .question-container.active {
-    display: block;
-  }
-  input[type="radio"] {
-    margin-right: 10px;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #00D4FF;
-    border-radius: 50%;
-    outline: none;
-    cursor: pointer;
-    position: relative;
-  }
-  input[type="radio"]:checked {
-    background-color: #00D4FF;
-  }
-  input[type="radio"]:checked::after {
-    content: '';
-    display: block;
-    width: 8px;
-    height: 8px;
-    background: #FFFFFF;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  label {
-    display: inline-block;
-    margin-bottom: 5px;
-  }
-  .correct-answer {
-    background-color: #00FF85;
-    padding: 2px 5px;
-    border-radius: 3px;
-  }
-  .incorrect-answer {
-    background-color: #FF4D4D;
-    padding: 2px 5px;
-    border-radius: 3px;
-  }
-  .locked input[type="radio"] {
-    pointer-events: none;
-    opacity: 0.6;
-  }
-  .feedback {
-    margin-left: 30px;
-    font-size: 0.9em;
-    margin-top: 10px;
-  }
-  .nav-buttons {
-    margin-left: 20px;
-    margin-top: 20px;
-  }
-  .nav-buttons button {
-    background: linear-gradient(90deg, #00D4FF 0%, #007BFF 100%);
-    color: #FFFFFF;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-size: 1em;
-    font-weight: 700;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  .nav-buttons button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-  }
-  .popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #2A3A3B;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-    z-index: 1000;
-    color: #FFFFFF;
-  }
-  .close-btn {
-    background: #FF4D4D;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    color: #FFFFFF;
-    cursor: pointer;
-    float: right;
-  }
-  .close-btn:hover {
-    background: #CC0000;
-  }
+    h1, h2, p, label {
+        text-align: left;
+        margin-left: 20px;
+        color: #FFFFFF;
+    }
+    body {
+        background: linear-gradient(180deg, #1A2526 0%, #0A0F1A 100%);
+        font-family: 'Orbitron', sans-serif;
+    }
+    .question-container {
+        display: none;
+        margin: 20px 0;
+    }
+    .question-container.active {
+        display: block;
+    }
+    input[type="radio"] {
+        margin-right: 10px;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #00D4FF;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+    }
+    input[type="radio"]:checked {
+        background-color: #00D4FF;
+    }
+    input[type="radio"]:checked::after {
+        content: '';
+        display: block;
+        width: 8px;
+        height: 8px;
+        background: #FFFFFF;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+    .correct-answer {
+        background-color: #00FF85;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+    .incorrect-answer {
+        background-color: #FF4D4D;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+    .locked input[type="radio"] {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+    .feedback {
+        margin-left: 30px;
+        font-size: 0.9em;
+        margin-top: 10px;
+    }
+    .nav-buttons {
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+    .nav-buttons button {
+        background: linear-gradient(90deg, #00D4FF 0%, #007BFF 100%);
+        color: #FFFFFF;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: 700;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    .nav-buttons button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #2A3A3B;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        z-index: 1000;
+        color: #FFFFFF;
+    }
+    .close-btn {
+        background: #FF4D4D;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        color: #FFFFFF;
+        cursor: pointer;
+        float: right;
+    }
+    .close-btn:hover {
+        background: #CC0000;
+    }
+    /* New explanation popup styling */
+    #explanation-popup {
+        background: #2A3A3B;
+        padding: 25px;
+        max-width: 500px;
+        text-align: center;
+    }
+    #explanation-content {
+        margin-top: 15px;
+        font-size: 1em;
+    }
 </style>
 
 <script>
@@ -142,48 +153,30 @@
     let questionsData = [];
     let correctAnswers = {};
 
-
-    const sampleQuestions = {
-        questions: [
-            {
-                index: 0,
-                question: "What is the primary goal of a firewall?",
-                options: [
-                    {value: "a", text: "To increase internet speed"},
-                    {value: "b", text: "To monitor and control network traffic"},
-                    {value: "c", text: "To store data securely"}
-                ],
-                correct: "b"
-            },
-            {
-                index: 1,
-                question: "Which of these is a common type of malware?",
-                options: [
-                    {value: "a", text: "Spreadsheet"},
-                    {value: "b", text: "Ransomware"},
-                    {value: "c", text: "Web browser"}
-                ],
-                correct: "b"
-            }
-           
-        ]
-    };
+    // Sample questions as fallback (removed since we're using quiz.json)
+    // const sampleQuestions = { ... }; // Removed to rely on quiz.json
 
     function loadQuestions() {
         fetch('/static/quiz.json')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response was not ok ' + response.statusText);
                 }
                 return response.json();
             })
             .then(data => {
                 questionsData = data.questions;
+                if (questionsData.length === 0) {
+                    throw new Error('No questions found in quiz.json');
+                }
                 initializeQuiz();
             })
             .catch(error => {
                 console.error('Error loading quiz:', error);
-                questionsData = sampleQuestions.questions;
+                // Fallback to a minimal set if JSON fails
+                questionsData = [
+                    { index: 0, question: "Fallback: What is a firewall?", options: [{value: "a", text: "Unknown"}, {value: "b", text: "Security"}, {value: "c", text: "Speed"}], correct: "b" }
+                ];
                 initializeQuiz();
             });
     }
@@ -206,6 +199,8 @@
             questionDiv.classList.add('question-container');
             questionDiv.dataset.index = q.index;
             questionDiv.dataset.correct = q.correct;
+            // Add explanation data (you can expand this in quiz.json)
+            questionDiv.dataset.explanation = q.explanation || `The correct answer is ${q.correct}) ${q.options.find(opt => opt.value === q.correct).text} because it aligns with the definition of ${q.question.toLowerCase().replace('?', '')}.`;
             questionDiv.innerHTML = `
                 <h2>${q.index + 1}. ${q.question}</h2>
                 ${q.options.map(opt => `
@@ -223,16 +218,19 @@
                 const correct = question.dataset.correct;
                 const feedback = question.querySelector('.feedback');
                 const selectedValue = this.value;
+                const explanation = question.dataset.explanation;
 
                 if (selectedValue === correct) {
                     feedback.textContent = 'Correct!';
                     feedback.classList.remove('incorrect-answer');
                     feedback.classList.add('correct-answer');
+                    showExplanation(question, explanation);
                 } else {
                     feedback.textContent = `Wrong! Correct answer is ${correct}.`;
                     feedback.classList.remove('correct-answer');
                     feedback.classList.add('incorrect-answer');
                     question.classList.add('locked');
+                    showExplanation(question, explanation);
                 }
             });
         });
@@ -255,6 +253,18 @@
                 firstRadio.focus();
             }
         }
+    }
+
+    function showExplanation(question, explanation) {
+        const popup = document.getElementById('explanation-popup');
+        const content = document.getElementById('explanation-content');
+        content.innerHTML = `<strong>Explanation:</strong> ${explanation}`;
+        popup.style.display = 'block';
+    }
+
+    function closeExplanationPopup() {
+        const popup = document.getElementById('explanation-popup');
+        popup.style.display = 'none';
     }
 
     document.getElementById('next-btn').addEventListener('click', () => {
@@ -297,7 +307,6 @@
         document.getElementById('next-btn').focus();
     }
 
-    
     window.addEventListener('DOMContentLoaded', loadQuestions);
 </script>
 {% endblock %}

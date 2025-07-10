@@ -2,288 +2,168 @@
   "questions": [
     {
       "index": 0,
-      "question": "What is the primary goal of a firewall",
+      "question": "What is the primary goal of a firewall?",
       "options": [
-        {
-          "value": "a",
-          "text": "To increase internet speed"
-        },
-        {
-          "value": "b",
-          "text": "To store data securely"
-        },
-        {
-          "value": "c",
-          "text": "To monitor and control network traffic"
-        }
+        {"value": "a", "text": "To increase internet speed"},
+        {"value": "b", "text": "To store data securely"},
+        {"value": "c", "text": "To monitor and control network traffic"}
       ],
-      "correct": "c"
+      "correct": "c",
+      "explanation": "The correct answer is c) To monitor and control network traffic because a firewall's primary role is to act as a barrier between trusted and untrusted networks, regulating data flow to enhance security."
     },
     {
       "index": 1,
       "question": "Which of these is a common type of malware?",
       "options": [
-        {
-          "value": "a",
-          "text": "Spreadsheet"
-        },
-        {
-          "value": "b",
-          "text": "Ransomware"
-        },
-        {
-          "value": "c",
-          "text": "Web browser"
-        }
+        {"value": "a", "text": "Spreadsheet"},
+        {"value": "b", "text": "Ransomware"},
+        {"value": "c", "text": "Web browser"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) Ransomware because it is a type of malware that encrypts a victim's data and demands payment for decryption, which is a widespread cyber threat."
     },
     {
       "index": 2,
       "question": "What does phishing aim to steal?",
       "options": [
-        {
-          "value": "a",
-          "text": "Physical hardware"
-        },
-        {
-          "value": "b",
-          "text": "Personal information"
-        },
-        {
-          "value": "c",
-          "text": "Network cables"
-        }
+        {"value": "a", "text": "Physical hardware"},
+        {"value": "b", "text": "Personal information"},
+        {"value": "c", "text": "Network cables"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) Personal information because phishing involves tricking users into providing sensitive data like passwords or credit card details."
     },
     {
       "index": 3,
       "question": "Which protocol is used to secure websites?",
       "options": [
-        {
-          "value": "a",
-          "text": "HTTP"
-        },
-        {
-          "value": "b",
-          "text": "HTTPS"
-        },
-        {
-          "value": "c",
-          "text": "FTP"
-        }
+        {"value": "a", "text": "HTTP"},
+        {"value": "b", "text": "HTTPS"},
+        {"value": "c", "text": "FTP"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) HTTPS because it adds a layer of SSL/TLS encryption to HTTP, securing data transmitted between the user's browser and the website."
     },
     {
       "index": 4,
       "question": "What is a key feature of two-factor authentication (2FA)?",
       "options": [
-        {
-          "value": "a",
-          "text": "Single password"
-        },
-        {
-          "value": "b",
-          "text": "Two different authentication methods"
-        },
-        {
-          "value": "c",
-          "text": "No password required"
-        }
+        {"value": "a", "text": "Single password"},
+        {"value": "b", "text": "Two different authentication methods"},
+        {"value": "c", "text": "No password required"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) Two different authentication methods because 2FA requires two independent factors (e.g., password and a code) to enhance security."
     },
     {
       "index": 5,
       "question": "Which of these is a common password attack?",
       "options": [
-        {
-          "value": "a",
-          "text": "Brute force"
-        },
-        {
-          "value": "b",
-          "text": "Data backup"
-        },
-        {
-          "value": "c",
-          "text": "File compression"
-        }
+        {"value": "a", "text": "Brute force"},
+        {"value": "b", "text": "Data backup"},
+        {"value": "c", "text": "File compression"}
       ],
-      "correct": "a"
+      "correct": "a",
+      "explanation": "The correct answer is a) Brute force because it involves trying numerous password combinations to gain unauthorized access."
     },
     {
       "index": 6,
       "question": "What does VPN stand for?",
       "options": [
-        {
-          "value": "a",
-          "text": "Virtual Private Network"
-        },
-        {
-          "value": "b",
-          "text": "Very Public Network"
-        },
-        {
-          "value": "c",
-          "text": "Virtual Phone Network"
-        }
+        {"value": "a", "text": "Virtual Private Network"},
+        {"value": "b", "text": "Very Public Network"},
+        {"value": "c", "text": "Virtual Phone Network"}
       ],
-      "correct": "a"
+      "correct": "a",
+      "explanation": "The correct answer is a) Virtual Private Network because a VPN creates a secure, encrypted connection over a public network."
     },
     {
       "index": 7,
       "question": "Help me",
       "options": [
-        {
-          "value": "a",
-          "text": "no"
-        },
-        {
-          "value": "b",
-          "text": "yes"
-        },
-        {
-          "value": "c",
-          "text": "maybe"
-        }
+        {"value": "a", "text": "no"},
+        {"value": "b", "text": "yes"},
+        {"value": "c", "text": "maybe"}
       ],
-      "correct": "a"
+      "correct": "a",
+      "explanation": "The correct answer is a) no because this question seems to be a placeholder, and 'no' is arbitrarily set as correct here."
     },
     {
       "index": 8,
       "question": "What is the purpose of a DDoS attack?",
       "options": [
-        {
-          "value": "a",
-          "text": "To encrypt data"
-        },
-        {
-          "value": "b",
-          "text": "To overwhelm a server with traffic"
-        },
-        {
-          "value": "c",
-          "text": "To improve website speed"
-        }
+        {"value": "a", "text": "To encrypt data"},
+        {"value": "b", "text": "To overwhelm a server with traffic"},
+        {"value": "c", "text": "To improve website speed"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) To overwhelm a server with traffic because a DDoS attack floods a server with requests to disrupt its availability."
     },
     {
       "index": 9,
       "question": "Which of these is a secure file transfer protocol?",
       "options": [
-        {
-          "value": "a",
-          "text": "SFTP"
-        },
-        {
-          "value": "b",
-          "text": "SMTP"
-        },
-        {
-          "value": "c",
-          "text": "HTTP"
-        }
+        {"value": "a", "text": "SFTP"},
+        {"value": "b", "text": "SMTP"},
+        {"value": "c", "text": "HTTP"}
       ],
-      "correct": "a"
+      "correct": "a",
+      "explanation": "The correct answer is a) SFTP because it provides a secure way to transfer files over SSH, unlike unencrypted protocols like SMTP or HTTP."
     },
     {
       "index": 10,
       "question": "What does a zero-day exploit target?",
       "options": [
-        {
-          "value": "a",
-          "text": "Known vulnerabilities"
-        },
-        {
-          "value": "b",
-          "text": "Unknown vulnerabilities"
-        },
-        {
-          "value": "c",
-          "text": "Hardware failures"
-        }
+        {"value": "a", "text": "Known vulnerabilities"},
+        {"value": "b", "text": "Unknown vulnerabilities"},
+        {"value": "c", "text": "Hardware failures"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) Unknown vulnerabilities because a zero-day exploit targets flaws not yet identified or patched by developers."
     },
     {
       "index": 11,
       "question": "Which of these is a type of encryption?",
       "options": [
-        {
-          "value": "a",
-          "text": "AES"
-        },
-        {
-          "value": "b",
-          "text": "JPG"
-        },
-        {
-          "value": "c",
-          "text": "MP3"
-        }
+        {"value": "a", "text": "AES"},
+        {"value": "b", "text": "JPG"},
+        {"value": "c", "text": "MP3"}
       ],
-      "correct": "a"
+      "correct": "a",
+      "explanation": "The correct answer is a) AES because it is a widely used encryption standard, unlike JPG and MP3, which are file formats."
     },
     {
       "index": 12,
       "question": "What is social engineering?",
       "options": [
-        {
-          "value": "a",
-          "text": "Building secure networks"
-        },
-        {
-          "value": "b",
-          "text": "Manipulating people to gain information"
-        },
-        {
-          "value": "c",
-          "text": "Installing antivirus software"
-        }
+        {"value": "a", "text": "Building secure networks"},
+        {"value": "b", "text": "Manipulating people to gain information"},
+        {"value": "c", "text": "Installing antivirus software"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) Manipulating people to gain information because social engineering exploits human psychology rather than technical weaknesses."
     },
     {
       "index": 13,
       "question": "Which port is commonly used for HTTPS?",
       "options": [
-        {
-          "value": "a",
-          "text": "80"
-        },
-        {
-          "value": "b",
-          "text": "443"
-        },
-        {
-          "value": "c",
-          "text": "21"
-        }
+        {"value": "a", "text": "80"},
+        {"value": "b", "text": "443"},
+        {"value": "c", "text": "21"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) 443 because it is the default port for HTTPS, which secures web traffic with SSL/TLS."
     },
     {
       "index": 14,
       "question": "What is the purpose of a security patch?",
       "options": [
-        {
-          "value": "a",
-          "text": "To add new features"
-        },
-        {
-          "value": "b",
-          "text": "To fix vulnerabilities"
-        },
-        {
-          "value": "c",
-          "text": "To increase processing speed"
-        }
+        {"value": "a", "text": "To add new features"},
+        {"value": "b", "text": "To fix vulnerabilities"},
+        {"value": "c", "text": "To increase processing speed"}
       ],
-      "correct": "b"
+      "correct": "b",
+      "explanation": "The correct answer is b) To fix vulnerabilities because security patches address known security flaws to protect systems."
     }
   ]
 }
