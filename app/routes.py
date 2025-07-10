@@ -112,6 +112,12 @@ def contact():
 def dashboard():
     return render_template('dashboard.html')
 
+from flask import render_template
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
 
 @app.route('/register',  methods=['GET', 'POST'])
 def register():

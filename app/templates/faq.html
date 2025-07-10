@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQ - EKHO{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='faq.css') }}">
+
+<h1>FAQ - Frequently Asked Questions</h1>
+<div class="faq-container">
+    <div class="faq-item">
+        <h3 class="faq-question">What is EKHO?</h3>
+        <div class="faq-answer">
+            <p>EKHO is an educational platform designed to teach cybersecurity through interactive quizzes, scan simulations, and progress tracking. It’s built to make learning accessible and engaging for students and educators.</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <h3 class="faq-question">Is my data safe with EKHO?</h3>
+        <div class="faq-answer">
+            <p>Yes, EKHO operates in a safe, virtual environment. No real systems are affected during scans, ensuring you can learn without risking live networks.</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <h3 class="faq-question">How do I start using EKHO?</h3>
+        <div class="faq-answer">
+            <p>Simply sign up for an account on our website, log in, and begin with a scan or quiz. Educators can also create class accounts to monitor student progress.</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <h3 class="faq-question">What is a port?</h3>
+        <div class="faq-answer">
+            <p>A port is a virtual point on a computer where network connections start and end. It’s like a door number for data, with common ones like 80 (HTTP) and 443 (HTTPS) used for web traffic.</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <h3 class="faq-question">What is a firewall?</h3>
+        <div class="faq-answer">
+            <p>A firewall is a security tool that monitors and controls incoming and outgoing network traffic based on set rules, acting as a barrier between safe and unsafe networks.</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <h3 class="faq-question">What is malware?</h3>
+        <div class="faq-answer">
+            <p>Malware, short for malicious software, includes viruses, ransomware, and spyware designed to harm or exploit devices and data.</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <h3 class="faq-question">What is encryption?</h3>
+        <div class="faq-answer">
+            <p>Encryption is the process of converting data into a code to prevent unauthorized access, ensuring only those with the key can read it.</p>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/faq.js') }}"></script>
+{% endblock %}
