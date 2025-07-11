@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+
+{% block title %}Learn Cybersecurity Basics - EKHO{% endblock %}
+
+{% block content %}
+<style>
+  .learn-cyber-page {
+    width: 100%;
+    max-width: 1152px; /* Equivalent to a reasonable centered width */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    border: 2px solid #00FF7F; /* Bright green border */
+    border-radius: 0.5rem;
+    background-color: #1a1a1a; /* Dark background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .learn-cyber-page-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .learn-cyber-page-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .learn-cyber-page .interactive-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1a1a1a; /* Match outer background */
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #00FF7F; /* Green border for cards */
+  }
+  .learn-cyber-page .interactive-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 255, 127, 0.3);
+  }
+  .learn-cyber-page .faq-item {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #1a1a1a; /* Match background */
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  .learn-cyber-page .faq-item:hover {
+    background-color: rgba(0, 255, 127, 0.1); /* Light green hover effect */
+  }
+  .learn-cyber-page h1 {
+    color: #00FF7F; /* Bright green for headings */
+  }
+  .learn-cyber-page h2 {
+    color: #ffffff; /* White for subheadings */
+  }
+  .learn-cyber-page p,
+  .learn-cyber-page ul {
+    color: #d3d3d3; /* Light gray for text */
+  }
+  .learn-cyber-page a {
+    background-color: #00FF7F; /* Bright green for buttons */
+    color: #000000; /* Black text on buttons */
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  .learn-cyber-page a:hover {
+    background-color: #00cc66; /* Darker green on hover */
+  }
+</style>
+<div class="learn-cyber-page">
+  <!-- SQL Injection Section -->
+  <section id="sql-injection" class="learn-cyber-page-section">
+    <div class="interactive-card">
+      <h1>SQL Injection</h1>
+      
+      <h2>What is it?</h2>
+      <p>
+        A SQL injection is a type of cyberattack where a hacker inserts malicious SQL code into a database query, often through a website's input fields (like a login form). This can trick the database into revealing sensitive information, modifying data, or even deleting it.
+      </p>
+
+      <h2>How does it occur?</h2>
+      <p>
+        It happens when a web application doesn't properly validate or sanitize user inputs. For example, if a login form directly uses user input in a SQL query without checking it, a hacker can enter something like <code>' OR '1'='1</code> to bypass authentication.
+      </p>
+      <div class="mt-4 bg-gray-800 p-4 rounded">
+        <p>Example: A query like <code>SELECT * FROM users WHERE username = '[user input]';</code> can be manipulated if the input is malicious.</p>
+      </div>
+
+      <h2>How to prevent it?</h2>
+      <ul>
+        <li>Use <strong>prepared statements</strong> or parameterized queries to safely handle user input.</li>
+        <li>Sanitize and validate all user inputs to ensure they meet expected formats.</li>
+        <li>Use an ORM (Object-Relational Mapping) library to abstract database queries.</li>
+        <li>Limit database permissions to reduce the impact of a successful attack.</li>
+        <li>Implement a Web Application Firewall (WAF) to filter malicious requests.</li>
+      </ul>
+
+      <h2>What to do in case of an attack?</h2>
+      <ul>
+        <li>Immediately isolate the affected system to prevent further damage.</li>
+        <li>Analyze logs to identify the source and scope of the attack.</li>
+        <li>Patch vulnerabilities (e.g., fix input validation).</li>
+        <li>Restore the database from a secure backup.</li>
+        <li>Notify affected users and authorities if sensitive data was compromised.</li>
+      </ul>
+
+      <h2>FAQs</h2>
+      <div class="mt-2 space-y-2">
+        <div class="faq-item">
+          <p>Can SQL injections be detected easily?</p>
+          <p class="hidden">They can be hard to detect without proper monitoring. Look for unusual database activity or use intrusion detection systems.</p>
+        </div>
+        <div class="faq-item">
+          <p>Are all websites vulnerable?</p>
+          <p class="hidden">Any site using a database without proper input validation is at risk, but modern frameworks reduce this risk.</p>
+        </div>
+      </div>
+
+      <a href="{{ url_for('quiz') }}">Take a Quiz on SQL Injection</a>
+    </div>
+  </section>
+
+  <!-- XSS Section -->
+  <section id="xss" class="learn-cyber-page-section">
+    <div class="interactive-card">
+      <h1>Cross-Site Scripting (XSS)</h1>
+      
+      <h2>What is it?</h2>
+      <p>
+        Cross-Site Scripting (XSS) is an attack where hackers inject malicious scripts (usually JavaScript) into a trusted website. When users visit the site, the script runs in their browser, potentially stealing data or performing actions on their behalf.
+      </p>
+
+      <h2>How does it occur?</h2>
+      <p>
+        XSS occurs when a website fails to sanitize user inputs displayed on the page. For example, a comment section that allows unfiltered HTML or JavaScript can execute a hacker's script when loaded.
+      </p>
+      <div class="mt-4 bg-gray-800 p-4 rounded">
+        <p>Example: A script like <code><script>alert('Hacked!');</script></code> in a form input can run if not escaped.</p>
+      </div>
+
+      <h2>How to prevent it?</h2>
+      <ul>
+        <li>Escape user inputs before displaying them (e.g., convert <code><</code> to <code>&lt;</code>).</li>
+        <li>Use Content Security Policy (CSP) to restrict script sources.</li>
+        <li>Sanitize inputs with libraries like DOMPurify.</li>
+        <li>Avoid using <code>eval()</code> or inline JavaScript in your code.</li>
+        <li>Use frameworks like React that automatically escape outputs.</li>
+      </ul>
+
+      <h2>What to do in case of an attack?</h2>
+      <ul>
+        <li>Remove malicious scripts from the website immediately.</li>
+        <li>Analyze logs to identify affected users and the attack source.</li>
+        <li>Fix vulnerabilities by adding input sanitization.</li>
+        <li>Notify users if their data was compromised.</li>
+        <li>Monitor for further suspicious activity.</li>
+      </ul>
+
+      <h2>FAQs</h2>
+      <div class="mt-2 space-y-2">
+        <div class="faq-item">
+          <p>Is XSS only a browser issue?</p>
+          <p class="hidden">Yes, it affects the client-side, but server-side validation is key to prevention.</p>
+        </div>
+        <div class="faq-item">
+          <p>Can XSS steal passwords?</p>
+          <p class="hidden">Yes, if a script captures keystrokes or form data, it can steal sensitive information.</p>
+        </div>
+      </div>
+
+      <a href="{{ url_for('quiz') }}">Take a Quiz on XSS</a>
+    </div>
+  </section>
+
+  <!-- HTTP Section -->
+  <section id="http" class="learn-cyber-page-section">
+    <div class="interactive-card">
+      <h1>HTTP</h1>
+      
+      <h2>What is it?</h2>
+      <p>
+        HTTP (HyperText Transfer Protocol) is the protocol used to transfer data between a user's browser and a website. It defines how requests (e.g., loading a webpage) and responses (e.g., sending the webpage's data) are formatted and transmitted.
+      </p>
+
+      <h2>How does it occur?</h2>
+      <p>
+        HTTP is inherently stateless, meaning each request is independent. It operates over plain text, so data sent between the client and server can be intercepted if not encrypted, making it vulnerable to attacks like man-in-the-middle.
+      </p>
+      <div class="mt-4 bg-gray-800 p-4 rounded">
+        <p>Example: A login request sent over HTTP can be intercepted, exposing usernames and passwords.</p>
+      </div>
+
+      <h2>How to secure it?</h2>
+      <ul>
+        <li>Use HTTPS to encrypt data in transit.</li>
+        <li>Implement secure cookies with the <code>HttpOnly</code> and <code>Secure</code> flags.</li>
+        <li>Use HSTS (HTTP Strict Transport Security) to enforce HTTPS connections.</li>
+        <li>Regularly update server software to patch vulnerabilities.</li>
+      </ul>
+
+      <h2>What to do in case of an attack?</h2>
+      <ul>
+        <li>Switch to HTTPS immediately if not already implemented.</li>
+        <li>Investigate intercepted data and notify affected users.</li>
+        <li>Monitor network traffic for further suspicious activity.</li>
+        <li>Update security configurations to prevent recurrence.</li>
+      </ul>
+
+      <h2>FAQs</h2>
+      <div class="mt-2 space-y-2">
+        <div class="faq-item">
+          <p>Is HTTP still used?</p>
+          <p class="hidden">Yes, but HTTPS is preferred for security. Most browsers warn users about non-HTTPS sites.</p>
+        </div>
+        <div class="faq-item">
+          <p>Can HTTP be made secure?</p>
+          <p class="hidden">Not fully, as it lacks encryption. HTTPS is the secure alternative.</p>
+        </div>
+      </div>
+
+      <a href="{{ url_for('quiz') }}">Take a Quiz on HTTP</a>
+    </div>
+  </section>
+
+  <!-- HTTPS Section -->
+  <section id="https" class="learn-cyber-page-section">
+    <div class="interactive-card">
+      <h1>HTTPS</h1>
+      
+      <h2>What is it?</h2>
+      <p>
+        HTTPS (HyperText Transfer Protocol Secure) is HTTP with encryption, using SSL/TLS to secure data transferred between a browser and a server. It ensures data privacy, integrity, and authentication of the website.
+      </p>
+
+      <h2>How does it work?</h2>
+      <p>
+        HTTPS uses SSL/TLS certificates to encrypt data and verify the server's identity. When you visit an HTTPS site, your browser establishes a secure connection, preventing eavesdropping or tampering.
+      </p>
+      <div class="mt-4 bg-gray-800 p-4 rounded">
+        <p>Example: A padlock icon in the browser indicates an HTTPS connection.</p>
+      </div>
+
+      <h2>How to implement it?</h2>
+      <ul>
+        <li>Obtain an SSL/TLS certificate from a trusted Certificate Authority (CA).</li>
+        <li>Configure your web server to use the certificate.</li>
+        <li>Redirect all HTTP traffic to HTTPS.</li>
+        <li>Renew certificates regularly to maintain security.</li>
+        <li>Use modern TLS versions (e.g., TLS 1.3) for better security.</li>
+      </ul>
+
+      <h2>What to do if it fails?</h2>
+      <ul>
+        <li>Check for expired or misconfigured certificates.</li>
+        <li>Update server configurations to use secure protocols.</li>
+        <li>Notify users if their data was at risk due to a failure.</li>
+        <li>Monitor certificate status with automated tools.</li>
+      </ul>
+
+      <h2>FAQs</h2>
+      <div class="mt-2 space-y-2">
+        <div class="faq-item">
+          <p>Is HTTPS foolproof?</p>
+          <p class="hidden">No, but it significantly reduces risks. Other vulnerabilities (e.g., XSS) can still occur.</p>
+        </div>
+        <div class="faq-item">
+          <p>Do all websites need HTTPS?</p>
+          <p class="hidden">Yes, especially for sites handling user data, to ensure trust and security.</p>
+        </div>
+      </div>
+
+      <a href="{{ url_for('quiz') }}">Take a Quiz on HTTPS</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  // Scroll-based section visibility
+  const sections = document.querySelectorAll('.learn-cyber-page-section');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(section => observer.observe(section));
+
+  // FAQ toggle functionality
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const answer = item.querySelector('p:nth-child(2)');
+      answer.classList.toggle('hidden');
+    });
+  });
+
+  // Quiz button navigation
+  document.querySelectorAll('a[href="{{ url_for('quiz') }}"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent default action
+      window.location.href = '{{ url_for('quiz') }}'; // Navigate to quiz route
+    });
+  });
+</script>
+{% endblock %}

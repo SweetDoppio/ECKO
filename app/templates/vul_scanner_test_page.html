@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
-    {% block content %}
-
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,26 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SQLi & XSS Scanner</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/vul_scanner_test_page.css') }}">
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/ecko_logo.png') }}" >
-
-</head>
-<body>
-<div class="outer-circle">
-  <div class="inner-circle">
-    <p class="text"> <a href="{{ url_for('home_page') }}">Return to Home page.</a></p>
-
-  </div>
-</div>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/ecko_logo.png') }}">
 
   <div class="scanner_page_main_container">
-    <!-- Scan Form -->
-     <div class="form-wrapper">
-        <form method="POST" id="sqli-form">
+    <!-- Scan Form with Learn More Button -->
+    <div class="form-wrapper">
+      <form method="POST" id="sqli-form">
         <label for="url-input">Enter URL to start scanning:</label>
         <input type="url" name="url" placeholder="Enter any web address here!" required>
         <button type="submit" class="scanner-button"><a>Scan for Vulnerabilities!</a></button>
+        <a href="{{ url_for('learn_cybersecurity') }}" class="learn-more-button">Learn More</a>
       </form>
-     </div>
+    </div>
 
     <!-- Loading animation -->
     <div id="scan-container">
@@ -38,9 +29,9 @@
             <div class="radar-layer2 radar">
               <div class="radar-layer1 radar">
                 <div class="radar-center radar"> 
-                    <div class="radar-node node1"></div>
-                    <div class="radar-node node2"></div>
-                    <div class="radar-node node3"></div>
+                  <div class="radar-node node1"></div>
+                  <div class="radar-node node2"></div>
+                  <div class="radar-node node3"></div>
                 </div>
               </div>
             </div>
@@ -51,78 +42,84 @@
       <!-- Scan Results -->
       {% if results %}
       <div id="result_display">
-
+        <!-- Debug: Check if results are present -->
+        <p>Debug: Results available: {{ results is defined and results is not none }}</p>
         <!-- CENTERED TITLE AND URL -->
         <div class="centered">
           <h2>🔍 Scan Results</h2>
           <p class="scaned_url_text">URL: {{ results.url }}</p>
         </div>
 
-        <!-- LEFT-ALIGNED RESULT CONTENT -->
+        <!-- Results Table -->
         <div class="vul-results-left">
+          <table class="scan-results-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Details</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- HTTP Security -->
+              <tr>
+                <td>HTTP Security</td>
+                <td>URL Tested: {{ results.url }}</td>
+                <td>
+                  {% if results.is_https %}
+                    <span class="safe-text">✅ Secure - Uses HTTPS</span>
+                  {% elif results.redirects_to_https %}
+                    <span class="safe-text">✅ Secure - Redirects to HTTPS</span>
+                  {% elif results.security_issues %}
+                    <span class="warning-text">⚠️ HTTP Issues Detected</span>
+                    <ul>
+                      {% for issue in results.security_issues %}
+                        <li>{{ issue }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <span class="warning-text">⚠️ No HTTPS</span>
+                  {% endif %}
+                </td>
+              </tr>
 
+              <!-- SQL Injection -->
+              <tr>
+                <td>SQL Injection</td>
+                <td>Parameters Tested: {{ results.sqli_results.param_count }}</td>
+                <td>
+                  {% if results.sqli_results and results.sqli_results.vulnerable_params %}
+                    <span class="warning-text">⚠️ Vulnerabilities Detected</span>
+                    <ul>
+                      {% for param in results.sqli_results.vulnerable_params %}
+                        <li><strong>Parameter:</strong> {{ param.name }}<br><strong>Payload:</strong> {{ param.payload }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <span class="safe-text">✅ No Vulnerabilities</span>
+                  {% endif %}
+                </td>
+              </tr>
 
-          <!-- is http???????-->
-          <h3>HTTP insecure</h3>
-          <p>Url tested: {{ results.url}}</p>
-
-          <!-- How do you add icons to p???-->
-          {% if results.is_https %}
-            <p class="safe-text">✅ Secure - This site uses HTTPS</p>
-          {% else %}
-            {% if results.redirects_to_https %}
-              <p class="safe-text"> ✅ Secure - Site redirects to HTTPS</p>
-            {% elif results.security_issues %}
-              <p class="warning-text">⚠️ HTTP Security Issues Detected!</p>
-              <div class="vulnerable-box">
-                {% for issue in results.security_issues %}
-                  <p><strong>Issue:</strong> {{ issue }}</p>
-                  {% if not loop.last %}<hr>{% endif %}
-                {% endfor %}
-              </div>
-            {% else %}
-                <p class="warning-text">⚠️ Site does not use HTTPS</p>
-            {% endif %}
-          {% endif %}
-
-
-          <!-- SQL Injection -->
-          <h3>SQL Injection</h3>
-          <p>Parameters Tested: {{ results.sqli_results.param_count }}</p>
-          
-
-          {% if results.sqli_results and results.sqli_results.vulnerable_params %}
-            <p class="warning-text">⚠️ SQLi vulnerabilities detected!</p>
-            <div class="vulnerable-box">
-              {% for param in results.sqli_results.vulnerable_params %}
-                <p><strong>Parameter:</strong> {{ param.name }}</p>
-                <p><strong>Payload used:</strong> {{ param.payload }}</p>
-
-                {% if not loop.last %}<hr>{% endif %}
-              {% endfor %}
-            </div>
-          {% else %}
-            <p class="safe-text">✅ No SQLi vulnerabilities found.</p>
-          {% endif %}
-
-          <!-- XSS -->
-          <h3>Cross-Site Scripting (XSS)</h3>
-          <p>Forms Detected: {{ results.xss_results.form_count }}</p>
-
-          {% if results.xss_results and results.xss_results.vulnerable_forms %}
-            <p class="warning-text">⚠️ XSS vulnerabilities detected!</p>
-            <div class="vulnerable-box">
-              {% for form in results.xss_results.vulnerable_forms %}
-
-
-                <p><strong>Form Action:</strong> {{ form.action }}</p>
-                <p><strong>Method:</strong> {{ form.details.method }}</p>
-                {% if not loop.last %}<hr>{% endif %}
-              {% endfor %}
-            </div>
-          {% else %}
-            <p class="safe-text">✅ No XSS vulnerabilities found.</p>
-          {% endif %}
+              <!-- XSS -->
+              <tr>
+                <td>Cross-Site Scripting (XSS)</td>
+                <td>Forms Detected: {{ results.xss_results.form_count }}</td>
+                <td>
+                  {% if results.xss_results and results.xss_results.vulnerable_forms %}
+                    <span class="warning-text">⚠️ Vulnerabilities Detected</span>
+                    <ul>
+                      {% for form in results.xss_results.vulnerable_forms %}
+                        <li><strong>Action:</strong> {{ form.action }}<br><strong>Method:</strong> {{ form.details.method }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <span class="safe-text">✅ No Vulnerabilities</span>
+                  {% endif %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       {% endif %}
@@ -143,5 +140,4 @@
   <script src="{{ url_for('static', filename='js/vul_scanner_test_page.js') }}"></script>
 </body>
 </html>
-
 {% endblock %}

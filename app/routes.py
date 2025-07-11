@@ -112,6 +112,10 @@ def contact():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/learn_cybersecurity')
+def learn_cybersecurity():
+    return render_template('learn_cybersecurity.html')
+
 from flask import render_template
 
 @app.route('/faq')
@@ -169,22 +173,19 @@ def vul_scanner_test_page():
     if request.method == 'POST':
         url = request.form.get('url')
         scanner = Scanner(url)
-
         if not url:
-            flash('Enter URL first!')
+            flash('Enter URL first!', 'error')
             return render_template('vul_scanner_test_page.html')
-
         if not scanner.validateUrl():
-            flash('Invalid URL format!')
+            flash('Invalid URL format!', 'error')
             return render_template('vul_scanner_test_page.html')
-
         try:
             scan_results = scanner.scanBoth()
+            print("Scan results:", scan_results)  # Debug print
             return render_template('vul_scanner_test_page.html', results=scan_results)
         except Exception as e:
-            flash(f'Error scanning URL: {str(e)}')
+            flash(f'Error scanning URL: {str(e)}', 'error')
             return render_template('vul_scanner_test_page.html')
-
     return render_template('vul_scanner_test_page.html', results=None)
 
 

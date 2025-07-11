@@ -1,0 +1,36 @@
+.learn-cyber-page {
+  w-full max-w-4xl mx-auto p-4 border-2 border-[var(--main-green)] rounded-lg bg-gray-900 shadow-lg;
+}
+
+.learn-cyber-page-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.learn-cyber-page-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.learn-cyber-page .interactive-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.learn-cyber-page .interactive-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 255, 127, 0.3);
+}
+
+.learn-cyber-page .faq-item {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.learn-cyber-page .faq-item:hover {
+  background-color: rgba(0, 255, 127, 0.1);
+}
